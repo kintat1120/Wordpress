@@ -3,3 +3,44 @@
  * Description: Starter Theme to use with Timber
  * Author: Upstatement and YOU!
 */
+
+.navBar{
+    margin: 0px;
+    width: 100%;
+    height:130px;
+    background-color: red;
+    display: flex;
+    flex-direction: column;
+}
+
+.header-top {
+    margin:5px;
+    text-align: right;
+}
+.header-center {
+    display: flex;
+}
+.header-center .header-logo {
+    width: 200px;
+    height: auto;
+}
+.header-center .header-tab-list {
+    display: flex;
+    list-style-type: none;
+}
+.header-center .header-tab-list-item {
+    width: 200px;
+}
+.header-bottom {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.header-bottom button{
+    background-color: #1cc981;
+    text-decoration: none;
+    border-radius: 8px;
+    border: none;
+    color:white;
+    margin:5px;
+}
