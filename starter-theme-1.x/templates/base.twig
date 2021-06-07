@@ -7,6 +7,7 @@
 	<style>
 		html, body{
 			margin:0px !important;
+			font-family: 'Noto Sans HK', sans-serif;
 		}
 		.custom-toggler.navbar-toggler {
             border-color: green;
@@ -22,15 +23,22 @@
 	<body class="{{body_class}}" data-template="base.twig">
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 		{% block header %}
-			<div class="container">
+			<div class="container-fluid">
 				<div class="row">
 					<div class="col" id="header-top">
-						<span><b><a href="#">中</a></b></span>|<span><b><a href="#">Eng</a></b></span>
+						<div class="dropdown">
+						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+							中
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+							<li><a class="dropdown-item" href="#">Eng</a></li>
+						</ul>
+						</div>
 					</div>
 				</div>
 			</div>
-			<nav class="navbar navbar-expand-lg navbar-white bg-white">
-				<div class="container-fluid">
+			<div class="container-fluid">
+				<nav class="navbar navbar-expand-lg navbar-white bg-white">
 					<a class="navbar-brand" href="#">
 						<img src="https://www.google.com.hk/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" alt="" width="200" height="70" class="d-inline-block align-text-top">
 					</a>
@@ -38,30 +46,33 @@
 						<span class="navbar-toggler-icon" style="color:black;"></span>
 					</button>
 					<div class="collapse navbar-collapse" id="navbarNav">
-					<ul class="navbar-nav">
-						<li class="nav-item">
-						<a class="nav-link" href="#">我們的使命</a>
-						</li>
-						<li class="nav-item">
-						<a class="nav-link" href="#">流程</a>
-						</li>
-						<li class="nav-item">
-						<a class="nav-link" href="#">計算系統</a>
-						</li>
-						<li class="nav-item">
-						<a class="nav-link" href="#">聯絡我們</a>
-						</li>
-					</ul>
+						<ul class="navbar-nav">
+							<li class="nav-item" style="margin-left:50px;">
+								<a class="nav-link" href="#" style="color:green;"><strong>我們的使命</strong></a>
+							</li>
+							<li class="nav-item" style="margin-left:50px;">
+								<a class="nav-link" href="#" style="color:green;"><strong>流程</strong></a>
+							</li>
+							<li class="nav-item" style="margin-left:50px;">
+								<a class="nav-link" href="#" style="color:green;"><strong>選擇範疇</strong></a>
+							</li>
+							<li class="nav-item" style="margin-left:50px;">
+								<a class="nav-link" href="#" style="color:green;"><strong>專業支援</strong></a>
+							</li>
+							<li class="nav-item" style="margin-left:50px;">
+								<a class="nav-link" href="#" style="color:green;"><strong>聯絡我們</strong></a>
+							</li>
+						</ul>
+						<ul class="navbar-nav justify-content-end">
+							<li class="nav-item">
+								<button class="btn btn-sm btn-light" type="button" style="margin-right:10px; color:green;"><strong>個人登入</strong></button>
+							</li>
+							<li class="nav-item">
+								<button class="btn btn-sm btn-success" type="button"><strong>團體登入</strong></button>
+							</li>
+						</ul>
 					</div>
-				</div>
-			</nav>
-			<div class="container">
-				<div class="row justify-content-end no-gutters">
-					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-						<button class="btn btn-sm btn-success" type="button">登入</button>
-						<button class="btn btn-sm btn-success" type="button">現有用戶登入</button>
-					</div>
-				</div>
+				</nav>
 			</div>
 		{% endblock %}
 		<!--
