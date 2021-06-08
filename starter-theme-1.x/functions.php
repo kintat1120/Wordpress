@@ -86,6 +86,7 @@ class StarterSite extends Timber\Site {
 		$context['notes'] = 'These values are available everytime you call Timber::context();';
 		$context['menu']  = new Timber\Menu();
 		$context['site']  = $this;
+		//var_dump($context['menu']);
 		return $context;
 	}
 

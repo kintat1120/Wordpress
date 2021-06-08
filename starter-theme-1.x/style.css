@@ -15,7 +15,6 @@
     background: none;
 }
 .navbar-nav, .mr-auto {
-    flex: 1;
     margin: auto !important;
     display: flex;
     justify-content: space-between;
@@ -53,6 +52,7 @@
 
 
 @media only screen and (max-width: 576px){ /*mobile size*/
+    
     #third-part-title{
         margin-top:15px; 
         margin-bottom:15px;
