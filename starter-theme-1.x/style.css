@@ -51,6 +51,7 @@
     height: 250px;
 }
 
+
 @media only screen and (max-width: 576px){ /*mobile size*/
     #third-part-title{
         margin-top:15px; 

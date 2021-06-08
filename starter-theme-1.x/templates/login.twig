@@ -1,0 +1,47 @@
+{% extends "base.twig" %}
+
+{% block content %}
+<script>
+    (function(val) {
+        console.log(val);
+    })('test');
+</script>
+<div class="container-fluid" style="background-image: url('https://wallpaperaccess.com/full/4496625.png'); height: 82vh;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-3" style="background-color:white; height:400px; margin-top:100px; border-radius:30px;">
+                <div class="container" style="margin-top:50px;">
+                    <div class="row">
+                        <div class="col-6">
+                            {% block title %}
+                            {% endblock %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <form style="margin-top:20px;">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">用戶名稱</label>
+                                <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="電子郵件">
+                            </div>
+                            <div class="form-group" style="margin-top:10px;">
+                                <label for="exampleInputPassword1">密碼</label>
+                                <input type="password" class="form-control" id="InputPassword1" placeholder="密碼">
+                                <span class="material-icons-outlined">visibility</span>                               
+                            </div>
+                            {% block loginButton %}
+                            {% endblock %}
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-4">
+                            <a href="#" class="link-success" style="text-decoration:none;"><small><strong>忘記密碼</strong></small></a>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
