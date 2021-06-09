@@ -14,16 +14,24 @@
     border: none;
     background: none;
 }
+
+.btn-color{
+    background-color: white !important;
+    color: green !important;
+    border: none !important;
+}
+
 .navbar-nav, .mr-auto {
     margin: auto !important;
     display: flex;
     justify-content: space-between;
 }
 
-.btn-color{
-    background-color: white !important;
-    color: green !important;
-    border: none !important;
+#workflow-arrowSize{
+    font-size:36px;
+}
+
+#workflow-textSize{
 }
 
 #third-part-title{
@@ -46,13 +54,13 @@
     padding-top:50px;
 }
 
-#fifth-part{
-    height: 250px;
-}
-
-
 @media only screen and (max-width: 576px){ /*mobile size*/
-    
+    #workflow-arrowSize{
+        font-size:10px !important;
+    }
+    #workflow-textSize{
+        font-size:10px !important;
+    }
     #third-part-title{
         margin-top:15px; 
         margin-bottom:15px;
@@ -60,5 +68,11 @@
     #third-part-description{
         margin-left:15px;
         margin-right:15px;
+    }
+}
+
+@media only screen and (max-width: 768px){ /*ipad size*/
+    #workflow-arrowSize{
+        font-size:14px
     }
 }

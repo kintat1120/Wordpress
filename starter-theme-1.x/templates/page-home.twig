@@ -1,5 +1,4 @@
 {% extends "base.twig" %}
-
 {% block content %}
 <!--
 	<div class="content-wrapper">
@@ -12,22 +11,19 @@
 			</section>
 		</article
 	</div>
-
-<div class="content-BgImage">
-	<div class="content-position">
-		<div class="content-wrapper">
-			<div class="text">我們讓你更清晰了解自己在</div>
-			<div class="text">
-				法律層面上的<span class="highlight">正確位置</span>及<span class="highlight">應有權利</span>
-			</div>
-			<div>
-				<button><span class="arrow">&#5125;</span></button>
-			</div>
-		</div>
+-->
+<div class="container-fluid" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzjKMUuJcow_twOB9j9_p3AHRrJlgG-FC9oQ&usqp=CAU'); height: 300vh;">
+	<div class="container">
+	{% include './home_rows/heading-1.twig' %}
+	</div>
+	<div class="container" style="margin-top:50px;">
+	{% include './home_rows/workflow-2.twig' %}
+	</div>
+	<div class="container" style="margin-top:50px;">
+	{% include './home_rows/ourService-3.twig' %}
 	</div>
 </div>
--->
-
+<!--
 <div class="container-fluid" style="background-image: url('https://www.freecodecamp.org/news/content/images/2020/04/w-qjCHPZbeXCQ-unsplash.jpg'); height: 100vh;">
 	<div class="container">
 		<div class="row">
@@ -159,4 +155,5 @@
 		</div>
 	</div>
 </div>
+-->
 {% endblock %}

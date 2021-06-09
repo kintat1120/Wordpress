@@ -1,10 +1,31 @@
 {% if menu %}
-	<ul class="navbar-nav">
 	{% for item in items %}
-		<li class="{{ item.classes | join(' ') }} nav-item" style="margin-left:50px;">
-			<a class="nav-link" style="color:green;" target="{{ item.target }}" href="{{ item.link }}"><strong>{{ item.title }}</strong></a>
-			{% include "menu.twig" with {'items': item.children} %}
+		{% if item.children %}
+		<li class="{{ item.classes | join(' ') }} nav-item dropdown">
+			<a class="nav-link dropdown-toggle" style="color:green;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<strong>{{ item.title }}</strong>
+			</a>
+			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+				{% for child in item.children %}
+					{% if child.children %}
+						<a class="nav-link dropdown-toggle" style="color:green;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<strong>{{ child.title }}</strong>
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							{% for child_2 in child.children %}
+								<a class="dropdown-item" style="color:green;" href="{{ child_2.link }}">{{ child_2.title }}</a>
+							{% endfor %}
+						</div>
+					{% else %}
+						<a class="dropdown-item" style="color:green;" href="{{ child.link }}">{{ child.title }}</a>
+					{% endif %}
+				{% endfor %}
+			</div>
 		</li>
+		{% else %}
+		<li class="{{ item.classes | join(' ') }} nav-item">
+			<a class="nav-link" style="color:green;" target="{{ item.target }}" href="{{ item.link }}"><strong>{{ item.title }}</strong></a>
+		</li>
+		{% endif %}
 	{% endfor %}
-	</ul>
 {% endif %}
