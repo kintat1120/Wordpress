@@ -50,8 +50,8 @@
 					</div>
 					<div class="container-fluid">
 						<nav class="navbar navbar-expand-lg navbar-white bg-white">
-							<a class="navbar-brand" href="#">
-								<img src="https://www.google.com.hk/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" alt="" width="200" height="70" class="d-inline-block align-text-top">
+							<a class="navbar-brand" href="/wordpress">
+								<img src="http://127.0.0.1/wordpress/wp-content/uploads/2021/06/logo-1.png" alt="" width="200" height="70" class="d-inline-block align-text-top">
 							</a>
 							<button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 								<span class="navbar-toggler-icon" style="color:black;"></span>
@@ -60,11 +60,14 @@
 								<ul class="navbar-nav mr-auto">
 								{% include "menu.twig" with {'items': menu.get_items} %}
 								</ul>
+								<form class="form-inline my-2 my-lg-0" style="margin-right:10px;">
+									<button id="remove-button-style"><a href="#" class="fa fa-facebook"></a></button>
+									<button id="remove-button-style"><a href="#" class="fa fa-instagram"></a></button>
+								</form>
 								<form class="form-inline my-2 my-lg-0">
-									<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-									<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-									<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-									<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+									<a href="/wordpress/signup" class="btn btn-outline-success my-2 my-sm-0">用戶註冊</a>
+									<a href="/wordpress/personallogin" class="btn btn-outline-success my-2 my-sm-0">個人登入</a>
+									<a href="/wordpress/grouplogin" class="btn btn-outline-success my-2 my-sm-0">團體登入</a>
 								</form>
 							</div>
 						</nav>
