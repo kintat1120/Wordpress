@@ -3,35 +3,77 @@
  * Description: Starter Theme to use with Timber
  * Author: Upstatement and YOU!
 */
+.logo-size{
+    width:250px !important;
+    height:85px !important;
+}
 
+.white-bg-title{
+    color:#A2E2DA !important;
+}
+
+.white-bg-content{
+    color:#51837A !important;
+}
+
+.white-bg-button-color{
+    background-color:#7FD5CA !important;
+}
+
+.green-bg-title{
+    color:#FFFFFF !important;
+}
+
+.green-bg-content{
+    color:#FFFFFF !important;
+}
+
+.input-style{
+    border-color: #818181 !important;
+}
+
+.footer-style{
+    color:white !important; 
+}
 /*<======================================================Home page=======================================================>*/
-#header-top {
-    text-align: right;
+.header-top {
+    text-align: right !important;
 }
 
-#header-top button{
-    color:green;
-    padding: 0;
-    border: none;
-    background: none;
+.header-top button{
+    padding: 0 !important;
+    border: none !important;
+    background: none !important;
 }
 
-.btn-color{
+.language-btn{
     background-color: white !important;
-    color: green !important;
+    color: #C0C0C0 !important;
+    border: none !important;
+}
+
+.btn-color-odd{
+    background-color: #5FD9CA !important;
+    color: #DEF7F4 !important;
+    border: none !important;
+}
+
+.btn-color-even{
+    background-color: #D7F5F1 !important;
+    color: #757575 !important;
     border: none !important;
 }
 
 .navbar-nav, .mr-auto {
     margin: auto !important;
-    display: flex;
-    justify-content: space-between;
+    display: flex !important;
+    justify-content: space-between !important;
 }
 
-#remove-button-style{
-    padding: 0;
-    border: none;
-    background: none;
+.remove-button-style{
+    padding: 0 !important;
+    border: none !important;
+    background: none !important;
 }
 
 .fa-facebook {
@@ -56,14 +98,46 @@
     color: white;
 }
 
-#workflow-arrowSize{
-    font-size:36px;
-}
-#workflow-textSize{
+.heading-1-dropdown{
+    border-color: #8CD9CF !important;
+    background-color: white !important;
+    color:#B8B8B8 !important;
 }
 
-#ourService-margin{
-    margin-top:50px;
+.heading-1-dropdownItem{
+    color:#B8B8B8 !important;
+}
+
+.heading-1-button{
+    border-radius:0px !important;
+    padding-top:7px !important;
+    padding-left:20px !important; 
+    padding-right:20px !important;
+    padding-bottom:7px !important;
+    border:none !important;
+}
+
+.workflow-margin{
+    margin-top:70px !important;
+}
+.workflow-2-dropdown{
+    border-color: #8CD9CF !important;
+    background-color: white !important;
+    color:#B8B8B8 !important;
+}
+
+.workflow-arrowSize{
+    font-size:36px !important;
+}
+.workflow-2-text{
+}
+
+.ourService-margin{
+    margin-top:50px !important;
+}
+.ourService-list{
+}
+.ourService-listItems{
 }
 .list-group.list-group-root {
     padding: 0;
@@ -85,142 +159,246 @@
 .list-group.list-group-root > .list-group > .list-group > .list-group-item {
     padding-left: 45px;
 }
-#ourService-box-1{
-    background-color:white; 
-    height: 520px; 
+.ourService-box-1{
+    background-color:white !important; 
+    height: 520px !important; 
 }
-#ourService-box-2{
-    background-color:white; 
-    height: 520px; 
+.ourService-box-2{
+    background-color:white !important; 
+    height: 520px !important; 
 }
-#ourService-box-2-col-2{
+.ourService-box-2-col-2{
 }
-#ourService-label-1{
-    margin-top:80px;
+.ourService-dollar-tag{
+    border:none !important;
+    pointer-events: none !important;
+    float:right !important;
 }
-#ourService-label-2{
-    margin-top: 38px;
+.ourService-label-1{
+    margin-top:80px !important;
 }
-
-#privacy-margin{
-    margin-top:150px;
-}
-
-#security-margin{
-    margin-top:150px;
-}
-#security-position{}
-
-#reliability-margin{
-    margin-top:150px;
+.ourService-label-2{
+    margin-top: 38px !important;
 }
 
-#partner-list{
+.privacy-margin{
+    margin-top:200px !important; 
+}
+
+.security-margin{
+    margin-top:150px !important;
+}
+.security-position{}
+
+.reliability-margin{
+    margin-top:150px !important;
+}
+
+.partner-margin{
+    margin-top:100px !important;
+}
+.partner-list{
     float:right;
     list-style: none;
     margin-left: 0;
     padding-left: 1em;
     text-indent: -1em;
 }
-#partner-circle{
+.partner-circle{
     height: 130px;
     width: 130px;
-    background-color: #bbb;
+    background-color: #157347;
     border-radius: 50%;
     display: inline-block;
     padding-top:50px;
 }
 /*<======================================================Home page=======================================================>*/
 /*<======================================================Login page=======================================================>*/
-#loginButton{
-    padding-left: 105px; 
-    padding-right:105px;
+.loginInput{
+    border-color: #818181 !important;
+}
+.loginButton{
+    width:100% !important;
 }
 /*<======================================================Login page=======================================================>*/
-
-@media only screen and (max-width: 768px){ /*ipad size*/
-/*<======================================================Home page=======================================================>*/
-    #workflow-arrowSize{
-        font-size:14px;
-    }
-
-    #ourService-box-1{
-        height: 670px; 
-    }
-    #ourService-box-2{
-        height: 670px; 
-    }
-    #ourService-box-2-col-2{
-        margin-top:60px;
-    }
-    #ourService-label-2{
-        margin-top: 80px;
-    }
-
-    #privacy-margin{
-        margin-top:250px;
-    }
-/*<======================================================Home page=======================================================>*/
-/*<======================================================Login page=======================================================>*/
-    #loginButton{
-        padding-left: 150px; 
-        padding-right:150px;
-    }
-/*<======================================================Login page=======================================================>*/
+/*<======================================================law page=======================================================>*/
+.law-search{
+    border-radius:0px !important;
+    background-color: white !important;
 }
-@media only screen and (max-width: 576px){ /*mobile size*/
+.law-filter-btn{
+    padding-left:130px !important;
+}
+/*<======================================================law page=======================================================>*/
+
+@media only screen and (max-width: 770px){ /*ipad size*/
 /*<======================================================Home page=======================================================>*/
-    #workflow-arrowSize{
-        font-size:10px !important;
-    }
-    #workflow-textSize{
-        font-size:10px !important;
-        float:left;
-        margin-left:-10px;
+    .workflow-arrowSize{
+        font-size:15px !important;
     }
 
-    #ourService-margin{
-        margin-top:60px;
+    .ourService-list{
+        padding-left:0px !important;
     }
-    #ourService-box-1{
-        height: 450px; 
+    .ourService-listItems{
+        padding-left:10px !important;
     }
-    #ourService-box-2{
-        height: 570px;
-        margin-top:150px;
+    .ourService-box-1{
+        height: 630px !important; 
     }
-    #ourService-label-1{
-        margin-top:20px;
+    .ourService-box-2{
+        height: 630px !important; 
     }
-    #ourService-label-2{
-        margin-top: 40px;
+    .ourService-box-2-col-2{
+        margin-top:60px !important;
     }
-
-    #security-margin{
-        margin-top:130px;
+    .ourService-label-1{
+        margin-top: 200px !important;
     }
-    #security-position{
-        margin-top:-200px;
+    .ourService-label-2{
+        margin-top: 100px !important;
     }
 
-    #reliability-margin{
-        margin-top:120px;
+    .privacy-margin{
+        margin-top:250px !important;
+    }
+/*<======================================================Home page=======================================================>*/
+/*<======================================================law page=======================================================>*/
+.law-filter-btn{
+    padding-left:80px !important;
+}
+/*<======================================================law page=======================================================>*/
+}
+@media only screen and (max-width: 430px){ /*mobile L size*/
+/*<======================================================Home page=======================================================>*/
+    .workflow-arrowSize{
+        font-size:12px !important;
+    }
+    .workflow-2-text{
+        font-size:12px !important;
+        float:left !important;
+        margin-left:-10px !important;
+    }
+
+    .ourService-margin{
+        margin-top:60px !important;
+    }
+    .ourService-box-1{
+        height: 470px !important; 
+    }
+    .ourService-box-2{
+        height: 570px !important;
+        margin-top:180px !important;
+    }
+    .ourService-label-1{
+        margin-top:30px !important;
+    }
+    .ourService-label-2{
+        margin-top: 30px !important;
+    }
+
+    .privacy-margin{
+        margin-top:200px !important;
+    }
+    .security-margin{
+        margin-top:130px !important;
+    }
+    .security-position{
+        margin-top:-230px !important;
+    }
+
+    .reliability-margin{
+        margin-top:100px !important;
     }
     
-    #partner-circle{
+    .partner-circle{
         height: 50px;
         width: 50px;
-        background-color: #bbb;
+        background-color: #157347;
         border-radius: 50%;
         display: inline-block;
         padding-top:20px;
         font-size:12px
     }
 /*<======================================================Home page=======================================================>*/
-/*<======================================================Login page=======================================================>*/
-    #loginButton{
-        padding-left: 115px; 
-        padding-right:115px;
+/*<======================================================law page=======================================================>*/
+.law-filter-btn{
+    padding-left:40px !important;
+}
+/*<======================================================law page=======================================================>*/
+}
+    
+@media only screen and (max-width: 325px){ /*mobile S size*/
+/*<======================================================Home page=======================================================>*/
+    .logo-size{
+        width:200px !important;
+        height:70px !important;
     }
-/*<======================================================Login page=======================================================>*/
+
+    .workflow-margin{
+        margin-top:30px !important;
+    }
+    .workflow-arrowSize{
+        font-size:10px !important;
+    }
+    .workflow-2-text{
+        font-size:5px !important;
+    }
+
+    .ourService-margin{
+        margin-top:30px !important;
+    }
+    .ourService-list{
+        padding-left:0px !important;
+    }
+    .ourService-listItems{
+        padding-left:10px !important;
+    }
+    .ourService-box-1{
+        height: 470px !important; 
+    }
+    .ourService-box-2{
+        height: 610px !important;
+        margin-top:200px !important;
+    }
+    .ourService-label-1{
+        margin-top:30px !important;
+    }
+    .ourService-label-2{
+        margin-top: 70px !important;
+    }
+
+    .privacy-margin{
+        margin-top:200px !important;
+    }
+    .security-margin{
+        margin-top:130px !important;
+    }
+    .security-position{
+        margin-top:-230px !important;
+    }
+
+    .reliability-margin{
+        margin-top:100px !important;
+    }
+    
+    .partner-circle{
+        height: 50px !important;
+        width: 50px !important;
+        background-color: #157347 !important;
+        border-radius: 50% !important;
+        display: inline-block !important;
+        padding-top:20px !important;
+        font-size:12px !important;
+    }
+/*<======================================================Home page=======================================================>*/
+/*<======================================================law page=======================================================>*/
+.law-search{
+    border-radius:0px !important;
+    background-color: white !important;
+}
+.law-filter-btn{
+    padding-left:30px !important;
+}
+/*<======================================================law page=======================================================>*/
 }

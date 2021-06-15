@@ -8,6 +8,7 @@
 		html, body{
 			margin:0px !important;
 			font-family: 'Noto Sans HK', sans-serif;
+			background-color:#7FD5CA;
 		}
 		.custom-toggler.navbar-toggler {
             border-color: green;
@@ -34,24 +35,24 @@
 					<!--<h1 class="hdr-logo" role="banner">
 						<a class="hdr-logo-link" href="{{site.url}}" rel="home">{{site.name}}</a>
 					</h1>-->
-					<div class="container-fluid">
+					<div class="container-fluid bg-white">
 						<div class="row">
-							<div class="col" id="header-top">
+							<div class="col header-top">
 								<div class="dropdown">
-								<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-									中
+								<button class="btn btn-secondary dropdown-toggle language-btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+									<strong>中</strong>
 								</button>
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-									<li><a class="dropdown-item" href="#">Eng</a></li>
+									<li><a class="dropdown-item language-btn" href="#"><strong>Eng</strong></a></li>
 								</ul>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="container-fluid">
+					<div class="container-fluid bg-white">
 						<nav class="navbar navbar-expand-lg navbar-white bg-white">
 							<a class="navbar-brand" href="/wordpress">
-								<img src="http://127.0.0.1/wordpress/wp-content/uploads/2021/06/logo-1.png" alt="" width="200" height="70" class="d-inline-block align-text-top">
+								<img src="http://127.0.0.1/wordpress/wp-content/uploads/2021/06/logo-1.png" alt="" class="d-inline-block align-text-top logo-size">
 							</a>
 							<button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 								<span class="navbar-toggler-icon" style="color:black;"></span>
@@ -61,13 +62,13 @@
 								{% include "menu.twig" with {'items': menu.get_items} %}
 								</ul>
 								<form class="form-inline my-2 my-lg-0" style="margin-right:10px;">
-									<button id="remove-button-style"><a href="#" class="fa fa-facebook"></a></button>
-									<button id="remove-button-style"><a href="#" class="fa fa-instagram"></a></button>
+									<button class="remove-button-style"><a href="#" class="fa fa-facebook"></a></button>
+									<button class="remove-button-style"><a href="#" class="fa fa-instagram"></a></button>
 								</form>
 								<form class="form-inline my-2 my-lg-0">
-									<a href="/wordpress/signup" class="btn btn-outline-success my-2 my-sm-0">用戶註冊</a>
-									<a href="/wordpress/personallogin" class="btn btn-outline-success my-2 my-sm-0">個人登入</a>
-									<a href="/wordpress/grouplogin" class="btn btn-outline-success my-2 my-sm-0">團體登入</a>
+									<a href="/wordpress/signup" class="btn my-2 my-sm-0 btn-color-odd"><strong>用戶註冊</strong></a>
+									<a href="/wordpress/personallogin" class="btn my-2 my-sm-0 btn-color-even"><strong>個人登入</strong></a>
+									<a href="/wordpress/grouplogin" class="btn my-2 my-sm-0 btn-color-odd"><strong>團體登入</strong></a>
 								</form>
 							</div>
 						</nav>
@@ -91,7 +92,7 @@
 		</section>
 
 		{% block footer %}
-			<footer id="footer">
+			<footer id="footer" class="footer-style mt-5 fs-6">
 				{% include 'footer.twig' %}
 			</footer>
 			<!--{{ function('wp_footer') }}-->
