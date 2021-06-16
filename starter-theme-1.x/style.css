@@ -18,6 +18,7 @@
 
 .white-bg-button-color{
     background-color:#7FD5CA !important;
+    color:white !important;
 }
 
 .green-bg-title{
@@ -30,6 +31,23 @@
 
 .input-style{
     border-color: #818181 !important;
+    color:#51837A !important;
+    font-weight: bold !important;
+}
+
+.dropdown-style{
+    border-color: #8CD9CF !important;
+    background-color: white !important;
+    color:#B8B8B8 !important;
+}
+
+.dropdownItem-style{
+    color:#B8B8B8 !important;
+}
+
+.radio-style{
+    background-color:#9ADED5 !important;
+    border-color:#9ADED5 !important;
 }
 
 .footer-style{
@@ -98,16 +116,6 @@
     color: white;
 }
 
-.heading-1-dropdown{
-    border-color: #8CD9CF !important;
-    background-color: white !important;
-    color:#B8B8B8 !important;
-}
-
-.heading-1-dropdownItem{
-    color:#B8B8B8 !important;
-}
-
 .heading-1-button{
     border-radius:0px !important;
     padding-top:7px !important;
@@ -119,11 +127,6 @@
 
 .workflow-margin{
     margin-top:70px !important;
-}
-.workflow-2-dropdown{
-    border-color: #8CD9CF !important;
-    background-color: white !important;
-    color:#B8B8B8 !important;
 }
 
 .workflow-arrowSize{
@@ -230,6 +233,25 @@
     padding-left:130px !important;
 }
 /*<======================================================law page=======================================================>*/
+/*<======================================================form page=======================================================>*/
+.form-bg{
+    background-color:#EFFAF8 !important; 
+    border-top-left-radius: 50% 600px !important; 
+    border-top-right-radius: 50% 600px !important;
+}
+
+.form-margin{
+    margin-left:150px !important;
+}
+.radio-margin{
+    margin-left:25px !important;
+}
+.form-checkbox{
+    padding-left:12px !important; 
+    font-size:16px !important; 
+    border-radius: 50% !important;
+}
+/*<======================================================form page=======================================================>*/
 
 @media only screen and (max-width: 770px){ /*ipad size*/
 /*<======================================================Home page=======================================================>*/
@@ -268,6 +290,24 @@
     padding-left:80px !important;
 }
 /*<======================================================law page=======================================================>*/
+/*<======================================================form page=======================================================>*/
+.form-bg{
+    border-top-left-radius: 50% 400px !important; 
+    border-top-right-radius: 50% 400px !important;
+}
+
+.form-margin{
+    margin-left:80px !important;
+}
+.radio-margin{
+    margin-left:25px !important;
+}
+.form-checkbox{
+    padding-left:12px !important; 
+    font-size:16px !important; 
+    border-radius: 50% !important;
+}
+/*<======================================================form page=======================================================>*/
 }
 @media only screen and (max-width: 430px){ /*mobile L size*/
 /*<======================================================Home page=======================================================>*/
@@ -326,6 +366,25 @@
     padding-left:40px !important;
 }
 /*<======================================================law page=======================================================>*/
+/*<======================================================form page=======================================================>*/
+.form-bg{
+    border-top-left-radius: 50% 230px !important; 
+    border-top-right-radius: 50% 230px !important;
+}
+
+.form-margin{
+    margin-left:20px !important;
+}
+.radio-margin{
+    margin-left:10px !important;
+}
+.form-checkbox{
+    padding-left:12px !important; 
+    font-size:16px !important; 
+    border-radius: 50% !important;
+}
+/*<======================================================form page=======================================================>*/
+
 }
     
 @media only screen and (max-width: 325px){ /*mobile S size*/
@@ -401,4 +460,22 @@
     padding-left:30px !important;
 }
 /*<======================================================law page=======================================================>*/
+/*<======================================================form page=======================================================>*/
+.form-bg{
+    border-top-left-radius: 50% 200px !important; 
+    border-top-right-radius: 50% 200px !important;
+}
+
+.form-margin{
+    margin-left:20px !important;
+}
+.radio-margin{
+    margin-left:10px !important;
+}
+.form-checkbox{
+    padding-left:12px !important; 
+    font-size:16px !important; 
+    border-radius: 50% !important;
+}
+/*<======================================================form page=======================================================>*/
 }
