@@ -1,6 +1,50 @@
 {% extends "base.twig" %}
 
 {% block content %}
+<script>
+$(function() {
+    $.getJSON('http://127.0.0.1/wordpress/wp-content/uploads/2021/06/form.json', function(data) {
+        $.each(data.form, function(index, item) {
+            var object = item;
+            console.log(Object.keys(object)[0])
+            console.log(Object.values(object)[0].question)
+            //console.log(Object.values(object)[0].answer)
+            $.each(Object.values(object)[0].answer, function(ind, val) {
+                var obj = val;
+                console.log(Object.keys(obj)[0])
+                if($.isArray(Object.values(obj)[0])){
+                    $.each(Object.values(obj)[0], function(cde, ans) {
+                        console.log(ans);
+                    });
+                } else {
+                    console.log(Object.values(obj)[0]);
+                }
+            });
+            $( "#question" ).append(
+                `<div class='row mt-4 white-bg-content'>
+                    <div class='col-12'>
+                        <p><strong class='fs-5'>`+Object.keys(object)[0]+Object.values(object)[0].question+`</strong></p>
+                        <div class='radio-margin'>
+                            <div class='form-check'>
+                                <input class='form-check-input radio-style' type='radio' name='2' id='flexRadioDefault1'>
+                                <label class='form-check-label' for='flexRadioDefault1'>
+                                <strong class='fs-5'>申請人</strong>
+                                </label>
+                            </div>
+                            <div class='form-check'>
+                                <input class='form-check-input radio-style' type='radio' name='2' id='flexRadioDefault2'>
+                                <label class='form-check-label' for='lexRadioDefault2'>
+                                    <strong class='fs-5'>答辯人</strong>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
+            );
+        });
+    });
+});
+</script>
 <div class="container form-bg">
     <form>
         <div class="row mt-4 pt-5 justify-content-center">
@@ -34,352 +78,8 @@
             </div>
         </div>
         <div class="container">
+            <div class="form-margin" id="question"></div>
             <div class="form-margin">
-                <div class="row mt-5 g-0 white-bg-content">
-                    <div class="col-auto">
-                        <strong class="fs-5">1. 雙方結婚</strong>
-                    </div>
-                    <div class="col-auto">
-                        <input type="text" class="form-control h-75 fs-5 pr-0 py-0 input-style text-center" style="width:50px; border:none;" aria-label="Year">
-                    </div>
-                    <div class="col-1">
-                        <strong class="fs-5">年</strong>
-                    </div>
-                </div>
-                <div class="row mt-4 white-bg-content">
-                    <div class="col-12">
-                        <p><strong class="fs-5">2. 雙方是否同意離婚？</strong></p>
-                        <div class="radio-margin">
-                            <div class="form-check">
-                                <input class="form-check-input radio-style" type="radio" name="2" id="flexRadioDefault1">
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                <strong class="fs-5">是</strong>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input radio-style" type="radio" name="2" id="flexRadioDefault2">
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                    <strong class="fs-5">否</strong>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-4 white-bg-content">
-                    <div class="col-12">
-                        <p><strong class="fs-5">3. 申請前是否已分居滿一年？</strong></p>
-                        <div class="radio-margin">
-                            <div class="form-check">
-                                <input class="form-check-input radio-style" type="radio" name="3" id="flexRadioDefault1">
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                    <strong class="fs-5">是</strong>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input radio-style" type="radio" name="3" id="flexRadioDefault2">
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                    <strong class="fs-5">否</strong>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-4 white-bg-content">
-                    <div class="col-12">
-                        <p><strong class="fs-5">4. 離婚原因</strong></p>
-                        <div class="radio-margin">
-                            <div class="form-check">
-                                <input class="form-check-input radio-style" type="radio" name="4" id="flexRadioDefault1">
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                    <strong class="fs-5">答辯⼈曾與他⼈通姦</strong>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input radio-style" type="radio" name="4" id="flexRadioDefault2">
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                    <strong class="fs-5">答辯⼈作出不合理⾏為 (可多選)</strong>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row white-bg-content radio-margin">
-                    <div class="col-6 col-md-4 col-xl-2">
-                        <div class="form-check form-checkbox">
-                            <input class="form-check-input radio-style" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                <strong>拒絕溝通</strong>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-xl-2">
-                        <div class="form-check form-checkbox">
-                            <input class="form-check-input radio-style" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                <strong>沒有家庭⽣活</strong>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4 col-xl-2">
-                        <div class="form-check form-checkbox">
-                            <input class="form-check-input radio-style" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                <strong>⽣活上不合理要求</strong>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row white-bg-content radio-margin">
-                    <div class="col-6 col-md-4 col-xl-2">
-                        <div class="form-check form-checkbox">
-                            <input class="form-check-input radio-style" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                <strong>家庭暴⼒</strong>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-xl-2">
-                        <div class="form-check form-checkbox">
-                            <input class="form-check-input radio-style" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                <strong>導致雙⽅失去互信</strong>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <div class="form-check form-checkbox">
-                            <input class="form-check-input radio-style" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                <strong>其他：</strong>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-2 col-xl-2">
-                        <input type="text" class="form-control h-75 pr-0 py-1 input-style" style="border:none;" id="other" name="other">
-                    </div>
-                </div>
-                <div class="row white-bg-content">
-                    <div class="col-12">
-                        <div class="radio-margin">
-                            <div class="form-check">
-                                <input class="form-check-input radio-style" type="radio" name="4" id="flexRadioDefault1">
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                    <strong class="fs-5">已分居2年或以上</strong>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input radio-style" type="radio" name="4" id="flexRadioDefault2">
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                    <strong class="fs-5">遭配偶遺棄連續1年或以上</strong>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row gt-0 white-bg-content">
-                    <div class="col-auto">
-                        <div class="radio-margin">
-                            <div class="form-check">
-                                <input class="form-check-input radio-style" type="radio" name="4" id="flexRadioDefault1">
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                    <strong class="fs-5">其他：</strong>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-5 col-xl-3">
-                        <input type="text" class="form-control h-75 fs-5 pr-0 py-1 input-style" style="border:none;" id="other" name="other">
-                    </div>
-                </div>
-                <div class="row mt-4 white-bg-content">
-                    <div class="col-12">
-                        <p><strong class="fs-5">5. 在最後⼀次出現上述情況後，雙⽅是否繼續共同⽣活6個⽉或以上？</strong></p>
-                        <div class="radio-margin">
-                            <div class="form-check">
-                                <input class="form-check-input radio-style" type="radio" name="5" id="flexRadioDefault1">
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                    <strong class="fs-5">是</strong>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input radio-style" type="radio" name="5" id="flexRadioDefault2">
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                    <strong class="fs-5">否</strong>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-4 white-bg-content">
-                    <div class="col-12">
-                        <p><strong class="fs-5">6. 雙⽅有否有婚姻協議 (包括婚前及婚後)？</strong></p>
-                        <div class="radio-margin">
-                            <div class="form-check">
-                                <input class="form-check-input radio-style" type="radio" name="6" id="flexRadioDefault1">
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                    <strong class="fs-5">是</strong>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input radio-style" type="radio" name="6" id="flexRadioDefault2">
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                    <strong class="fs-5">否</strong>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-4 white-bg-content">
-                    <div class="col-12">
-                        <p><strong class="fs-5">7. 雙⽅有否進⾏過家事調解？</strong></p>
-                        <div class="radio-margin">
-                            <div class="form-check">
-                                <input class="form-check-input radio-style" type="radio" name="7" id="flexRadioDefault1">
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                    <strong class="fs-5">是</strong>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input radio-style" type="radio" name="7" id="flexRadioDefault2">
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                    <strong class="fs-5">否</strong>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input radio-style" type="radio" name="7" id="flexRadioDefault2">
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                    <strong class="fs-5">什麼是「家事調解」？</strong>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-4 white-bg-content">
-                    <div class="col-12">
-                        <p><strong class="fs-5">8. 如有18歲以下⼦⼥，是否希望爭取其撫養權？</strong></p>
-                        <div class="radio-margin">
-                            <div class="form-check">
-                                <input class="form-check-input radio-style" type="radio" name="8" id="flexRadioDefault1">
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                    <strong class="fs-5">是</strong>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input radio-style" type="radio" name="8" id="flexRadioDefault2">
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                    <strong class="fs-5">否</strong>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input radio-style" type="radio" name="8" id="flexRadioDefault2">
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                    <strong class="fs-5">不適⽤</strong>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-4 white-bg-content">
-                    <div class="col-12">
-                        <p><strong class="fs-5">9. 對⽅是否與你爭取⼦⼥撫養權？</strong></p>
-                        <div class="radio-margin">
-                            <div class="form-check">
-                                <input class="form-check-input radio-style" type="radio" name="9" id="flexRadioDefault1">
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                    <strong class="fs-5">是</strong>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input radio-style" type="radio" name="9" id="flexRadioDefault2">
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                    <strong class="fs-5">否</strong>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input radio-style" type="radio" name="9" id="flexRadioDefault2">
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                    <strong class="fs-5">不適⽤</strong>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-4 white-bg-content">
-                    <div class="col-12">
-                        <p><strong class="fs-5">10. 你們是否有共同財產，如：聯名戶⼝、物業等？</strong></p>
-                        <div class="radio-margin">
-                            <div class="form-check">
-                                <input class="form-check-input radio-style" type="radio" name="10" id="flexRadioDefault1">
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                    <strong class="fs-5">是</strong>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input radio-style" type="radio" name="10" id="flexRadioDefault2">
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                    <strong class="fs-5">否</strong>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-4 white-bg-content">
-                    <div class="col-12">
-                        <p><strong class="fs-5">11. 就財產分配⽽⾔，雙⽅是否已達成共識？</strong></p>
-                        <div class="radio-margin">
-                            <div class="form-check">
-                                <input class="form-check-input radio-style" type="radio" name="11" id="flexRadioDefault1">
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                    <strong class="fs-5">是</strong>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input radio-style" type="radio" name="11" id="flexRadioDefault2">
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                    <strong class="fs-5">否</strong>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-4 white-bg-content">
-                    <div class="col-12">
-                        <p><strong class="fs-5">12. 你是否希望向對⽅作出贍養費索償</strong></p>
-                        <div class="radio-margin">
-                            <div class="form-check">
-                                <input class="form-check-input radio-style" type="radio" name="12" id="flexRadioDefault1">
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                    <strong class="fs-5">是</strong>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input radio-style" type="radio" name="12" id="flexRadioDefault2">
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                    <strong class="fs-5">否</strong>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-4 white-bg-content">
-                    <div class="col-12">
-                        <p><strong class="fs-5">13. 是否已知悉對⽅財政狀況？</strong></p>
-                        <div class="radio-margin">
-                            <div class="form-check">
-                                <input class="form-check-input radio-style" type="radio" name="13" id="flexRadioDefault1">
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                    <strong class="fs-5">是</strong>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input radio-style" type="radio" name="13" id="flexRadioDefault2">
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                    <strong class="fs-5">否</strong>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="row mt-5 white-bg-content">
                     <div class="col-12">
                         <strong>
