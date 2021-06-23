@@ -2,28 +2,51 @@
 
 {% block content %}
 <script>
+console.log($.cookie());
+/*
+var cookies = $.cookie();
+for(var cookie in cookies) {
+    $.removeCookie(cookie);
+}
+*/
 //Show first question
 $(function() {
     var html = "";
+    $.cookie("oldSection",["sectionA"]);
     $.getJSON('http://127.0.0.1/wordpress/wp-content/uploads/2021/06/form.json', function(data) {
-        $.each(data.form.sectionA, function(index, firstSection) {
-            $.each(firstSection, function(Qnumber, items) {
-                html+="<div class='row justify-content-center mt-5'>";
-                html+="<div class='col-8 bg-white shadow p-4 white-bg-content' style='border-radius:30px;'>";
-                html+="<p><strong class='fs-5'>"+Qnumber+") "+items.question+"</strong></p>";
-                //console.log(Qnumber)
-                //console.log(items.question)
-                $.each(items.answer, function(answerIndex, answers) {
-                    html+="<div class='form-check'>";
-                    html+="<input class='form-check-input radio-style' type='radio' name='radio' id='"+Qnumber+"' value='"+answers.next+"'>";
-                    html+="<label class='form-check-label' for='flexRadioDefault1'>";
-                    html+="<strong class='fs-5'>"+answers.txt+"</strong>";
-                    html+="</label>";
-                    html+="</div>";
-                    //console.log(answers.txt)
-                });
-                html+="</div></div>";
+        $.each(data.form.sectionA, function(index, items) {
+            html+="<div class='tab row justify-content-center mt-5'>";
+            html+="<div class='col-9 col-md-9 col-xl-8 bg-white shadow p-4 white-bg-content' style='border-radius:30px;'>";
+            html+="<p><strong class='fs-5'>"+items.questionIndex+") "+items.question+"</strong></p>";
+            html+="<div class='radio-margin'>";
+            $.each(items.answer, function(answerIndex, answers) {
+                html+="<div class='form-check'>";
+                html+="<input class='form-check-input radio-style' type='radio' name='"+items.questionIndex+"' id='"+answers.txt+"' value='"+answers.next+"'>";
+                html+="<label class='form-check-label' for='flexRadioDefault1'>";
+                html+="<strong class='fs-5'>"+answers.txt+"</strong>";
+                html+="</label>";
+                if(answers.inputField){
+                    //html+="<input type='text' class='form-control h-75 pr-0 py-1 input-style' style='border:none;' id='other' name='other'>"
+                    html+="<input type='text' class='form-control h-75 pr-0 py-1 input-style' id='"+items.questionIndex+"_"+answers.txt+"'>";
+                }
+                html+="</div>";
+                if(answers.supplementaryAnswer){
+                    $.each(answers.supplementaryAnswer, function(supplementaryAnswerIndex, supplementaryAns) {
+                        html+="<div class='form-check form-checkbox radio-margin'>"
+                        html+="<input class='form-check-input radio-style' type='checkbox' id='"+supplementaryAns.txt+"' value='"+supplementaryAns.next+"'>"
+                        html+="<label class='form-check-label' for='flexCheckDefault'>"
+                        html+="<strong>"+supplementaryAns.txt+"</strong>"
+                        html+="</label>"
+                        if(supplementaryAns.inputField){
+                            //html+="<input type='text' class='form-control h-75 pr-0 py-1 input-style' style='border:none;' id='other' name='other'>"
+                            html+="<input type='text' class='form-control h-75 pr-0 py-1 input-style' id='"+items.questionIndex+"_"+answers.txt+"_"+supplementaryAns.txt+"'>";
+                        }
+                        html+="</div>"
+                    });
+                }
+                //console.log(answers.txt)
             });
+            html+="</div></div></div>";
         });
         //console.log(html)
         $( "#question" ).append(html);
@@ -32,8 +55,72 @@ $(function() {
 
 $(function(){
     $('#carouselExampleControls').delegate("#next","click", function(){
-        
-        console.log("gewgewgw")
+        var newSection = "";
+        var sectionCreated = false;
+        var finalSection = false;
+        //console.log($.cookie('oldSection'))
+        $('input:checked', '#question').each(function() {
+            $.cookie($(this).attr('name'), $(this).attr('id')); //cookie(name, value)
+            newSection = $(this).val();
+            if (newSection == null){
+                finalSection = true;
+            }
+        });
+        var html = "";
+        var existedSection = $.cookie("oldSection").split(",");
+        $.each(existedSection, function(ind, val) {
+            if (newSection == val){
+                sectionCreated = true;
+            }
+        });
+        if (!sectionCreated){
+            $.getJSON('http://127.0.0.1/wordpress/wp-content/uploads/2021/06/form.json', function(data) {
+                html += "<div class='carousel-item'>";
+                html += "<div class='container'>";
+                $.each(data.form[newSection], function(index, items) {
+                    html+="<div class='tab row justify-content-center mt-5'>";
+                    html+="<div class='col-9 col-md-9 col-xl-8 bg-white shadow p-4 white-bg-content' style='border-radius:30px;'>";
+                    html+="<p><strong class='fs-5'>"+items.questionIndex+") "+items.question+"</strong></p>";
+                    html+="<div class='radio-margin'>";
+                    $.each(items.answer, function(answerIndex, answers) {
+                        html+="<div class='form-check'>";
+                        html+="<input class='form-check-input radio-style' type='radio' name='"+items.questionIndex+"' id='"+answers.txt+"' value='"+answers.next+"'>";
+                        html+="<label class='form-check-label' for='flexRadioDefault1'>";
+                        html+="<strong class='fs-5'>"+answers.txt+"</strong>";
+                        html+="</label>";
+                        if(answers.inputField){
+                            //html+="<input type='text' class='form-control h-75 pr-0 py-1 input-style' style='border:none;' id='other' name='other'>"
+                            html+="<input type='text' class='form-control h-75 pr-0 py-1 input-style' id='"+items.questionIndex+"_"+answers.txt+"'>";
+                        }
+                        html+="</div>";
+                        if(answers.supplementaryAnswer){
+                            $.each(answers.supplementaryAnswer, function(supplementaryAnswerIndex, supplementaryAns) {
+                                html+="<div class='form-check form-checkbox radio-margin'>"
+                                html+="<input class='form-check-input radio-style' type='checkbox' id='"+supplementaryAns.txt+"' value='"+supplementaryAns.next+"'>"
+                                html+="<label class='form-check-label' for='flexCheckDefault'>"
+                                html+="<strong>"+supplementaryAns.txt+"</strong>"
+                                html+="</label>"
+                                if(supplementaryAns.inputField){
+                                    //html+="<input type='text' class='form-control h-75 pr-0 py-1 input-style' style='border:none;' id='other' name='other'>"
+                                    html+="<input type='text' class='form-control h-75 pr-0 py-1 input-style' id='"+items.questionIndex+"_"+answers.txt+"_"+supplementaryAns.txt+"'>";
+                                }
+                                html+="</div>"
+                            });
+                        }
+                        //console.log(answers.txt)
+                    });
+                    html+="</div></div></div>";
+                });
+                if(finalSection){
+                    //html+= submitButton <!----------------------------Here
+                }
+                html+= "</div></div>";
+                $( ".carousel-inner" ).append(html);
+                $.cookie('oldSection', $.cookie('oldSection') + ","+newSection);
+            });
+        }
+        //console.log($('input:checked', '#question').attr('id'));
+
         //var questionID = $(this).attr('id');
         /*
         var next = $('input[name=radio]:checked', '#question').val();
@@ -101,13 +188,13 @@ $(function(){
 </script>
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-10">
-            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <div class="col-12 col-md-12 col-xl-10">
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="false">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <div class="container" id="question">
                             <div class="row justify-content-center">
-                                <div class="col-8 bg-white shadow p-4" style="border-radius:30px;">
+                                <div class="col-9 col-md-9 col-xl-8 bg-white shadow p-4" style="border-radius:30px;">
                                     <strong class="fs-2 white-bg-title">離婚事宜</strong>
                                 </div>
                             </div>
@@ -119,8 +206,8 @@ $(function(){
                     <span class="sr-only">Previous</span>
                 </a>
                 <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next" id="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span> <!--Change to button later-->
+                    <span class="sr-only">Next</span> <!--Change to button later-->
                 </a>
             </div>
         </div>
