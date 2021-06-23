@@ -2,126 +2,128 @@
 
 {% block content %}
 <script>
+//Show first question
 $(function() {
+    var html = "";
     $.getJSON('http://127.0.0.1/wordpress/wp-content/uploads/2021/06/form.json', function(data) {
-        $.each(data.form, function(index, item) {
-            var object = item;
-            console.log(Object.keys(object)[0])
-            console.log(Object.values(object)[0].question)
-            //console.log(Object.values(object)[0].answer)
-            $.each(Object.values(object)[0].answer, function(ind, val) {
-                var obj = val;
-                console.log(Object.keys(obj)[0])
-                if($.isArray(Object.values(obj)[0])){
-                    $.each(Object.values(obj)[0], function(cde, ans) {
-                        console.log(ans);
-                    });
-                } else {
-                    console.log(Object.values(obj)[0]);
-                }
+        $.each(data.form.sectionA, function(index, firstSection) {
+            $.each(firstSection, function(Qnumber, items) {
+                html+="<div class='row justify-content-center mt-5'>";
+                html+="<div class='col-8 bg-white shadow p-4 white-bg-content' style='border-radius:30px;'>";
+                html+="<p><strong class='fs-5'>"+Qnumber+") "+items.question+"</strong></p>";
+                //console.log(Qnumber)
+                //console.log(items.question)
+                $.each(items.answer, function(answerIndex, answers) {
+                    html+="<div class='form-check'>";
+                    html+="<input class='form-check-input radio-style' type='radio' name='radio' id='"+Qnumber+"' value='"+answers.next+"'>";
+                    html+="<label class='form-check-label' for='flexRadioDefault1'>";
+                    html+="<strong class='fs-5'>"+answers.txt+"</strong>";
+                    html+="</label>";
+                    html+="</div>";
+                    //console.log(answers.txt)
+                });
+                html+="</div></div>";
+            });
+        });
+        //console.log(html)
+        $( "#question" ).append(html);
+    });
+});
+
+$(function(){
+    $('#carouselExampleControls').delegate("#next","click", function(){
+        
+        console.log("gewgewgw")
+        //var questionID = $(this).attr('id');
+        /*
+        var next = $('input[name=radio]:checked', '#question').val();
+        $.getJSON('http://127.0.0.1/wordpress/wp-content/uploads/2021/06/form.json', function(data) {
+            $.each(data.form, function(index, item) {
+                $.each(item, function(ind, val) {
+                    //console.log(ind);
+                    if(ind == next){
+                        $( "#question" ).append(
+                            `
+                            <p><strong class='fs-5'>`+ind+`) `+val.question+`</strong></p>
+                            <div class='radio-margin'>
+                            `
+                        );
+                        $.each(val.answer, function(i, v) {
+                            $( "#question" ).append(
+                                `
+                                <div class='form-check'>
+                                    <input class='form-check-input radio-style' type='radio' name='radio' id='`+i+`' value='`+v.next+`'>
+                                    <label class='form-check-label' for='flexRadioDefault1'>
+                                    <strong class='fs-5'>`+v.txt+`</strong>
+                                    </label>
+                                </div>
+                                `
+                            );
+                        });
+                        //console.log(val.question);
+                        //console.log(val.answer);
+                    }
+                });
             });
             $( "#question" ).append(
-                `<div class='row mt-4 white-bg-content'>
-                    <div class='col-12'>
-                        <p><strong class='fs-5'>`+Object.keys(object)[0]+Object.values(object)[0].question+`</strong></p>
-                        <div class='radio-margin'>
-                            <div class='form-check'>
-                                <input class='form-check-input radio-style' type='radio' name='2' id='flexRadioDefault1'>
-                                <label class='form-check-label' for='flexRadioDefault1'>
-                                <strong class='fs-5'>申請人</strong>
-                                </label>
-                            </div>
-                            <div class='form-check'>
-                                <input class='form-check-input radio-style' type='radio' name='2' id='flexRadioDefault2'>
-                                <label class='form-check-label' for='lexRadioDefault2'>
-                                    <strong class='fs-5'>答辯人</strong>
-                                </label>
+                `</div>`
+            );
+        });*/
+    });
+});
+/*$(function() {
+    $.getJSON('http://127.0.0.1/wordpress/wp-content/uploads/2021/06/form.json', function(data) {
+        $.each(data.form, function(index, item) {
+            $.each(item, function(ind, val) {
+                //console.log(ind)
+                //console.log(val.question);
+                $.each(val.answer, function(i, v) {
+                    console.log(v.txt);
+                    if(v.checkbox){
+                        $.each(v.checkbox, function(a, checkboxVal) {
+                            if(checkboxVal.txt){
+                                $.each(checkboxVal, function(b, c) {
+                                    console.log(c);
+                                });
+                            } else {
+                                console.log(checkboxVal);
+                            }
+                        });
+                    }
+                    if(v.input){
+
+                    }
+                });
+            });
+        });
+    });
+});*/
+</script>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-10">
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="container" id="question">
+                            <div class="row justify-content-center">
+                                <div class="col-8 bg-white shadow p-4" style="border-radius:30px;">
+                                    <strong class="fs-2 white-bg-title">離婚事宜</strong>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>`
-            );
-        });
-    });
-});
-</script>
-<div class="container form-bg">
-    <form>
-        <div class="row mt-4 pt-5 justify-content-center">
-            <div class="col-8 col-md-5 col-xl-3" style="margin-top:100px;">
-                <select class="form-select text-center dropdown-style" aria-label="event">
-                    <option selected><strong>離婚事宜</strong></option>
-                    <option value="1"><strong>One</strong></option>
-                    <option value="2"><strong>Two</strong></option>
-                    <option value="3"><strong>Three</strong></option>
-                </select>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next" id="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
         </div>
-        <div class="row mt-5 justify-content-center">
-            <div class="col-6 col-md-3 col-xl-2">
-                <select class="form-select text-center dropdown-style" aria-label="event">
-                    <option selected><strong>申請人</strong></option>
-                    <option value="1"><strong>One</strong></option>
-                    <option value="2"><strong>Two</strong></option>
-                    <option value="3"><strong>Three</strong></option>
-                </select>
-            </div>
-        </div>
-        <div class="row mt-5 justify-content-center">
-            <div class="col-12 col-md-3 col-xl-2 text-center">
-                <span class="dropdownItem-style fs-6"><strong>請填寫以下資料</strong></span>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-xl-1 text-center">
-                <span class="dropdownItem-style"><strong><span class="material-icons-outlined fs-2">expand_more</span></strong></span>
-            </div>
-        </div>
-        <div class="container">
-            <div class="form-margin" id="question"></div>
-            <div class="form-margin">
-                <div class="row mt-5 white-bg-content">
-                    <div class="col-12">
-                        <strong>
-                            <span class="material-icons-outlined fs-3">error_outline</span>
-                            <span class="fs-5">如以上表格皆不適⽤請直接講述，Lecopt專⼈於48⼩時內回覆</span>
-                        </strong>
-                    </div>
-                </div>
-                <div class="row mt-3 g-2 white-bg-content align-items-end">
-                    <div class="col-12 col-md-10 col-xl-6 radio-margin">
-                        <textarea placeholder="輸⼊資料···" class="form-control fs-5 input-style" id="exampleFormControlTextarea1" rows="8"></textarea>
-                    </div>
-                    <div class="col-12 col-md-5 col-xl-3 radio-margin">
-                        <button type="button" class="btn white-bg-button-color shadow px-2">
-                        <span>
-                            <span class="material-icons-outlined">keyboard_voice</span>
-                            <strong>提交錄⾳檔案</strong>
-                        </span>
-                        </button>
-                    </div>
-                </div>
-                <div class="row mt-5 white-bg-content">
-                    <div class="col-12 col-md-10 col-xl-7">
-                        <p class="text-break">
-                            <strong>本⼈同意以上資料正確無誤及清楚了解Lecopt所提供之建議僅作參考之⽤，並不能視作任何法律意⾒。</strong>
-                        </p>
-                    </div>
-                </div>
-                <div class="row mt-4 white-bg-content">
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-lg px-4 white-bg-button-color shadow">同意及提交</button>
-                    </div>
-                </div>
-                <div class="row mt-3 white-bg-content">
-                    <div class="col-12">
-                        <a href="#" style="color:#7FD5CA;">需要24⼩時內回覆請按此</a>
-                    </div>
-                </div>
-                <div class="row mt-5">
-                </div>
-            </div>
-        </div>
-    </form>
+    </div>
 </div>
 {% endblock %}
