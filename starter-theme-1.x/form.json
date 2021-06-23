@@ -1,52 +1,34 @@
 {
-    "form":{
-        "sectionA":[
-            {"a":
-                {
-                    "question":"你是：",
-                    "answer": [
-                        {"txt":"申請人", "checkbox":"", "input":false, "next":"ai"},
-                        {"txt":"答辯人", "checkbox":"", "input":false, "next":"aii"}
-                    ]
-                }
-            },
-            {"ai":
-                {
-                    "question":"你現在是在申請離婚的什麼階段？",
-                    "answer": [
-                        {"txt":"還沒開始任何申請程序", "checkbox":"", "input":false, "next":"b"},
-                        {"txt":"已向法庭提交申請表格並取得案件編號", "checkbox":"", "input":false, "next":"g"},
-                        {"txt":"已送達印有法庭蓋章的文件給對方", "checkbox":"", "input":false, "next":"g"},
-                        {"txt":"收到對方的答辯書", "checkbox":"", "input":false, "next":"g"},
-                        {"txt":"法庭拒絕申請", "checkbox":"", "input":false, "next":"b"}
-                    ]
-                }
+    "form": [
+        {"a":
+            {
+                "question":"你是：",
+                "answer": [
+                    {"申請人": "ai"},
+                    {"答辯人": "aii"}
+                ]
             }
-        ],
-        "sectionB":[
-            {"aii":
-                {
-                    "question":"你現在是在申請離婚的什麼階段？",
-                    "answer": [
-                        {"txt":"對方欲提出離婚但未有收到法庭/ 律師文件", "checkbox":"", "input":false, "next":"b"},
-                        {"txt":"收到印有法庭蓋章的文件", "checkbox":"", "input":false, "next":"g"},
-                        {"txt":"收到印有法庭蓋章的檔案給對方並且提交回答辯書", "checkbox":"", "input":false, "next":"g"}
-                    ]
-                }
-            },
-            {"e":
-                {
-                    "question":"離婚原因？",
-                    "answer": [
-                        {"txt":"答辯人曾與他人通姦", "checkbox":"", "input":false, "next":"g"},
-                        {"txt":"答辯人作出不合理行為（可多選）", "checkbox":["拒絕溝通","沒有家庭生活","生活上不合理要求","家庭暴力","導致雙方失去互信",{"txt":"其他：","input":true}], "input":false, "next":"f"},
-                        {"txt":"已分居2年或以上", "checkbox":"", "input":false, "next":"f"},
-                        {"txt":"遭配偶遺棄連續1年或以上", "checkbox":"", "input":false, "next":"f"},
-                        {"txt":"其他：", "checkbox":"", "input":true, "next":"f"}
-                    ]
-                }
+        },
+        {"ai":
+            {
+                "question":"你現在是在申請離婚的什麼階段？",
+                "answer": [
+                    {"還沒開始任何申請程序": "b"},
+                    {"已向法庭提交申請表格並取得案件編號": "g"},
+                    {"已送達印有法庭蓋章的文件給對方": "g"},
+                    {"收到對方的答辯書": "g"},
+                    {"法庭拒絕申請": "b"}
+                ]
             }
-        ]       
-    }
-    
+        },
+        {"e":
+            {
+                "question":"離婚原因？",
+                "answer": [
+                    {"答辯人曾與他人通姦": "g"},
+                    {"答辯人作出不合理行為 ": ["拒絕溝通","沒有家庭生活","生活上不合理要求"]}
+                ]
+            }
+        }
+    ]
 }
