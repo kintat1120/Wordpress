@@ -5,21 +5,29 @@
                 "questionIndex":"a",
                 "question":"你是：",
                 "answer": [
-                    {"txt":"申請人", "supplementaryAnswer":null, "inputField":false, "next":"sectionB"},
-                    {"txt":"答辯人", "supplementaryAnswer":null, "inputField":false, "next":"sectionB"}
+                    {"txt":"申請人", "supplementaryAnswer":null, "inputField":false, "next":"sectionB", "priority":1},
+                    {"txt":"答辯人", "supplementaryAnswer":null, "inputField":false, "next":"sectionC", "priority":2}
                 ]
             },
             {   
                 "questionIndex":"ai",
                 "question":"你現在是在申請離婚的什麼階段？",
                 "answer": [
-                    {"txt":"還沒開始任何申請程序", "supplementaryAnswer":null, "inputField":false, "next":"sectionB"},
-                    {"txt":"已向法庭提交申請表格並取得案件編號", "supplementaryAnswer":null, "inputField":false, "next":"sectionB"},
-                    {"txt":"已送達印有法庭蓋章的文件給對方", "supplementaryAnswer":null, "inputField":false, "next":"sectionB"},
-                    {"txt":"收到對方的答辯書", "supplementaryAnswer":null, "inputField":false, "next":"sectionB"},
-                    {"txt":"法庭拒絕申請", "supplementaryAnswer":null, "inputField":false, "next":"sectionB"}
+                    {"txt":"還沒開始任何申請程序", "supplementaryAnswer":null, "inputField":false, "next":"sectionB", "priority":1},
+                    {"txt":"已向法庭提交申請表格並取得案件編號", "supplementaryAnswer":null, "inputField":false, "next":"sectionB", "priority":1},
+                    {"txt":"已送達印有法庭蓋章的文件給對方", "supplementaryAnswer":null, "inputField":false, "next":"sectionB", "priority":1},
+                    {"txt":"收到對方的答辯書", "supplementaryAnswer":null, "inputField":false, "next":"sectionB", "priority":1},
+                    {"txt":"法庭拒絕申請", "supplementaryAnswer":null, "inputField":false, "next":"sectionB", "priority":1}
                 ]
-            }          
+            },
+            {
+                "questionIndex":"b",
+                "question":"雙方婚姻是否已滿1年？",
+                "answer": [
+                    {"txt":"是", "supplementaryAnswer":null, "inputField":false, "next":"sectionB", "priority":1},
+                    {"txt":"否", "supplementaryAnswer":null, "inputField":false, "next":"sectionB", "priority":1}
+                ]
+            }         
         ],
         "sectionB":[
             {
@@ -39,12 +47,12 @@
                     {
                         "txt":"答辯人作出不合理行為（可多選）", 
                         "supplementaryAnswer":[
-                            {"txt":"拒絕溝通", "supplementaryAnswer":null, "inputField":false, "next":""},
-                            {"txt":"沒有家庭生活", "supplementaryAnswer":null, "inputField":false, "next":""},
-                            {"txt":"生活上不合理要求", "supplementaryAnswer":null, "inputField":false, "next":""},
-                            {"txt":"家庭暴力", "supplementaryAnswer":null, "inputField":false, "next":""},
-                            {"txt":"導致雙方失去互信", "supplementaryAnswer":null, "inputField":false, "next":""},
-                            {"txt":"其他：", "supplementaryAnswer":null, "inputField":true, "next":""}
+                            {"txt":"拒絕溝通", "supplementaryAnswer":null, "inputField":false},
+                            {"txt":"沒有家庭生活", "supplementaryAnswer":null, "inputField":false},
+                            {"txt":"生活上不合理要求", "supplementaryAnswer":null, "inputField":false},
+                            {"txt":"家庭暴力", "supplementaryAnswer":null, "inputField":false},
+                            {"txt":"導致雙方失去互信", "supplementaryAnswer":null, "inputField":false},
+                            {"txt":"其他：", "supplementaryAnswer":null, "inputField":true}
                         ], 
                         "input":false, 
                         "next":"sectionC"
@@ -54,7 +62,25 @@
                     {"txt":"其他：", "supplementaryAnswer":null, "inputField":true, "next":"sectionC"}
                 ]
             }
-        ]       
+        ],
+        "sectionC":[
+            {
+                "questionIndex":"y",
+                "question":"雙方有否有婚姻協議（包括婚前及婚後）？",
+                "answer": [
+                    {"txt":"有", "supplementaryAnswer":null, "inputField":false, "next":"noSection", "priority":10},
+                    {"txt":"沒有", "supplementaryAnswer":null, "inputField":false, "next":"noSection", "priority":10}                
+                ]
+            },
+            {
+                "questionIndex":"z",
+                "question":"雙方有否進行過家事調解？",
+                "answer": [
+                    {"txt":"有", "supplementaryAnswer":null, "inputField":false, "next":"noSection", "priority":10},
+                    {"txt":"沒有", "supplementaryAnswer":null, "inputField":false, "next":"noSection", "priority":10}          
+                ]
+            }
+        ]      
     }
 }
 
