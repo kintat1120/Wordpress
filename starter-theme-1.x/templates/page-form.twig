@@ -11,219 +11,51 @@ for(var cookie in cookies) {
 }
 */
 
-var firstSlideIndicator = 0;
-var fromSlide = 0;
-var toSlide = 0;
-var lastSlide = 0;
-var slideCount = 0;
-var currentSection = "";
-//Show first question
-$(function() {
-    var html = "";
-    $.cookie("oldSection",["sectionA"]);
-    html+= "<div class='carousel-item active' id='firstItem'>"
-    html+= "<div class='container'>"
-    html+= "<div class='row justify-content-center'>"
-    html+= "<div class='col-9 col-md-9 col-xl-8 bg-white shadow p-4' style='border-radius:30px;'>"
-    html+= "<strong class='fs-2 white-bg-title'>離婚事宜</strong>"
-    html+= "</div>"
-    html+= "</div>"
-    $.getJSON('http://127.0.0.1/wordpress/wp-content/uploads/2021/06/form.json', function(data) {
-        $.each(data.form.sectionA, function(index, items) {
-            html+="<div class='tab row justify-content-center mt-5'>";
-            html+="<div class='col-9 col-md-9 col-xl-8 bg-white shadow p-4 white-bg-content' style='border-radius:30px;'>";
-            html+="<p><strong class='fs-5'>"+items.questionIndex+") "+items.question+"</strong></p>";
-            html+="<div class='radio-margin'>";
-            $.each(items.answer, function(answerIndex, answers) {
-                html+="<div class='form-check'>";
-                html+="<input class='form-check-input radio-style' onClick='getSection(`sectionA`)' type='radio' section='sectionA' name='"+items.questionIndex+"' id='"+answers.txt+"' value='"+answers.next+"' priority="+answers.priority+">";
-                html+="<label class='form-check-label' for='validationFormCheck2'>";
-                html+="<strong class='fs-5'>"+answers.txt+"</strong>";
-                html+="</label>";
-                if(answers.inputField){
-                    //html+="<input type='text' class='form-control h-75 pr-0 py-1 input-style' style='border:none;' id='other' name='other'>"
-                    html+="<input type='text' class='form-control h-75 pr-0 py-1 input-style' id='"+items.questionIndex+"_"+answers.txt+"'>";
-                }
-                html+="</div>";
-                if(answers.supplementaryAnswer){
-                    $.each(answers.supplementaryAnswer, function(supplementaryAnswerIndex, supplementaryAns) {
-                        html+="<div class='form-check form-checkbox radio-margin'>"
-                        html+="<input class='form-check-input radio-style' type='checkbox' id='"+supplementaryAns.txt+"'>"
-                        html+="<label class='form-check-label' for='validationFormCheck3'>"
-                        html+="<strong>"+supplementaryAns.txt+"</strong>"
-                        html+="</label>"
-                        if(supplementaryAns.inputField){
-                            //html+="<input type='text' class='form-control h-75 pr-0 py-1 input-style' style='border:none;' id='other' name='other'>"
-                            html+="<input type='text' class='form-control h-75 pr-0 py-1 input-style' id='"+items.questionIndex+"_"+answers.txt+"_"+supplementaryAns.txt+"'>";
-                        }
-                        html+="</div>"
-                    });
-                }
-                //console.log(answers.txt)
-            });
-            html+="</div></div></div>";
-        });
-        html+="</div></div>";
-        $("#next").show();
-        $("#prev").hide();
-        $("#submit").hide();
-        $( ".carousel-inner" ).append(html);
-    });
-});
-
-function getSection(section){
-    currentSection = section;
-    console.log(currentSection)
+var getSlideTemplate = function (){
+  var html = $("template.slide").html();
+  return $(html).clone();
 }
 
-//Detect the slide change
-$(function(){
-    $('#carouselExampleControls').on('slide.bs.carousel', function slide(ev) {
-        fromSlide = ev.from;
-        toSlide = ev.to;
-    })
-});
-//next
-$(function(){
-    $('#carouselExampleControls').delegate("#next","click", function(){
-        var newSection = "";
-        var sectionPriority_temp = 0;
-        var sectionPriority = 0;
-        var sectionCreated = false;
-        var finalSection = false;
-        var questions = {};
-        //Get all the questions
-        $('input:radio').each(function()
-        {
-            questions[$(this).attr('name')] = true;
-        });
-        //check if answer all the questions
-        $.each(questions, function(key, value){
-            if(!$('input[name='+key+']').is(':checked'))
-            {
-                console.log("Question " + key + " is blank")
-            }
-        });	
-        $('input:checked','.carousel-inner').each(function() {
-            console.log($(this).attr('name'))
-            $.cookie($(this).attr('name'), $(this).attr('id')); //cookie(name, value)
-            sectionPriority = parseInt($(this).attr('priority'));
-            //console.log("Priority: " + sectionPriority)
-            if(sectionPriority > sectionPriority_temp){
-                newSection = $(this).attr('value');
-                sectionPriority_temp = sectionPriority;
-            }
-        });
-        console.log($.cookie());
-        //console.log(newSection)
-        if (newSection == "noSection"){
-            finalSection = true;
-        }
-        var html = "";
-        var existedSection = $.cookie("oldSection").split(",");
-        $.each(existedSection, function(ind, val) {
-            if (newSection == val){
-                sectionCreated = true;
-            }
-        });
-        if(!sectionCreated && finalSection){
-            slideCount++;
-            lastSlide = slideCount;
-            html+= "<div class='carousel-item' id='submitPage'>";
-            html+= "<div class='container'>";
-            html+= "<div class='row justify-content-center'>"
-            html+= "<div class='col-9 col-md-9 col-xl-8 bg-white shadow p-4' style='border-radius:30px;'>"
-            html+= "<strong class='fs-2 white-bg-title'>離婚事宜</strong>"
-            html+= "</div>"
-            html+= "</div>"
-            html+="<div class='tab row justify-content-center mt-5'>";
-            html+="<div class='col-9 col-md-9 col-xl-8 bg-white shadow p-4 white-bg-content' style='border-radius:30px;'>";
-            html+="<strong>問卷已完成，你要確定提交嗎?</strong>"
-            html+="</div></div></div></div>"
-            $( ".carousel-inner" ).append(html);
-            $.cookie('oldSection', $.cookie('oldSection') + ","+newSection);
-        }
-        if (!sectionCreated && !finalSection){
-            $.getJSON('http://127.0.0.1/wordpress/wp-content/uploads/2021/06/form.json', function(data) {
-                slideCount++;
-                html+= "<div class='carousel-item'>";
-                html+= "<div class='container'>";
-                html+= "<div class='row justify-content-center'>"
-                html+= "<div class='col-9 col-md-9 col-xl-8 bg-white shadow p-4' style='border-radius:30px;'>"
-                html+= "<strong class='fs-2 white-bg-title'>離婚事宜</strong>"
-                html+= "</div>"
-                html+= "</div>"
-                $.each(data.form[newSection], function(index, items) {
-                    html+="<div class='tab row justify-content-center mt-5'>";
-                    html+="<div class='col-9 col-md-9 col-xl-8 bg-white shadow p-4 white-bg-content' style='border-radius:30px;'>";
-                    html+="<p><strong class='fs-5'>"+items.questionIndex+") "+items.question+"</strong></p>";
-                    html+="<div class='radio-margin'>";
-                    $.each(items.answer, function(answerIndex, answers) {
-                        html+="<div class='form-check'>";
-                        html+="<input class='form-check-input radio-style' onClick='getSection(`"+newSection+"`)' type='radio' section='"+newSection+"' name='"+items.questionIndex+"' id='"+answers.txt+"' value='"+answers.next+"' priority="+answers.priority+">";
-                        html+="<label class='form-check-label' for='flexRadioDefault1'>";
-                        html+="<strong class='fs-5'>"+answers.txt+"</strong>";
-                        html+="</label>";
-                        if(answers.inputField){
-                            //html+="<input type='text' class='form-control h-75 pr-0 py-1 input-style' style='border:none;' id='other' name='other'>"
-                            html+="<input type='text' class='form-control h-75 pr-0 py-1 input-style' id='"+items.questionIndex+"_"+answers.txt+"'>";
-                        }
-                        html+="</div>";
-                        if(answers.supplementaryAnswer){
-                            $.each(answers.supplementaryAnswer, function(supplementaryAnswerIndex, supplementaryAns) {
-                                html+="<div class='form-check form-checkbox radio-margin'>"
-                                html+="<input class='form-check-input radio-style' type='checkbox' id='"+supplementaryAns.txt+"'>"
-                                html+="<label class='form-check-label' for='flexCheckDefault'>"
-                                html+="<strong>"+supplementaryAns.txt+"</strong>"
-                                html+="</label>"
-                                if(supplementaryAns.inputField){
-                                    //html+="<input type='text' class='form-control h-75 pr-0 py-1 input-style' style='border:none;' id='other' name='other'>"
-                                    html+="<input type='text' class='form-control h-75 pr-0 py-1 input-style' id='"+items.questionIndex+"_"+answers.txt+"_"+supplementaryAns.txt+"'>";
-                                }
-                                html+="</div>"
-                            });
-                        }
-                        //console.log(answers.txt)
-                    });
-                    html+="</div></div></div>";
-                });
-                html+= "</div></div>";
-                $( ".carousel-inner" ).append(html);
-                if(firstSlideIndicator==0){
-                    $('#carouselExampleControls').carousel('next');
-                    $('#carouselExampleControls').carousel('pause');
-                    firstSlideIndicator++;
-                }
-                $.cookie('oldSection', $.cookie('oldSection') + ","+newSection);
-            });
-        }
-        $('#carouselExampleControls').on('slide.bs.carousel', function slide(ev) {
-            fromSlide = ev.from;
-            toSlide = ev.to;
-            if(toSlide == lastSlide){
-                $("#next").hide();
-                $("#prev").show();
-                $("#submit").show();
-            } else {
-                $("#next").show();
-                $("#prev").show();
-                $("#submit").hide();
-            }
-        });
-    });
-});
-//Previous
+var getQuestionTemplate = function (){
+  var questionhtml = $("template.question").html();
+  return $(questionhtml).clone();
+}
+
+var getAnswerTemplate = function (){
+  var html = $("template.answer").html();
+  return $(html).clone();
+}
+
+var containerCount = 1;
+var questionCount = 1;
+
 $(function() {
-    $('#carouselExampleControls').delegate("#prev","click", function(){
-        $('#carouselExampleControls').on('slide.bs.carousel', function slide(ev) {
-            fromSlide = ev.from;
-            toSlide = ev.to;
-            if(toSlide == 0){
-                $("#next").show();
-                $("#prev").hide();
-                $("#submit").hide();
-            }
+    $.getJSON('http://127.0.0.1/wordpress/wp-content/uploads/2021/06/form.json', function(data) {
+        $( "#container" ).addClass( "container-" + containerCount);
+        var slideTemp = getSlideTemplate();
+        var questionTemp;
+        var answersTemp;
+        var titleHtml = "";
+        var questionHtml = "";
+        var answerHtml = "";
+        slideTemp.find(".title").text(data.title.text + "----" + data.sections[0].section_title);
+        titleHtml += slideTemp[0].outerHTML
+        $(".carousel-inner").append(titleHtml);
+        $.each(data.sections[0].questions, function(index, questionDetails) {
+            questionTemp = getQuestionTemplate();
+            questionTemp.find(".question-index").text(questionDetails.question_id + ") "+ questionDetails.question);
+            questionHtml += questionTemp[0].outerHTML
+            $( ".container-" + containerCount ).append(questionHtml);
+            questionHtml = "";
+            $.each(questionDetails.options, function(ind, answers) {
+                answersTemp = getAnswerTemplate();
+                answersTemp.find(".answer-text").text(answers);
+                answerHtml += answersTemp[0].outerHTML
+                $( ".radio-margin" ).append(answerHtml);
+                answerHtml = "";
+            });
         });
+        containerCount++;
     });
 });
 </script>
@@ -232,6 +64,35 @@ $(function() {
         <div class="col-12 col-md-12 col-xl-10">
             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="false">
                 <div class="carousel-inner">
+                    <template class="slide">
+                        <div class='carousel-item active'>
+                            <div id='container'>
+                                <div class='row justify-content-center'>
+                                    <div class='col-9 col-md-9 col-xl-8 bg-white shadow p-4' style='border-radius:30px;'>
+                                        <strong class='fs-2 white-bg-title title'></strong><!--title-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                    <template id='question' class="question">
+                        <div class='tab row justify-content-center mt-5'>
+                            <div class='col-9 col-md-9 col-xl-8 bg-white shadow p-4 white-bg-content' style='border-radius:30px;'>
+                                <p><strong class='fs-5 question-index'></strong></p> <!--question-index-->
+                                <div class='radio-margin'>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                    <template id='answer' class = "answer">
+                        <div class='form-check'>
+                            <input class='form-check-input radio-style answer-details' type='radio'> <!--answer details-->
+                            <label class='form-check-label' for='flexRadioDefault1'>
+                                <strong class='fs-5 answer-text'></strong> <!--answer text-->
+                            </label>
+                            <input type='text' class='form-control h-75 pr-0 py-1 input-style input-answer'> <!--input answer-->
+                        </div>
+                    </template>
                 </div>
                 <div class="mt-5" style="float:right;">
                     <a href="#carouselExampleControls" style="text-decoration:none;" role="button" data-slide="prev" id="prev">
@@ -240,11 +101,11 @@ $(function() {
                     </a>
                     <a href="#carouselExampleControls" style="text-decoration:none;" role="button" data-slide="next" id="next">
                         <button type="button" class="btn btn-success">下一題</button>                    
-                        <span class="sr-only">Next</span> <!--Change to button later-->
+                        <span class="sr-only">Next</span> 
                     </a>
                     <a href="#carouselExampleControls" style="text-decoration:none;" role="button" data-slide="next" id="submit">
                         <button type="button" class="btn btn-success">提交</button>                    
-                        <span class="sr-only">Submit</span> <!--Change to button later-->
+                        <span class="sr-only">Submit</span>
                     </a>
                 </div>
             </div>
@@ -252,3 +113,4 @@ $(function() {
     </div>
 </div>
 {% endblock %}
+
