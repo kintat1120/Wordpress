@@ -12,6 +12,11 @@ for(var cookie in cookies) {
 */
 
 var firstSlideIndicator = 0;
+var fromSlide = 0;
+var toSlide = 0;
+var lastSlide = 0;
+var slideCount = 0;
+var currentSection = "";
 //Show first question
 $(function() {
     var html = "";
@@ -31,7 +36,7 @@ $(function() {
             html+="<div class='radio-margin'>";
             $.each(items.answer, function(answerIndex, answers) {
                 html+="<div class='form-check'>";
-                html+="<input class='form-check-input radio-style' type='radio' name='"+items.questionIndex+"' id='"+answers.txt+"' value='"+answers.next+"' priority="+answers.priority+">";
+                html+="<input class='form-check-input radio-style' onClick='getSection(`sectionA`)' type='radio' section='sectionA' name='"+items.questionIndex+"' id='"+answers.txt+"' value='"+answers.next+"' priority="+answers.priority+">";
                 html+="<label class='form-check-label' for='validationFormCheck2'>";
                 html+="<strong class='fs-5'>"+answers.txt+"</strong>";
                 html+="</label>";
@@ -62,11 +67,22 @@ $(function() {
         $("#next").show();
         $("#prev").hide();
         $("#submit").hide();
-        //console.log(html)
         $( ".carousel-inner" ).append(html);
     });
 });
 
+function getSection(section){
+    currentSection = section;
+    console.log(currentSection)
+}
+
+//Detect the slide change
+$(function(){
+    $('#carouselExampleControls').on('slide.bs.carousel', function slide(ev) {
+        fromSlide = ev.from;
+        toSlide = ev.to;
+    })
+});
 //next
 $(function(){
     $('#carouselExampleControls').delegate("#next","click", function(){
@@ -75,16 +91,31 @@ $(function(){
         var sectionPriority = 0;
         var sectionCreated = false;
         var finalSection = false;
-        //console.log($.cookie('oldSection'))
-        $('input:checked', '.carousel-inner').each(function() {
+        var questions = {};
+        //Get all the questions
+        $('input:radio').each(function()
+        {
+            questions[$(this).attr('name')] = true;
+        });
+        //check if answer all the questions
+        $.each(questions, function(key, value){
+            if(!$('input[name='+key+']').is(':checked'))
+            {
+                console.log("Question " + key + " is blank")
+            }
+        });	
+        $('input:checked','.carousel-inner').each(function() {
+            console.log($(this).attr('name'))
             $.cookie($(this).attr('name'), $(this).attr('id')); //cookie(name, value)
             sectionPriority = parseInt($(this).attr('priority'));
+            //console.log("Priority: " + sectionPriority)
             if(sectionPriority > sectionPriority_temp){
                 newSection = $(this).attr('value');
                 sectionPriority_temp = sectionPriority;
             }
         });
         console.log($.cookie());
+        //console.log(newSection)
         if (newSection == "noSection"){
             finalSection = true;
         }
@@ -95,11 +126,9 @@ $(function(){
                 sectionCreated = true;
             }
         });
-        if(sectionCreated && finalSection ){
-            $("#submit").show();
-            $("#next").hide();
-        }
         if(!sectionCreated && finalSection){
+            slideCount++;
+            lastSlide = slideCount;
             html+= "<div class='carousel-item' id='submitPage'>";
             html+= "<div class='container'>";
             html+= "<div class='row justify-content-center'>"
@@ -113,11 +142,10 @@ $(function(){
             html+="</div></div></div></div>"
             $( ".carousel-inner" ).append(html);
             $.cookie('oldSection', $.cookie('oldSection') + ","+newSection);
-            $("#submit").show();
-            $("#next").hide();
         }
         if (!sectionCreated && !finalSection){
             $.getJSON('http://127.0.0.1/wordpress/wp-content/uploads/2021/06/form.json', function(data) {
+                slideCount++;
                 html+= "<div class='carousel-item'>";
                 html+= "<div class='container'>";
                 html+= "<div class='row justify-content-center'>"
@@ -132,7 +160,7 @@ $(function(){
                     html+="<div class='radio-margin'>";
                     $.each(items.answer, function(answerIndex, answers) {
                         html+="<div class='form-check'>";
-                        html+="<input class='form-check-input radio-style' type='radio' name='"+items.questionIndex+"' id='"+answers.txt+"' value='"+answers.next+"' priority="+answers.priority+">";
+                        html+="<input class='form-check-input radio-style' onClick='getSection(`"+newSection+"`)' type='radio' section='"+newSection+"' name='"+items.questionIndex+"' id='"+answers.txt+"' value='"+answers.next+"' priority="+answers.priority+">";
                         html+="<label class='form-check-label' for='flexRadioDefault1'>";
                         html+="<strong class='fs-5'>"+answers.txt+"</strong>";
                         html+="</label>";
@@ -168,17 +196,34 @@ $(function(){
                 }
                 $.cookie('oldSection', $.cookie('oldSection') + ","+newSection);
             });
-            $("#prev").show();
-            $("#next").show();
         }
+        $('#carouselExampleControls').on('slide.bs.carousel', function slide(ev) {
+            fromSlide = ev.from;
+            toSlide = ev.to;
+            if(toSlide == lastSlide){
+                $("#next").hide();
+                $("#prev").show();
+                $("#submit").show();
+            } else {
+                $("#next").show();
+                $("#prev").show();
+                $("#submit").hide();
+            }
+        });
     });
 });
 //Previous
 $(function() {
     $('#carouselExampleControls').delegate("#prev","click", function(){
-        $("#next").show();
-        $("#submit").hide();
-        if($( "#firstItem" ).hasClass( "carousel-item.active" )){$("#prev").hide();}
+        $('#carouselExampleControls').on('slide.bs.carousel', function slide(ev) {
+            fromSlide = ev.from;
+            toSlide = ev.to;
+            if(toSlide == 0){
+                $("#next").show();
+                $("#prev").hide();
+                $("#submit").hide();
+            }
+        });
     });
 });
 </script>

@@ -34,16 +34,16 @@
                 "questionIndex":"aii",
                 "question":"你現在是在申請離婚的什麼階段？",
                 "answer": [
-                    {"txt":"對方欲提出離婚但未有收到法庭/ 律師文件", "supplementaryAnswer":null, "inputField":false, "next":"sectionC"},
-                    {"txt":"收到印有法庭蓋章的文件", "supplementaryAnswer":null, "inputField":false, "next":"sectionC"},
-                    {"txt":"收到印有法庭蓋章的檔案給對方並且提交回答辯書", "supplementaryAnswer":null, "inputField":false, "next":"sectionC"}
+                    {"txt":"對方欲提出離婚但未有收到法庭/ 律師文件", "supplementaryAnswer":null, "inputField":false, "next":"sectionC", "priority":2},
+                    {"txt":"收到印有法庭蓋章的文件", "supplementaryAnswer":null, "inputField":false, "next":"sectionC", "priority":2},
+                    {"txt":"收到印有法庭蓋章的檔案給對方並且提交回答辯書", "supplementaryAnswer":null, "inputField":false, "next":"sectionC", "priority":2}
                 ]
             },
             {
                 "questionIndex":"e",
                 "question":"離婚原因？",
                 "answer": [
-                    {"txt":"答辯人曾與他人通姦", "supplementaryAnswer":null, "inputField":false, "next":"sectionC"},
+                    {"txt":"答辯人曾與他人通姦", "supplementaryAnswer":null, "inputField":false, "next":"sectionC", "priority":2},
                     {
                         "txt":"答辯人作出不合理行為（可多選）", 
                         "supplementaryAnswer":[
@@ -57,9 +57,9 @@
                         "input":false, 
                         "next":"sectionC"
                     },
-                    {"txt":"已分居2年或以上", "supplementaryAnswer":null, "inputField":false, "next":"sectionC"},
-                    {"txt":"遭配偶遺棄連續1年或以上", "supplementaryAnswer":null, "inputField":false, "next":"sectionC"},
-                    {"txt":"其他：", "supplementaryAnswer":null, "inputField":true, "next":"sectionC"}
+                    {"txt":"已分居2年或以上", "supplementaryAnswer":null, "inputField":false, "next":"sectionC", "priority":2},
+                    {"txt":"遭配偶遺棄連續1年或以上", "supplementaryAnswer":null, "inputField":false, "next":"sectionC", "priority":2},
+                    {"txt":"其他：", "supplementaryAnswer":null, "inputField":true, "next":"sectionC", "priority":2}
                 ]
             }
         ],
