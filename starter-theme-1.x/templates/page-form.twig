@@ -2,110 +2,241 @@
 
 {% block content %}
 <script>
-//console.log($.cookie());
-
+var firstSlideIndicator = 0;
+var fromSlide = 0;
+var toSlide = 0;
+var conditions = {};
+var section = 0;
 /*
 var cookies = $.cookie();
 for(var cookie in cookies) {
     $.removeCookie(cookie);
 }
 */
-
-var getSlideTemplate = function (){
-  var html = $("template.slide").html();
-  return $(html).clone();
-}
-
-var getQuestionTemplate = function (){
-  var questionhtml = $("template.question").html();
-  return $(questionhtml).clone();
-}
-
-var getAnswerTemplate = function (){
-  var html = $("template.answer").html();
-  return $(html).clone();
-}
-
-var containerCount = 1;
-var questionCount = 1;
-
+//first
 $(function() {
-    $.getJSON('http://127.0.0.1/wordpress/wp-content/uploads/2021/06/form.json', function(data) {
-        $( "#container" ).addClass( "container-" + containerCount);
-        var slideTemp = getSlideTemplate();
-        var questionTemp;
-        var answersTemp;
-        var titleHtml = "";
-        var questionHtml = "";
-        var answerHtml = "";
-        slideTemp.find(".title").text(data.title.text + "----" + data.sections[0].section_title);
-        titleHtml += slideTemp[0].outerHTML
-        $(".carousel-inner").append(titleHtml);
+    var html = "";
+    $.getJSON('http://127.0.0.1/wordpress/wp-content/uploads/2021/06/form-2.json', function(data) {
+        html+= "<div class='carousel-item active' id='firstItem'>"
+        html+= "<div class='container'>"
+        html+= "<div class='row justify-content-center'>"
+        html+= "<div class='col-9 col-md-9 col-xl-8 bg-white shadow p-4' style='border-radius:30px;'>"
+        html+= "<strong class='fs-2 white-bg-title'>"+data.title.text+"----"+data.sections[0].section_title+"</strong>"
+        html+= "</div>"
+        html+= "</div>"
         $.each(data.sections[0].questions, function(index, questionDetails) {
-            questionTemp = getQuestionTemplate();
-            questionTemp.find(".question-index").text(questionDetails.question_id + ") "+ questionDetails.question);
-            questionHtml += questionTemp[0].outerHTML
-            $( ".container-" + containerCount ).append(questionHtml);
-            questionHtml = "";
+            var questionNumber = 0;
+            html+="<div class='tab row justify-content-center mt-5'>";
+            html+="<div class='col-9 col-md-9 col-xl-8 bg-white shadow p-4 white-bg-content' style='border-radius:30px;'>";
+            html+="<p><strong class='fs-5'>"+questionDetails.question_id+") "+questionDetails.question+"</strong></p>";
+            html+="<div class='radio-margin'>";
             $.each(questionDetails.options, function(ind, answers) {
-                answersTemp = getAnswerTemplate();
-                answersTemp.find(".answer-text").text(answers);
-                answerHtml += answersTemp[0].outerHTML
-                $( ".radio-margin" ).append(answerHtml);
-                answerHtml = "";
+                html+="<div class='form-check'>";
+                html+="<input class='form-check-input radio-style' type='radio' section=0 onClick='otherInputController(`"+questionDetails.question_id+"`,0)' name='"+questionDetails.question_id+"' number='"+questionNumber+"' id='"+questionDetails.question_id+"' value='"+answers+"'>";
+                html+="<label class='form-check-label' for='validationFormCheck2'>";
+                html+="<strong class='fs-5'>"+answers+"</strong>";
+                html+="</label>";
+                html+="</div>";
+                questionNumber++;
             });
+            if(questionDetails.has_others){ //其他input
+                html+="<div class='form-check form-check-inline'>";
+                html+="<input class='form-check-input radio-style' type='radio' onClick='otherInputController(`"+questionDetails.question_id+"`,1)' section=0 name='"+questionDetails.question_id+"' number='-1' id='"+questionDetails.question_id+"'>";
+                html+="<label class='form-check-label' for='validationFormCheck2'>";
+                html+="<strong class='fs-5'>其他：</strong>";
+                html+="</label>";
+                html+="<input type='text' class='h-75 pr-0 py-1' style='border-radius:5px;' name='"+questionDetails.question_id+"' disabled>";
+                html+="</div>";
+            }
+            html+="</div></div></div>";
         });
-        containerCount++;
+        html+="</div></div>";
+        $("#next").show();
+        $("#prev").hide();
+        $("#submit").hide();
+        $( ".carousel-inner" ).append(html);
     });
 });
+
+//next
+$(function(){
+    $('#carouselExampleControls').delegate("#next","click", function(){
+        var questions = {};
+        var html = "";
+        var container = 0;
+        var exit = false;
+        var blankAnswer = false;
+        var alertMessage = "";
+        //Get all the questions
+        $('input:radio').each(function()
+        {
+            questions[$(this).attr('name')] = true;
+        });
+        console.log(questions)
+        //check if answer all the questions
+        $.each(questions, function(key, value){
+            if(!$('input[name='+key+']').is(':checked'))
+            {
+                blankAnswer = true;
+                alertMessage += key + " "
+                //console.log("Question " + key + " is blank") //<=============================change to alert later
+            }
+        });
+        if(blankAnswer){
+            alert("Question " + alertMessage + " is blank")
+        } else {
+            $('input:checked','.carousel-inner .carousel-item:nth-child('+(section+1)+')').each(function() { //get certain page input:checked
+                if($(this).attr('number') == "-1"){
+                    //console.log($(this).attr('id'))
+                    //console.log($("input[name="+$(this).attr('name')+"]:text").val())
+                    $.cookie($(this).attr('id'), $("input[name="+$(this).attr('name')+"]:text").val());
+                } else {
+                    $.cookie($(this).attr('id'), $(this).attr('value'));
+                }
+                section = parseInt($(this).attr('section')) + 1;
+                conditions[$(this).attr('id')] = $(this).attr('number');
+                //conditions.push($(this).attr('id')+"=="+$(this).attr('number'));
+                //console.log($(this).attr('number'))
+                //console.log($(this).attr('id'))
+                //console.log($(this).attr('value'))
+                //console.log($(this).attr('section'))
+            });
+            //console.log($.cookie());
+            //console.log(section)
+            console.log(conditions)
+            $.getJSON('http://127.0.0.1/wordpress/wp-content/uploads/2021/06/form-2.json', function(data) {
+                $.each(data.exit_if, function(exitIndex, exits) {
+                    $.each(conditions, function(Qindex, value) {
+                        condition = Qindex + "==" + value
+                        if(condition == exits){
+                            exit = true;
+                        }
+                    })
+                });
+                if (exit){
+                    html+= "<div class='carousel-item' id='submitPage'>";
+                    html+= "<div class='container'>";
+                    html+= "<div class='row justify-content-center'>"
+                    html+= "<div class='col-9 col-md-9 col-xl-8 bg-white shadow p-4' style='border-radius:30px;'>"
+                    html+= "<strong class='fs-2 white-bg-title'>離婚事宜</strong>"
+                    html+= "</div>"
+                    html+= "</div>"
+                    html+="<div class='tab row justify-content-center mt-5'>";
+                    html+="<div class='col-9 col-md-9 col-xl-8 bg-white shadow p-4 white-bg-content' style='border-radius:30px;'>";
+                    html+="<strong>問卷已完成，你要確定提交嗎?</strong>"
+                    html+="</div></div></div></div>"
+                    $("#next").hide();
+                    $("#prev").show();
+                    $("#submit").show();
+                } else {
+                    $.each(data.sections[section].questions, function(index, questionDetails) {
+                        $.each(conditions, function(Qindex, value) {
+                            condition = Qindex + "==" + value
+                            if(condition == questionDetails.condition){
+                                if(container == 0){
+                                    html+= "<div class='carousel-item'>";
+                                    html+= "<div class='container'>";
+                                    html+= "<div class='row justify-content-center'>"
+                                    html+= "<div class='col-9 col-md-9 col-xl-8 bg-white shadow p-4' style='border-radius:30px;'>"
+                                    html+= "<strong class='fs-2 white-bg-title'>"+data.title.text+"----"+data.sections[section].section_title+"</strong>"
+                                    html+= "</div>"
+                                    html+= "</div>"
+                                    container++;
+                                }
+                                var questionNumber = 0;
+                                html+="<div class='tab row justify-content-center mt-5'>";
+                                html+="<div class='col-9 col-md-9 col-xl-8 bg-white shadow p-4 white-bg-content' style='border-radius:30px;'>";
+                                html+="<p><strong class='fs-5'>"+questionDetails.question_id+") "+questionDetails.question+"</strong></p>";
+                                html+="<div class='radio-margin'>";
+                                $.each(questionDetails.options, function(ind, answers) {
+                                    html+="<div class='form-check'>";
+                                    html+="<input class='form-check-input radio-style' type='radio' section='"+section+"' name='"+questionDetails.question_id+"' number='"+questionNumber+"' id='"+questionDetails.question_id+"' value='"+answers+"'>";
+                                    html+="<label class='form-check-label' for='validationFormCheck2'>";
+                                    html+="<strong class='fs-5'>"+answers+"</strong>";
+                                    html+="</label>";
+                                    html+="</div>";
+                                    questionNumber++;
+                                });
+                                if(questionDetails.has_others){ //其他input
+                                    html+="<div class='form-check form-check-inline'>";
+                                    html+="<input class='form-check-input radio-style' type='radio' onClick='otherInputController(`"+questionDetails.question_id+"`)' section=0 name='"+questionDetails.question_id+"' number='-1' id='"+questionDetails.question_id+"'>";
+                                    html+="<label class='form-check-label' for='validationFormCheck2'>";
+                                    html+="<strong class='fs-5'>其他：</strong>";
+                                    html+="</label>";
+                                    html+="<input type='text' class='h-75 pr-0 py-1' style='border-radius:5px;' name='"+questionDetails.question_id+"' disabled>";
+                                    html+="</div>";
+                                }
+                                html+="</div></div></div>";
+                                delete conditions[Qindex];
+                            }
+                        });
+                        //console.log(questionDetails.condition)
+                    });
+                    html+="</div></div>";
+                    $("#next").show();
+                    $("#prev").show();
+                    $("#submit").hide();
+                }
+                $( ".carousel-inner" ).append(html);
+                $('#carouselExampleControls').carousel('next');
+            });
+        }
+    });
+});
+
+//Detect the slide change
+$(function(){
+    $('#carouselExampleControls').on('slide.bs.carousel', function slide(ev) {
+        fromSlide = ev.from;
+        toSlide = ev.to;
+    })
+});
+
+//Previous
+$(function() {
+    $('#carouselExampleControls').delegate("#prev","click", function(){
+        $('#carouselExampleControls').carousel('prev');
+        $('#carouselExampleControls').on('slide.bs.carousel', function slide(ev) {
+            fromSlide = ev.from;
+            toSlide = ev.to;
+            if(toSlide == 0){
+                $("#next").show();
+                $("#prev").hide();
+                $("#submit").hide();
+            }
+        });
+    });
+});
+
+//enable or disable input text field
+function otherInputController(id,index){
+    console.log(index)
+    if (index == 1){
+        $('input:text[name='+id+']').removeAttr('disabled');
+    } else {
+        $('input:text[name='+id+']').val("");
+        $('input:text[name='+id+']').attr('disabled','disabled');
+    }
+}
 </script>
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-12 col-md-12 col-xl-10">
-            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="false">
+            <div id="carouselExampleControls" class="carousel slide" data-interval="false">
                 <div class="carousel-inner">
-                    <template class="slide">
-                        <div class='carousel-item active'>
-                            <div id='container'>
-                                <div class='row justify-content-center'>
-                                    <div class='col-9 col-md-9 col-xl-8 bg-white shadow p-4' style='border-radius:30px;'>
-                                        <strong class='fs-2 white-bg-title title'></strong><!--title-->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </template>
-                    <template id='question' class="question">
-                        <div class='tab row justify-content-center mt-5'>
-                            <div class='col-9 col-md-9 col-xl-8 bg-white shadow p-4 white-bg-content' style='border-radius:30px;'>
-                                <p><strong class='fs-5 question-index'></strong></p> <!--question-index-->
-                                <div class='radio-margin'>
-                                </div>
-                            </div>
-                        </div>
-                    </template>
-                    <template id='answer' class = "answer">
-                        <div class='form-check'>
-                            <input class='form-check-input radio-style answer-details' type='radio'> <!--answer details-->
-                            <label class='form-check-label' for='flexRadioDefault1'>
-                                <strong class='fs-5 answer-text'></strong> <!--answer text-->
-                            </label>
-                            <input type='text' class='form-control h-75 pr-0 py-1 input-style input-answer'> <!--input answer-->
-                        </div>
-                    </template>
                 </div>
                 <div class="mt-5" style="float:right;">
-                    <a href="#carouselExampleControls" style="text-decoration:none;" role="button" data-slide="prev" id="prev">
+                    <a href="#carouselExampleControls" style="text-decoration:none;" role="button" id="prev">
                         <button type="button" class="btn btn-success">上一題</button>
                         <span class="sr-only">Previous</span>
                     </a>
-                    <a href="#carouselExampleControls" style="text-decoration:none;" role="button" data-slide="next" id="next">
+                    <a href="#carouselExampleControls" style="text-decoration:none;" role="button" id="next">
                         <button type="button" class="btn btn-success">下一題</button>                    
-                        <span class="sr-only">Next</span> 
+                        <span class="sr-only">Next</span> <!--Change to button later-->
                     </a>
-                    <a href="#carouselExampleControls" style="text-decoration:none;" role="button" data-slide="next" id="submit">
+                    <a href="#carouselExampleControls" style="text-decoration:none;" role="button" id="submit">
                         <button type="button" class="btn btn-success">提交</button>                    
-                        <span class="sr-only">Submit</span>
+                        <span class="sr-only">Submit</span> <!--Change to button later-->
                     </a>
                 </div>
             </div>

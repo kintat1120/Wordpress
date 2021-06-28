@@ -1,6 +1,6 @@
 {
 	"title":{
-		"text":"離婚事宜"
+		"text":"土地及大廈"
 	},
 	"sections":[
 		{
@@ -10,8 +10,8 @@
 					"question_id": "a",
 					"question": "發生了什麼事情？ ",
 					"options": [
-						"滲水／漏水",
-						"..."
+						"滲水",
+						"漏水"
 					],
 					"has_others": true
 				},{
@@ -102,13 +102,13 @@
 					"has_others": false,
 					"condition": "d2==1"
 				}
-			],
-			"exit_if":[
-				"a==-1",
-				"b==-1",
-				"b==3"
 			]
 		}
+	],
+	"exit_if":[
+		"a==-1",
+		"b==-1",
+		"b==3"
 	],
 	"advice": [
 		{
