@@ -102,13 +102,13 @@
 					"has_others": false,
 					"condition": "d2==1"
 				}
+			],
+			"exit_if":[
+				"a==-1",
+				"b==-1",
+				"b==3"
 			]
 		}
-	],
-	"exit_if":[
-		"a==-1",
-		"b==-1",
-		"b==3"
 	],
 	"advice": [
 		{
