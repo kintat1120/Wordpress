@@ -6,6 +6,7 @@ var firstSlideIndicator = 0;
 var fromSlide = 0;
 var toSlide = 0;
 var lastSlide = 0;
+var exitSlide = 0;
 var conditions = {};
 var section = 0;
 var exitConditions = [];
@@ -13,9 +14,8 @@ var exitIfExist = false;
 var exit = false;
 var checkCreatedSection = false;
 var createdSection = [0];
-
 var cookies = $.cookie();
-for(var cookie in cookies) {
+for(var cookie in cookies) { //remove all the cookie when enter this page
     $.removeCookie(cookie);
 }
 
@@ -102,24 +102,36 @@ $(function(){
         } else {
             $('input:checked','.carousel-inner .carousel-item:nth-child('+(section)+')').each(function() { //get certain page input:checked
                 if($.cookie($(this).attr('id')) != null && $.cookie($(this).attr('id')) != $(this).attr('value')){ //check if user change their answer after next
-                    countChild = section;
-                    while(true){
+                    //countChild = section; //count from current page since section+1 after press next
+                    lastPage = lastSlide + 1
+                    //console.log(lastPage)
+                    while (lastPage != section){
+                        $( '.carousel-item:nth-child('+(lastPage)+')' ).remove();
+                        createdSection.pop();
+                        lastPage--
+                    }
+                    //console.log(createdSection)
+                    //exit = false;
+                    //exitIfExist = false;
+                    /*while(true){
                         countChild++
                         if($( '.carousel-item:nth-child('+(countChild)+')' ).length == 0){
                             break;
                         }
-                        console.log(countChild)
-                        var list = document.getElementsByClassName("carousel-item");   // Get the <ul> element with id="myList"
-                        list.removeChild(list.childNodes[countChild]);
-                    }
-                    console.log($.cookie($(this).attr('id')) + ":" + $(this).attr('value'))
+                        //console.log("countChild: " + countChild);
+                        $( '.carousel-item:nth-child('+(countChild)+')' ).remove();
+                        console.log($( '.carousel-item:nth-child('+(4)+')' ).length)
+                        createdSection.pop();
+                        //console.log("createdSection: " + createdSection)
+                    }*/
+                    //console.log($.cookie($(this).attr('id')) + ":" + $(this).attr('value'))
                 }
                 if($(this).attr('number') == "-1"){
                     //console.log($(this).attr('id'))
                     //console.log($("input[name="+$(this).attr('name')+"]:text").val())
-                    $.cookie($(this).attr('id'), $("input[name="+$(this).attr('name')+"]:text").val());
+                    $.cookie($(this).attr('id'), $("input[name="+$(this).attr('name')+"]:text").val(), {'path': '/'});
                 } else {
-                    $.cookie($(this).attr('id'), $(this).attr('value'));
+                    $.cookie($(this).attr('id'), $(this).attr('value'), {'path': '/'});
                 }
                 //section = parseInt($(this).attr('section')) + 1;
                 conditions[$(this).attr('id')] = $(this).attr('number');
@@ -135,11 +147,12 @@ $(function(){
             $.each(createdSection, function(sectionIndex, sectionName){ //check the item if created
                 if(sectionName == section){
                     checkCreatedSection = true;
+                    //console.log(sectionName)
                 }
             });
             if(checkCreatedSection){ //avoid create same item
                 checkCreatedSection = false;
-                if(section == lastSlide){
+                if(section == exitSlide){
                     $("#next").hide();
                     $("#prev").show();
                     $("#submit").show();
@@ -166,8 +179,8 @@ $(function(){
                     }
 
                     if (exit){
-                        lastSlide = section;
-                        //console.log(lastSlide);
+                        exitSlide = section;
+                        //console.log(exitSlide);
                         html+= "<div class='carousel-item' id='submitPage'>";
                         html+= "<div class='container'>";
                         html+= "<div class='row justify-content-center'>"
@@ -180,6 +193,9 @@ $(function(){
                         html+="<strong>問卷已完成，你要確定提交嗎?</strong>"
                         html+="</div></div></div></div>"
                         exit = false;
+                        $("#next").hide();
+                        $("#prev").show();
+                        $("#submit").show();
                     } else {
                         try{
                             $.each(data.sections[section].questions, function(index, questionDetails) {
@@ -237,21 +253,25 @@ $(function(){
                         } catch {
                             exitIfExist = false;
                         }
+                        if(section == exitSlide){ //check if exit page
+                            $("#next").hide();
+                            $("#prev").show();
+                            $("#submit").show();
+                        } else {
+                            $("#next").show();
+                            $("#prev").show();
+                            $("#submit").hide();
+                        }
                     }
                     $( ".carousel-inner" ).append(html);
-                    if(section == lastSlide){
-                        $("#next").hide();
-                        $("#prev").show();
-                        $("#submit").show();
-                    } else {
-                        $("#next").show();
-                        $("#prev").show();
-                        $("#submit").hide();
-                    }
                     createdSection.push(section);
+                    //console.log(createdSection)
                     $('#carouselExampleControls').carousel('next');
                 });
             }
+        }
+        if(section > lastSlide){ //find the lastslide
+            lastSlide = section
         }
     });
 });
@@ -283,6 +303,30 @@ function otherInputController(id,index){
         $('input:text[name='+id+']').attr('disabled','disabled');
     }
 }
+
+//submit handler
+function submitHandler(){
+    var cookies = $.cookie();
+    for(var cookie in cookies) { //remove all the cookie for testing
+        $.removeCookie(cookie);
+    }
+    //console.log($.cookie())
+    $('input:checked','.carousel-inner .carousel-item').each(function() {
+        if($(this).attr('number') == "-1"){
+            //console.log($(this).attr('id'))
+            //console.log($("input[name="+$(this).attr('name')+"]:text").val())
+            //console.log($(this).attr('id') + ":" + $("input[name="+$(this).attr('name')+"]:text").val())
+            //$.cookie($(this).attr('id'), $("input[name="+$(this).attr('name')+"]:text").val(), {'path': '/'}); <==========value that send to database
+            $.cookie($(this).attr('id'), $(this).attr('number'), {'path': '/'});
+        } else {
+            //console.log($(this).attr('id') + ":" + $(this).attr('value'))
+            //$.cookie($(this).attr('id'), $(this).attr('value'), {'path': '/'}); <==========value that send to database
+             $.cookie($(this).attr('id'), $(this).attr('number'), {'path': '/'});
+        }
+    });
+    console.log($.cookie())
+    window.location.replace("http://127.0.0.1/wordpress/suggestion/");
+}
 </script>
 <div class="container mt-5">
     <div class="row justify-content-center">
@@ -299,7 +343,7 @@ function otherInputController(id,index){
                         <button type="button" class="btn btn-success">下一題</button>                    
                         <span class="sr-only">Next</span> <!--Change to button later-->
                     </a>
-                    <a href="#carouselExampleControls" style="text-decoration:none;" role="button" id="submit">
+                    <a href="#carouselExampleControls" onClick="submitHandler()" style="text-decoration:none;" role="button" id="submit">
                         <button type="button" class="btn btn-success">提交</button>                    
                         <span class="sr-only">Submit</span> <!--Change to button later-->
                     </a>

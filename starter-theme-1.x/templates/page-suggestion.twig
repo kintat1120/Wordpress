@@ -1,0 +1,24 @@
+{% extends "base.twig" %}
+
+{% block content %}
+<script>
+var cookies = $.cookie();
+console.log($.cookie())
+$(function (){
+    var html = "";
+    $.getJSON('http://127.0.0.1/wordpress/wp-content/uploads/2021/06/form-2.json', function(data) {
+        $.each(data.advice, function(adviceIndex, adviceSection) {
+            console.log(adviceSection)
+            html+="<div class = 'col-3' style='background-color:white; height:200px;'>"
+            html+="<h4 class='title'>"+adviceSection.text+"</h2>"
+            html+="</div>"
+        });
+        $( "#suggestionRow" ).append(html);
+    });
+});
+</script>
+<div class="container mt-5">
+    <div class="row justify-content-between" id="suggestionRow">
+    </div>
+</div>
+{% endblock %}
