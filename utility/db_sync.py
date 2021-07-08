@@ -46,7 +46,7 @@ LOCAL_DB_DATABASE = "<local db name>"
 REMOTE_DB_HOST = "dev.lecopt.tech"
 REMOTE_DB_IP = "35.226.144.108"
 REMOTE_DB_USER = "wp_user"
-REMOTE_DB_PW = "N2j:dJ/&z$MFY*Je"
+REMOTE_DB_PW = "N2jdJzMFYJe"
 REMOTE_DB_DATABASE = "wp"
 REMOTE_DB_PORT = 3306
 
