@@ -6,11 +6,101 @@ var cookies = $.cookie();
 console.log($.cookie())
 $(function (){
     var html = "";
-    $.getJSON('http://127.0.0.1/wordpress/wp-content/uploads/2021/06/form-2.json', function(data) {
+    $.getJSON("{{ site.theme.link }}/static/form.json", function(data) {
         $.each(data.advice, function(adviceIndex, adviceSection) {
-            console.log(adviceSection)
-            html+="<div class = 'col-3' style='background-color:white; height:200px;'>"
-            html+="<h4 class='title'>"+adviceSection.text+"</h2>"
+            //console.log(adviceSection)
+            var conditionMatch = true;
+            $.each(adviceSection.condition, function(conditionIndex, conditions) { //condition checking
+                if (conditions.indexOf(";") >= 0){ //match more than one conditions
+                    var multiConditions = conditions.split(";");
+                    try{
+                        $.each(multiConditions, function(multiConditionsIndex, multiCondition) {
+                            if($.cookie(multiCondition.charAt(0))){
+                                var condition = multiCondition.charAt(0) + "==" + $.cookie(multiCondition.charAt(0))
+                                if(multiCondition == condition){
+                                    conditionMatch = true;
+                                    //console.log("condition match" + conditions);
+                                } else {
+                                    conditionMatch = false;
+                                    throw Error();
+                                }
+                            } else {
+                                conditionMatch = false;
+                                throw Error();
+                            }
+                        });
+                    } catch (e) {}
+                } else { //match one condition 
+                    if($.cookie(conditions.charAt(0))){
+                        var condition = conditions.charAt(0) + "==" + $.cookie(conditions.charAt(0))
+                        if(conditions == condition){
+                            //console.log("condition match" + conditions);
+                        } else {
+                            conditionMatch = false;
+                        }
+                    } else if(conditions == "true"){
+                        //console.log("True: " + conditions)
+                        conditionMatch = true;
+                    } else {
+                        //console.log("No match: " + conditions)
+                        conditionMatch = false;
+                    }
+                }
+            });
+            if(conditionMatch){
+                html+="<div class = 'col-3' style='background-color:white; height:500px;'>"
+                html+="<h4 class='title'>"+adviceSection.text+"</h2>"
+                $.each(adviceSection.points, function(pointsIndex, points) {
+                    html+="<ol>"
+                    var conditionMatch = true;
+                    $.each(points.condition, function(conditionIndex, conditions) { //point condition
+                        if (conditions.indexOf(";") >= 0){ //match more than one conditions
+                            var multiConditions = conditions.split(";");
+                            try{
+                                $.each(multiConditions, function(multiConditionsIndex, multiCondition) {
+                                    if($.cookie(multiCondition.charAt(0))){
+                                        var condition = multiCondition.charAt(0) + "==" + $.cookie(multiCondition.charAt(0))
+                                        if(multiCondition == condition){
+                                            conditionMatch = true;
+                                            //console.log("condition match" + condition);
+                                        } else {
+                                            //console.log("condition not match" + condition)
+                                            conditionMatch = false;
+                                            throw Error();
+                                        }
+                                    } else {
+                                        conditionMatch = false;
+                                        throw Error();
+                                    }
+                                });
+                            } catch (e) {}
+                        } else { //match one condition 
+                            if($.cookie(conditions.charAt(0))){
+                                var condition = conditions.charAt(0) + "==" + $.cookie(conditions.charAt(0))
+                                if(conditions == condition){
+                                    //console.log("condition match" + conditions);
+                                } else {
+                                    conditionMatch = false;
+                                }
+                            } else if(conditions == "true"){
+                                //console.log("True: " + conditions)
+                                conditionMatch = true;
+                            } else {
+                                //console.log("No match: " + conditions)
+                                conditionMatch = false;
+                            }
+                        }
+                    });
+                    if(conditionMatch){
+                        html += "<li>"+points.text+"</li>"
+                    }
+                    html+="</ol>"
+                    if(points.points.length != 0){
+                        console.log(points.points)
+                    }
+                });
+            }
+                
             html+="</div>"
         });
         $( "#suggestionRow" ).append(html);

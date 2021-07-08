@@ -41,7 +41,7 @@ if not os.path.exists(temp_folder):
 
 LOCAL_DB_HOST = "127.0.0.1"
 LOCAL_DB_USER = "root"
-LOCAL_DB_DATABASE = "<local db name>"
+LOCAL_DB_DATABASE = "wp"
 
 REMOTE_DB_HOST = "dev.lecopt.tech"
 REMOTE_DB_IP = "35.226.144.108"

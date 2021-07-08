@@ -22,7 +22,7 @@ for(var cookie in cookies) { //remove all the cookie when enter this page
 //first
 $(function() {
     var html = "";
-    $.getJSON('http://127.0.0.1/wordpress/wp-content/uploads/2021/06/form-2.json', function(data) {
+    $.getJSON("{{ site.theme.link }}/static/form.json", function(data) {
         html+= "<div class='carousel-item active' id='firstItem'>"
         html+= "<div class='container'>"
         html+= "<div class='row justify-content-center'>"
@@ -163,7 +163,7 @@ $(function(){
                 }
                 $('#carouselExampleControls').carousel('next');
             } else {
-                $.getJSON('http://127.0.0.1/wordpress/wp-content/uploads/2021/06/form-2.json', function(data) {
+                $.getJSON("{{ site.theme.link }}/static/form.json", function(data) {
                     if(exitIfExist){
                         $.each(exitConditions, function(conditionIndex, exitCondition){
                             $.each(conditions, function(Qindex, value) {
@@ -325,7 +325,7 @@ function submitHandler(){
         }
     });
     console.log($.cookie())
-    window.location.replace("http://127.0.0.1/wordpress/suggestion/");
+    window.location.replace("http://localhost/suggestion/");
 }
 </script>
 <div class="container mt-5">
