@@ -1,0 +1,389 @@
+{% extends "base.twig" %}
+
+{% block content %}
+<script>
+var firstSlideIndicator = 0;
+var fromSlide = 0;
+var toSlide = 0;
+var lastSlide = 0;
+var exitSlide = 0;
+var conditions = {};
+var section = 0;
+var exitConditions = [];
+var exitIfExist = false;
+var exit = false;
+var checkCreatedSection = false;
+var createdSection = [0];
+var cookies = $.cookie();
+for(var cookie in cookies) { //remove all the cookie when enter this page
+    $.removeCookie(cookie);
+}
+
+//first
+$(function() {
+    var html = "";
+    {% block json %}
+        //$.getJSON("{{ site.theme.link }}/static/landform.json", function(data) {
+    {% endblock %}
+        html+= "<div class='carousel-item active' id='firstItem'>"
+        html+= "<div class='container'>"
+        html+= "<div class='row justify-content-center'>"
+        html+= "<div class='col-9 col-md-9 col-xl-8 bg-white shadow p-4' style='border-radius:30px;'>"
+        html+= "<strong class='fs-2 white-bg-title'>"+data.title.text+"----"+data.sections[0].section_title+"</strong>"
+        html+= "</div>"
+        html+= "</div>"
+        $.each(data.sections[0].questions, function(index, questionDetails) {
+            var questionNumber = 0;
+            html+="<div class='tab row justify-content-center mt-5'>";
+            html+="<div class='col-9 col-md-9 col-xl-8 bg-white shadow p-4 white-bg-content' style='border-radius:30px;'>";
+            html+="<p><strong class='fs-5'>"+questionDetails.question_id+") "+questionDetails.question+"</strong></p>";
+            html+="<div class='radio-margin'>";
+            $.each(questionDetails.options, function(ind, answers) {
+                html+="<div class='form-check'>";
+                html+="<input class='form-check-input radio-style' type='radio' section=0 onClick='otherInputController(`"+questionDetails.question_id+"`,0)' name='"+questionDetails.question_id+"' number='"+questionNumber+"' id='"+questionDetails.question_id+"' value='"+answers+"'>";
+                html+="<label class='form-check-label' for='validationFormCheck2'>";
+                html+="<strong class='fs-5'>"+answers+"</strong>";
+                html+="</label>";
+                html+="</div>";
+                questionNumber++;
+            });
+            if(questionDetails.has_others){ //其他input
+                html+="<div class='form-check form-check-inline'>";
+                html+="<input class='form-check-input radio-style' type='radio' onClick='otherInputController(`"+questionDetails.question_id+"`,1)' section=0 name='"+questionDetails.question_id+"' number='-1' id='"+questionDetails.question_id+"'>";
+                html+="<label class='form-check-label' for='validationFormCheck2'>";
+                html+="<strong class='fs-5'>其他：</strong>";
+                html+="</label>";
+                html+="<input type='text' class='h-75 pr-0 py-1' style='border-radius:5px; width:130px;' name='"+questionDetails.question_id+"' disabled>";
+                html+="</div>";
+            }
+            html+="</div></div></div>";
+        });
+        html+="</div></div>";
+        $("#next").show();
+        $("#prev").hide();
+        $("#submit").hide();
+        $( ".carousel-inner" ).append(html);
+    });
+});
+
+//Detect the slide change
+$(function(){
+    $('#carouselExampleControls').on('slide.bs.carousel', function slide(ev) {
+        fromSlide = parseInt(ev.from);
+        toSlide = parseInt(ev.to);
+        //console.log("next_fromSlide: "+ (fromSlide))
+       //console.log("next_toSlide: "+ (toSlide))
+    });
+});
+
+//next
+$(function(){
+    $('#carouselExampleControls').delegate("#next","click", function(){
+        section += 1;
+        var questions = {};
+        var html = "";
+        var container = 0;
+        var blankAnswer = false;
+        var alertMessage = "";
+        //Get all the questions in current page
+        $('input:radio','.carousel-inner .carousel-item:nth-child('+(section)+')').each(function()
+        {
+            questions[$(this).attr('name')] = true;
+        });
+        $.each(questions, function(key, value){
+            if(!$('input[name='+key+']').is(':checked'))
+            {
+                blankAnswer = true;
+                alertMessage += key + " "
+            }
+        });
+
+        if(blankAnswer){
+            section -= 1;
+            alert("Question " + alertMessage + " is blank")
+        } else {
+            $('input:checked','.carousel-inner .carousel-item:nth-child('+(section)+')').each(function() { //get certain page input:checked
+                if($.cookie($(this).attr('id')) != null && $.cookie($(this).attr('id')) != $(this).attr('value')){ //check if user change their answer after next
+                    //countChild = section; //count from current page since section+1 after press next
+                    lastPage = lastSlide + 1
+                    //console.log(lastPage)
+                    while (lastPage != section){
+                        $( '.carousel-item:nth-child('+(lastPage)+')' ).remove();
+                        createdSection.pop();
+                        lastPage--
+                    }
+                    //console.log(createdSection)
+                    //exit = false;
+                    //exitIfExist = false;
+                    /*while(true){
+                        countChild++
+                        if($( '.carousel-item:nth-child('+(countChild)+')' ).length == 0){
+                            break;
+                        }
+                        //console.log("countChild: " + countChild);
+                        $( '.carousel-item:nth-child('+(countChild)+')' ).remove();
+                        console.log($( '.carousel-item:nth-child('+(4)+')' ).length)
+                        createdSection.pop();
+                        //console.log("createdSection: " + createdSection)
+                    }*/
+                    //console.log($.cookie($(this).attr('id')) + ":" + $(this).attr('value'))
+                }
+                if($(this).attr('number') == "-1"){
+                    //console.log($(this).attr('id'))
+                    //console.log($("input[name="+$(this).attr('name')+"]:text").val())
+                    $.cookie($(this).attr('id'), $("input[name="+$(this).attr('name')+"]:text").val(), {'path': '/'});
+                } else {
+                    $.cookie($(this).attr('id'), $(this).attr('value'), {'path': '/'});
+                }
+                //section = parseInt($(this).attr('section')) + 1;
+                conditions[$(this).attr('id')] = $(this).attr('number');
+                //conditions.push($(this).attr('id')+"=="+$(this).attr('number'));
+                //console.log($(this).attr('number'))
+                //console.log($(this).attr('id'))
+                //console.log($(this).attr('value'))
+                //console.log($(this).attr('section'))
+            });
+            //console.log($.cookie());
+            //console.log(section)
+            //console.log(conditions)
+            $.each(createdSection, function(sectionIndex, sectionName){ //check the item if created
+                if(sectionName == section){
+                    checkCreatedSection = true;
+                    //console.log(sectionName)
+                }
+            });
+            if(checkCreatedSection){ //avoid create same item
+                checkCreatedSection = false;
+                if(section == exitSlide){
+                    $("#next").hide();
+                    $("#prev").show();
+                    $("#submit").show();
+                } else {
+                    $("#next").show();
+                    $("#prev").show();
+                    $("#submit").hide();
+                }
+                $('#carouselExampleControls').carousel('next');
+            } else {
+                {% block json2 %}
+                    //$.getJSON("{{ site.theme.link }}/static/landform.json", function(data) {
+                {% endblock %}
+                    if(exitIfExist){
+                        $.each(exitConditions, function(conditionIndex, exitCondition){
+                            $.each(conditions, function(Qindex, value) {
+                                condition = Qindex + "==" + value
+                                if(condition == exitCondition){
+                                    //console.log("condition: "+condition)
+                                    exit = true;
+                                }
+                            });
+                        });
+                        exitIfExist = false;
+                        exitConditions = [];
+                    }
+
+                    if (exit){
+                        exitSlide = section;
+                        //console.log(exitSlide);
+                        html+= "<div class='carousel-item' id='submitPage'>";
+                        html+= "<div class='container'>";
+                        html+= "<div class='row justify-content-center'>"
+                        html+= "<div class='col-9 col-md-9 col-xl-8 bg-white shadow p-4' style='border-radius:30px;'>"
+                        {% block submitTitle %}
+                        //html+= "<strong class='fs-2 white-bg-title'>離婚事宜</strong>"
+                        {% endblock %}
+                        html+= "</div>"
+                        html+= "</div>"
+                        html+="<div class='tab row justify-content-center mt-5'>";
+                        html+="<div class='col-9 col-md-9 col-xl-8 bg-white shadow p-4 white-bg-content' style='border-radius:30px;'>";
+                        html+="<strong>問卷已完成，你要確定提交嗎?</strong>"
+                        html+="</div></div></div></div>"
+                        exit = false;
+                        $("#next").hide();
+                        $("#prev").show();
+                        $("#submit").show();
+                    } else {
+                        try{
+                            $.each(data.sections[section].questions, function(index, questionDetails) {
+                                $.each(conditions, function(Qindex, value) {
+                                    condition = Qindex + "==" + value
+                                    if(condition == questionDetails.condition){
+                                        if(container == 0){
+                                            html+= "<div class='carousel-item'>";
+                                            html+= "<div class='container'>";
+                                            html+= "<div class='row justify-content-center'>"
+                                            html+= "<div class='col-9 col-md-9 col-xl-8 bg-white shadow p-4' style='border-radius:30px;'>"
+                                            html+= "<strong class='fs-2 white-bg-title'>"+data.title.text+"----"+data.sections[section].section_title+"</strong>"
+                                            html+= "</div>"
+                                            html+= "</div>"
+                                            container++;
+                                        }
+                                        var questionNumber = 0;
+                                        html+="<div class='tab row justify-content-center mt-5'>";
+                                        html+="<div class='col-9 col-md-9 col-xl-8 bg-white shadow p-4 white-bg-content' style='border-radius:30px;'>";
+                                        html+="<p><strong class='fs-5'>"+questionDetails.question_id+") "+questionDetails.question+"</strong></p>";
+                                        html+="<div class='radio-margin'>";
+                                        $.each(questionDetails.options, function(ind, answers) {
+                                            html+="<div class='form-check'>";
+                                            html+="<input class='form-check-input radio-style' type='radio' section='"+section+"' name='"+questionDetails.question_id+"' number='"+questionNumber+"' id='"+questionDetails.question_id+"' value='"+answers+"'>";
+                                            html+="<label class='form-check-label' for='validationFormCheck2'>";
+                                            html+="<strong class='fs-5'>"+answers+"</strong>";
+                                            html+="</label>";
+                                            html+="</div>";
+                                            questionNumber++;
+                                        });
+                                        if(questionDetails.has_others){ //其他input
+                                            html+="<div class='form-check form-check-inline'>";
+                                            html+="<input class='form-check-input radio-style' type='radio' onClick='otherInputController(`"+questionDetails.question_id+"`)' section='"+section+"' name='"+questionDetails.question_id+"' number='-1' id='"+questionDetails.question_id+"'>";
+                                            html+="<label class='form-check-label' for='validationFormCheck2'>";
+                                            html+="<strong class='fs-5'>其他：</strong>";
+                                            html+="</label>";
+                                            html+="<input type='text' class='h-75 pr-0 py-1' style='border-radius:5px;' name='"+questionDetails.question_id+"' disabled>";
+                                            html+="</div>";
+                                        }
+                                        html+="</div></div></div>";
+                                        delete conditions[Qindex];
+                                    }
+                                });
+                                //console.log(questionDetails.condition)
+                            });
+                            html+="</div></div>";
+                        } catch {
+                            $('#carouselExampleControls').carousel('next'); // no need to add item
+                        }
+                        try{
+                            $.each(data.sections[section].exit_if, function(exitIndex, exit) { //check if exist exit_if
+                                exitConditions.push(exit)
+                                exitIfExist = true;
+                            });
+                        } catch {
+                            exitIfExist = false;
+                        }
+                        if(section == exitSlide){ //check if exit page
+                            $("#next").hide();
+                            $("#prev").show();
+                            $("#submit").show();
+                        } else {
+                            $("#next").show();
+                            $("#prev").show();
+                            $("#submit").hide();
+                        }
+                    }
+                    $( ".carousel-inner" ).append(html);
+                    createdSection.push(section);
+                    //console.log(createdSection)
+                    $('#carouselExampleControls').carousel('next');
+                    if(toSlide == 0){ //direct to submit page if no more questions
+                        $( "#firstItem" ).addClass( "d-none" )
+                        exitSlide = section;
+                        //console.log(exitSlide);
+                        html+= "<div class='carousel-item' id='submitPage'>";
+                        html+= "<div class='container'>";
+                        html+= "<div class='row justify-content-center'>"
+                        html+= "<div class='col-9 col-md-9 col-xl-8 bg-white shadow p-4' style='border-radius:30px;'>"
+                        {% block submitTitle2 %}
+                        //html+= "<strong class='fs-2 white-bg-title'>離婚事宜</strong>"
+                        {% endblock %}
+                        html+= "</div>"
+                        html+= "</div>"
+                        html+="<div class='tab row justify-content-center mt-5'>";
+                        html+="<div class='col-9 col-md-9 col-xl-8 bg-white shadow p-4 white-bg-content' style='border-radius:30px;'>";
+                        html+="<strong>問卷已完成，你要確定提交嗎?</strong>"
+                        html+="</div></div></div></div>"
+                        $("#next").hide();
+                        $("#prev").show();
+                        $("#submit").show();
+                        $( ".carousel-inner" ).append(html);
+                        createdSection.push(section);
+                        $('#carouselExampleControls').carousel(exitSlide);
+                    }
+                });
+            }
+        }
+        if(section > lastSlide){ //find the lastslide
+            lastSlide = section
+        }
+    });
+});
+
+//Previous
+$(function() {
+    $('#carouselExampleControls').delegate("#prev","click", function(){
+        $( "#firstItem" ).removeClass( "d-none" )
+        section -=1
+        if(section == 0){
+            $("#next").show();
+            $("#prev").hide();
+            $("#submit").hide();
+        } else {
+            $("#next").show();
+            $("#prev").show();
+            $("#submit").hide();
+        }
+        $('#carouselExampleControls').carousel('prev');
+    });
+});
+
+//enable or disable input text field
+function otherInputController(id,index){
+    //console.log(index)
+    if (index == 1){
+        $('input:text[name='+id+']').removeAttr('disabled');
+    } else {
+        $('input:text[name='+id+']').val("");
+        $('input:text[name='+id+']').attr('disabled','disabled');
+    }
+}
+
+//submit handler
+function submitHandler(){
+    var cookies = $.cookie();
+    for(var cookie in cookies) { //remove all the cookie for testing
+        $.removeCookie(cookie);
+    }
+    //console.log($.cookie())
+    $('input:checked','.carousel-inner .carousel-item').each(function() {
+        if($(this).attr('number') == "-1"){
+            //console.log($(this).attr('id'))
+            //console.log($("input[name="+$(this).attr('name')+"]:text").val())
+            //console.log($(this).attr('id') + ":" + $("input[name="+$(this).attr('name')+"]:text").val())
+            //$.cookie($(this).attr('id'), $("input[name="+$(this).attr('name')+"]:text").val(), {'path': '/'}); <==========value that send to database
+            $.cookie($(this).attr('id'), $(this).attr('number'), {'path': '/'});
+        } else {
+            //console.log($(this).attr('id') + ":" + $(this).attr('value'))
+            //$.cookie($(this).attr('id'), $(this).attr('value'), {'path': '/'}); <==========value that send to database
+             $.cookie($(this).attr('id'), $(this).attr('number'), {'path': '/'});
+        }
+    });
+    console.log($.cookie())
+    {% block suggestion %}
+    //window.location.replace("http://localhost/landsuggestion/");
+    {% endblock %}
+}
+</script>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-12 col-xl-10">
+            <div id="carouselExampleControls" class="carousel slide" data-bs-interval="false">
+                <div class="carousel-inner">
+                </div>
+                <div class="mt-5" style="float:right;">
+                    <a href="#carouselExampleControls" style="text-decoration:none;" role="button" id="prev">
+                        <button type="button" class="btn btn-success">上一題</button>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a href="#carouselExampleControls" style="text-decoration:none;" role="button" id="next">
+                        <button type="button" class="btn btn-success">下一題</button>                    
+                        <span class="sr-only">Next</span> <!--Change to button later-->
+                    </a>
+                    <a href="#carouselExampleControls" onClick="submitHandler()" style="text-decoration:none;" role="button" id="submit">
+                        <button type="button" class="btn btn-success">提交</button>                    
+                        <span class="sr-only">Submit</span> <!--Change to button later-->
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

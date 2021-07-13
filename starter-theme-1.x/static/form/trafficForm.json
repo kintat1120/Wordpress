@@ -1,0 +1,275 @@
+{
+	"title":{
+		"text":"交通意外"
+	},
+	"sections":[
+		{
+			"section_title": "基本資料(1)",
+			"questions": [
+				{
+					"question_id": "a",
+					"question": "發生了什麼事情？ ",
+					"options": [
+						"滲水",
+						"漏水"
+					],
+					"has_others": true
+				},{
+					"question_id": "b",
+					"question": "有關大廈屬：",
+					"options": [
+						"私人樓宇",
+						"公共屋邨",
+						"居屋",
+						"村屋"
+					],
+					"has_others": true
+				},{
+					"question_id": "c",
+					"question": "你是：",
+					"options": [
+						"投訴人",
+						"被投訴人"
+					],
+					"has_others": false
+				}, {
+					"question_id": "d",
+					"question": "你是：",
+					"options": [
+						"業主",
+						"租客"
+					]
+				}
+			]
+		}, {
+			"section_title": "基本資料(2)",
+			"questions": [
+				{
+					"question_id": "d1",
+					"question": "有通知業主嗎？",
+					"options": [
+						"有",
+						"沒有"
+					],
+					"condition": "d==1"
+				}, {
+					"question_id": "d2",
+					"question": "涉事單位屬於：",
+					"options": [
+						"自住",
+						"出租",
+						"空置"
+					],
+					"condition": "d==0"
+				}, {
+					"question_id": "d3",
+					"question": "有通知房屋署嗎？",
+					"options": [
+						"有",
+						"沒有"
+					],
+					"condition": "b==1"
+				}
+			]
+		}, {
+			"section_title": "基本資料(3)",
+			"questions": [
+				{
+					"question_id": "e",
+					"question": "你是否想作出投訴或追討損失？",
+					"options": [
+						"是",
+						"否"
+					],
+					"condition": "c==0"
+				},
+				{
+					"question_id": "f",
+					"question": "你是否收到投訴信／索償信？",
+					"options": [
+						"是",
+						"否"
+					],
+					"condition": "c==1"
+				},
+				{
+					"question_id": "g",
+					"question": "如何得知是次事宜？",
+					"options": [
+						"租客通知",
+						"..."
+					],
+					"has_others": false,
+					"condition": "d2==1"
+				}
+			],
+			"exit_if":[
+				"a==-1",
+				"b==-1",
+				"b==3"
+			]
+		}
+	],
+	"advice": [
+		{
+			"text": "Lecopt 話你知：",
+			"points":[
+				{
+					"text": "如果是次爆水管導致你受到損失，你可以向相關人士索償，一般情況下是依單據賠償（“實報實銷”）。",
+					"points": [],
+					"condition": [
+						"c==1;d==0",
+						"c==0;h==0"
+					],
+					"layer": 1
+				},
+				{
+					"text": "一般而言，如果事件已發生了超過三年的索償期限，你就不可以進行索償，但你仍然可以聯絡我們，以進一步了解詳情及提供協助。",
+					"points": [],
+					"condition": [
+						"c==0;h==2"
+					],
+					"layer": 1
+				},
+				{
+					"text": "如果是次爆水管導致他人受到損失，有關人士可以向你進行民事索償。",
+					"points": [],
+					"condition": [
+						"c==1;h==1",
+						"c==1;h==0"
+					],
+					"layer": 1
+				},
+				{
+					"text": "一般而言，如果事件已發生了超過三年的索償期限，有關人士就不可向你進行索償，但你仍然可以聯絡我們，以進一步了解詳情及提供協助。",
+					"points": [],
+					"condition": [
+						"c==1;h==2"
+					],
+					"layer": 1
+				}
+			],
+			"condition":["true"],
+			"layer": 0
+		}, {
+			"text": "Lecopt 建議你： (一般情況)",
+			"points": [
+				{
+					"text": "出事後先自行拍下現場照片或影片以記錄是次爆水管情況。",
+					"points": [],
+					"condition":["true"],
+					"layer": 1
+				},
+				{
+					"text": "通知管理處職員上門視察及影相以記錄是次爆水管情況。",
+					"points": [],
+					"condition":["true"],
+					"layer": 1
+				},
+				{
+					"text": "查清源頭",
+					"points": [
+
+						{
+							"text": "與管理處職員溝通，詢問可否安排合資格人士進一步檢查。",
+							"points": [],
+							"condition":["true"],
+							"layer": 2
+						},
+						{
+							"text": "如管理處職員無法提供協助，你應自行尋找合資格人士或政府職員上門檢查爆水管原因，認清責任方，以便追討賠償",
+							"points": [],
+							"condition":["true"],
+							"layer": 2
+						}
+					],
+					"condition": ["a==0"],
+					"layer": 1
+				},
+				{
+					"text": "查清源頭",
+					"points": [
+
+						{
+							"text": "與管理處職員溝通，詢問可否安排合資格人士進一步檢查。",
+							"points":[],
+							"condition":["true"],
+							"layer": 2
+						},
+						{
+							"text": "如有合資格人士或政府職員上門檢查爆水管原因，你應與：",
+							"points": [
+								{
+									"text": "查明他們身份",
+									"points": [],
+									"condition":["true"],
+									"layer": 3
+								},
+								{
+									"text": "協助他們查出源頭，以便𨤳清責任",
+									"points": [],
+									"condition":["true"],
+									"layer": 3
+								},
+								{	"text": "要求他們視察後提供報告副本",
+									"points": [],
+									"condition":["true"],
+									"layer": 3
+								}
+							],
+							"condition":["true"],
+							"layer": 2
+						}
+					],
+					"condition": ["c==1"],
+					"layer": 1
+				},
+				{
+					"text": "寫信通知房屋署（需要Lecopt幫忙）",
+					"points": [],
+					"condition": ["b==1"],
+					"layer": 1
+				},
+				{
+					"text": "寫信通知大廈法團（需要Lecopt 幫忙撰寫及查詢大廈法團地址）",
+					"points": [],
+					"condition": ["b==0"],
+					"layer": 1
+				},
+				{
+					"text": "如有報警，請準備報警報告及提供落案編號。",
+					"points": [],
+					"condition":["true"],
+					"layer": 1
+				},
+				{
+					"text": "如滲水源頭多於一個，只要你的單位經認可人士確認為其中一個源頭，便有可能需要負上相關維修及賠償責任。",
+					"points": [],
+					"condition":["true"],
+					"layer": 1
+				},
+				{
+					"text": "你應通知業主，因為業主也有可能需要付上維修或索償的責任。",
+					"points": [],
+					"condition": ["d1==1"],
+					"layer": 1
+				}
+
+			],
+			"condition":["true"],
+			"layer": 0
+		}, {
+			"text": "Lecopt 建議你： (保險事宜)",
+			"points": [
+				{
+					"text": "test",
+					"points": [],
+					"condition":["true"],
+					"layer": 1
+				}
+			],
+			"condition": ["b==-1;c==1"],
+			"layer": 0
+		}
+	]
+}

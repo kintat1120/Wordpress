@@ -1,0 +1,4 @@
+{% extends "suggestion.twig" %}
+{% block json %}
+$.getJSON("{{ site.theme.link }}/static/form/businessForm.json", function(data) {
+{% endblock %}

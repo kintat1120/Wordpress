@@ -1,0 +1,4 @@
+{% extends "suggestion.twig" %}
+{% block json %}
+$.getJSON("{{ site.theme.link }}/static/form/divorceForm.json", function(data) {
+{% endblock %}
