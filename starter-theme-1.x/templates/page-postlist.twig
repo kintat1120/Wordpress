@@ -1,6 +1,75 @@
 {% extends "base.twig" %}
 
 {% block content %}
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-{{post}}
+<div class="container-fluid" style="background-color:#F0F0F0;">
+    <div class="row justify-content-center">
+        <div class="col-12 mt-5">
+            <p class="text-center fs-5"><strong>我們的話題</strong></p>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-12 col-xl-8">
+            {% for tag in tags %}
+                <a href="http://localhost/tag/{{ tag.slug }}"><button type="button" class="btn btn-light btn-sm btn-tags">{{ tag.name }}</button></a>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row mt-4"></div>
+</div>
+<div class="container">
+    <div class="row">
+    <!--PC version-->
+        <div class="col-12 col-xl-7 mt-5 editor-picks-pc">
+            <p class="fs-5"><strong>編輯之選</strong></p>
+            <p style="border-bottom: 1px solid #EDEDED;" class="mt-3"></p>
+            {% for post in allPost %}
+                <div style="display:flex;">
+                    <img class="post-image" src="https://www.bowtie.com.hk/blog/wp-content/uploads/2019/04/09174430/premium_compare-300x300.jpg">
+                    <div style="margin-left:30px;">
+                        <div>
+                        {% for postTags in post.tags %}
+                            <a href="http://localhost/tag/{{ postTags.slug }}" class="a-tags-style a-tags"><strong>{{ postTags.name }}</strong></a>
+                        {% endfor %}
+                        </div>
+                        <div>
+                            <a style="font-size:32px;" class="a-tags-style text-break" href="{{ post.guid }}">{{ post.post_title }}</a>
+                        </div>
+                        <div>
+                            <p class="text-break" style="color:#888888;">{{ post.preview.length(30).read_more('') }}</p>
+                        </div>
+                        <div>
+                            <a href="{{post.author.link}}" class="a-tags-style a-authors">{{post.author.name}}</a> 
+                            <span style="color:#DDDDDD;">|</span> 
+                            <span style="font-size:14px;">{{ post.date }}</span>
+                        </div>
+                    </div>
+                </div>
+                <p style="border-bottom: 1px solid #EDEDED;" class="mt-3"></p>
+            {% endfor %}
+        </div>
+    
+        <div class="col-12 col-xl-4 mt-5">
+            <p class="fs-5"><strong>最新文章</strong></p>
+            <p style="border-bottom: 1px solid #EDEDED;" class="mt-3"></p>
+            {% for post in recentPost %}
+                <div>
+                    {% for postTags in post.tags %}
+                        <a href="http://localhost/tag/{{ postTags.slug }}" class="a-tags-style a-tags"><strong>{{ postTags.name }}</strong></a>
+                    {% endfor %}
+                    <h5 class="mt-2"><a class="a-tags-style" href="{{ post.guid }}">{{ post.post_title }}</a></h5>
+                    <span>
+                        <a href="{{post.author.link}}" class="a-tags-style a-authors">{{post.author.name}}</a> 
+                        <span style="color:#DDDDDD;">|</span> 
+                        <span style="font-size:14px;">{{ post.date }}</span>
+                    </span>
+                    <p style="border-bottom: 1px solid #EDEDED;" class="mt-3"></p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 {% endblock %}

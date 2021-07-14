@@ -252,6 +252,55 @@
     border-radius: 50% !important;
 }
 /*<======================================================form page=======================================================>*/
+/*<======================================================postlist page=======================================================>*/
+.btn-tags{
+    border-radius: 30px !important; 
+    padding:10px 20px !important;
+    margin: 8px !important;
+    -webkit-transition: all .3s ease-in-out !important;
+}
+.btn-tags:hover{
+    -webkit-transform: scale(1.2) !important;
+}
+
+.a-tags-style{
+    text-decoration: none;
+    cursor: pointer;
+    color: black;
+}
+
+.a-tags-style:hover {
+    color: #E7E7E7;
+}
+
+.a-tags{
+    font-size: 14px;
+    color:#858585;
+}
+
+.a-authors{
+    font-size: 14px;
+}
+
+.post-image {
+    height:200px;
+    width: 200px;
+    opacity: 1;
+    display: block;
+    transition: .5s ease;
+    backface-visibility: hidden;
+    cursor: pointer;
+}
+
+.post-image:hover {
+    opacity: 0.5;
+}
+
+.editor-picks-mobile{
+    display:none;
+}
+
+/*<======================================================postlist page=======================================================>*/
 
 @media only screen and (max-width: 770px){ /*ipad size*/
 /*<======================================================Home page=======================================================>*/
@@ -308,6 +357,14 @@
     border-radius: 50% !important;
 }
 /*<======================================================form page=======================================================>*/
+/*<======================================================postlist page=======================================================>*/
+.editor-picks-pc{
+    display:none;
+}
+.editor-picks-mobile{
+    display: block;
+}
+/*<======================================================postlist page=======================================================>*/
 }
 @media only screen and (max-width: 430px){ /*mobile L size*/
 /*<======================================================Home page=======================================================>*/
@@ -384,7 +441,14 @@
     border-radius: 50% !important;
 }
 /*<======================================================form page=======================================================>*/
-
+/*<======================================================postlist page=======================================================>*/
+.editor-picks-pc{
+    display:none;
+}
+.editor-picks-mobile{
+    display: block;
+}
+/*<======================================================postlist page=======================================================>*/
 }
     
 @media only screen and (max-width: 325px){ /*mobile S size*/
@@ -478,4 +542,12 @@
     border-radius: 50% !important;
 }
 /*<======================================================form page=======================================================>*/
+/*<======================================================postlist page=======================================================>*/
+.editor-picks-pc{
+    display:none;
+}
+.editor-picks-mobile{
+    display: block;
+}
+/*<======================================================postlist page=======================================================>*/
 }

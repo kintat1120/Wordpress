@@ -1,6 +1,31 @@
 {% if menu %}
 	{% for item in items %}
-		{% if item.children %}
+		{% if item.title == "法律知識" %}
+		<li class="{{ item.classes | join(' ') }} nav-item dropdown">
+			<a class="nav-link dropdown-toggle" style="color:#757575;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<strong class="fs-5">{{ item.title }}</strong>
+			</a>
+			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+				{% for child in item.children %}
+					{% if child.children %}
+						<a class="nav-link dropdown-toggle" style="color:#757575;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<strong>{{ child.title }}</strong>
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							{% for child_2 in child.children %}
+								<a class="dropdown-item" style="color:#757575;" href="{{ child_2.link }}">{{ child_2.title }}</a>
+							{% endfor %}
+						</div>
+					{% else %}
+						<a class="dropdown-item" style="color:#757575;" href="{{ child.link }}">{{ child.title }}</a>
+					{% endif %}
+				{% endfor %}
+				{% for tag in tags %}
+					<a class="dropdown-item" style="color:#757575;" href="http://localhost/tag/{{ tag.slug }}">{{ tag.name }}</a>
+				{% endfor %}
+			</div>
+		</li>
+		{% elseif item.children %}
 		<li class="{{ item.classes | join(' ') }} nav-item dropdown">
 			<a class="nav-link dropdown-toggle" style="color:#757575;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<strong class="fs-5">{{ item.title }}</strong>

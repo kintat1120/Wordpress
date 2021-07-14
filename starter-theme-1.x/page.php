@@ -26,6 +26,24 @@ $context = Timber::context();
 $timber_post     = new Timber\Post();
 //var_dump($timber_post);
 $context['post'] = $timber_post;
+
+//Get all the post tags
+$context['tags'] = Timber::get_terms('post_tag');
+
+//show 3 recent posts
+$context['recentPost'] = new Timber\PostQuery(array(
+    'post_type' => 'post',
+    'posts_per_page' => 3, //how many recent pages want to show
+));
+//var_dump($context['recentPost']);
+
+//show all the posts
+$context['allPost'] = new Timber\PostQuery(array(
+    'post_type' => 'post'
+));
+//var_dump($context['allPost']);
+
+
 Timber::render( array( 'page-' . $timber_post->post_name . '.twig', 'page.twig' ), $context );
 
 
