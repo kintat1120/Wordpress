@@ -22,6 +22,11 @@ parser.add_argument(
     const=True,
     default=False
 )
+parser.add_argument(
+    '--local-db',
+    dest='local_db',
+    default=None
+)
 args = parser.parse_args()
 
 is_r2l = 0
@@ -42,6 +47,9 @@ if not os.path.exists(temp_folder):
 LOCAL_DB_HOST = "127.0.0.1"
 LOCAL_DB_USER = "root"
 LOCAL_DB_DATABASE = "wp"
+
+if args.local_db:
+    LOCAL_DB_DATABASE = args.local_db
 
 REMOTE_DB_HOST = "dev.lecopt.tech"
 REMOTE_DB_IP = "35.226.144.108"
