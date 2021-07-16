@@ -8,6 +8,12 @@
     height:70px !important;
 }
 
+.title{
+    background-color: #191357 !important;
+    color: #FFFFFF !important;
+    border-radius: 30px !important;
+}
+
 .white-bg-title{
     color:#A2E2DA !important;
 }

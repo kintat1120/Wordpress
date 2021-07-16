@@ -77,7 +77,30 @@
 		</header>
 
 		<section id="content" role="main" class="content-wrapper">
-			{% if title %}<h1>{{title}}</h1>{% endif %}
+			{#{% if title %}<h1>{{title}}</h1>{% endif %}#} <!--title in tag-->
+			{% if title %}
+				{% if author %}
+					<div class="container-fluid" style="background-color:#191357;">
+						<div class="row justify-content-center">
+							<div class="col-12 text-center">	
+								<div class="mt-4"><img src="{{ author.avatar({ size: 150 }) }}"></div>
+								<div>
+									<h2 style="color:white;" class="mt-3">{{ author.name}}</h2>
+									<h5 style="color:white;" class="mt-3 mb-4">{{ author.description }}</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% else %}
+					<div class="container-fluid" style="background-color:#F0F0F0;">
+						<div class="row justify-content-center">
+							<div class="col-12 text-center">	
+								<button style="all: unset;" class="title m-5 py-2 px-5"><b>{{ title }}</b></button>
+							</div>
+						</div>
+					</div>
+				{% endif %}
+			{% endif %}
 			<div class="wrapper {{sidebar_class}}">
 				{% block content %}
 					Sorry, no content

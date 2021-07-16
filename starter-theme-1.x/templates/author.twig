@@ -1,7 +1,23 @@
 {% extends "base.twig" %}
 
 {% block content %}
+	<div class="container mt-5">
+		<div class="row justify-content-center">
+			<div class="col-12 text-center">
+				<h5><b>{{ posts.found_posts }} 篇文章</b></h5>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row justify-content-between">
+			<div class="col-12">
+				{# post content here#}
+			</div>
+		</div>
+	</div>
+	{#
 	{% for post in posts %}
 		{% include ["tease-"~post.post_type~".twig", "tease.twig"] %}
 	{% endfor %}
+	#}
 {% endblock %}

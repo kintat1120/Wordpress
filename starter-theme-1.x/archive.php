@@ -34,7 +34,22 @@ if ( is_day() ) {
 	$context['title'] = post_type_archive_title( '', false );
 	array_unshift( $templates, 'archive-' . get_post_type() . '.twig' );
 }
-
+//get post under this tag
 $context['posts'] = new Timber\PostQuery();
+//get all tags
+$context['tags'] = Timber::get_terms('post_tag');
+
+/*global $paged;
+if (!isset($paged) || !$paged){
+	$paged = 1;
+}
+$context = Timber::context();
+$args = array(
+	'post_type' => 'post',
+	'posts_per_page' => 5,
+	'paged' => $paged
+);
+$context['posts'] = new Timber\PostQuery($args);
+var_dump($context['posts']);*/
 
 Timber::render( $templates, $context );
