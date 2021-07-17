@@ -1,0 +1,59 @@
+{% set conditionMatch = true %}
+
+{% if advice.condition | length > 0 %}
+
+    [
+
+    {% set conditionMatch = false %}
+
+    {% for or_condition in advice.condition if not conditionMatch %}
+
+        {% set inner_condition_match = true %}
+
+        {% for inner_condition in or_condition|split(';') %}
+
+
+            {% set condition_tuple = inner_condition|split("==") %}
+
+            {% set q = condition_tuple[0] %}
+            {% set a = condition_tuple[1] %}
+
+            {% if a == -1 %}
+
+                {# check if input is free text #}
+
+            {% else %}
+
+                {% if answer['form_ans_' ~ q] == a %}
+                    {{inner_condition}}✅
+                {% else %}
+                    {{inner_condition}}❌
+                {% endif %}
+
+                {% set inner_condition_match = inner_condition_match and answer['form_ans_' ~ q] == a %}
+            {% endif %}
+
+        {% endfor %}
+
+        {% if inner_condition_match %}
+            {% set conditionMatch = true %}
+        {% endif %}
+
+    {% endfor %}
+
+    ]
+
+{% endif %}
+
+
+{% if conditionMatch %}
+
+    {{ advice.text }}
+    <ul>
+    {% for point in advice.points %}
+        <li>{% include 'advice-item.twig' with {'advice': point, 'answer': answer } %}
+        </li>
+    {% endfor %}
+    </ul>
+
+{% endif %}

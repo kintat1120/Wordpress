@@ -149,7 +149,7 @@
 					"layer": 1
 				}
 			],
-			"condition":["true"],
+			"condition":[],
 			"layer": 0
 		}, {
 			"text": "Lecopt 建議你： (一般情況)",
@@ -157,13 +157,13 @@
 				{
 					"text": "出事後先自行拍下現場照片或影片以記錄是次爆水管情況。",
 					"points": [],
-					"condition":["true"],
+					"condition":[],
 					"layer": 1
 				},
 				{
 					"text": "通知管理處職員上門視察及影相以記錄是次爆水管情況。",
 					"points": [],
-					"condition":["true"],
+					"condition":[],
 					"layer": 1
 				},
 				{
@@ -173,13 +173,13 @@
 						{
 							"text": "與管理處職員溝通，詢問可否安排合資格人士進一步檢查。",
 							"points": [],
-							"condition":["true"],
+							"condition":[],
 							"layer": 2
 						},
 						{
 							"text": "如管理處職員無法提供協助，你應自行尋找合資格人士或政府職員上門檢查爆水管原因，認清責任方，以便追討賠償",
 							"points": [],
-							"condition":["true"],
+							"condition":[],
 							"layer": 2
 						}
 					],
@@ -193,7 +193,7 @@
 						{
 							"text": "與管理處職員溝通，詢問可否安排合資格人士進一步檢查。",
 							"points":[],
-							"condition":["true"],
+							"condition":[],
 							"layer": 2
 						},
 						{
@@ -202,22 +202,22 @@
 								{
 									"text": "查明他們身份",
 									"points": [],
-									"condition":["true"],
+									"condition":[],
 									"layer": 3
 								},
 								{
 									"text": "協助他們查出源頭，以便𨤳清責任",
 									"points": [],
-									"condition":["true"],
+									"condition":[],
 									"layer": 3
 								},
 								{	"text": "要求他們視察後提供報告副本",
 									"points": [],
-									"condition":["true"],
+									"condition":[],
 									"layer": 3
 								}
 							],
-							"condition":["true"],
+							"condition":[],
 							"layer": 2
 						}
 					],
@@ -239,13 +239,13 @@
 				{
 					"text": "如有報警，請準備報警報告及提供落案編號。",
 					"points": [],
-					"condition":["true"],
+					"condition":[],
 					"layer": 1
 				},
 				{
 					"text": "如滲水源頭多於一個，只要你的單位經認可人士確認為其中一個源頭，便有可能需要負上相關維修及賠償責任。",
 					"points": [],
-					"condition":["true"],
+					"condition":[],
 					"layer": 1
 				},
 				{
@@ -256,7 +256,7 @@
 				}
 
 			],
-			"condition":["true"],
+			"condition":[],
 			"layer": 0
 		}, {
 			"text": "Lecopt 建議你： (保險事宜)",
@@ -264,7 +264,7 @@
 				{
 					"text": "test",
 					"points": [],
-					"condition":["true"],
+					"condition":[],
 					"layer": 1
 				}
 			],

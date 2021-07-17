@@ -14,9 +14,12 @@ var exitIfExist = false;
 var exit = false;
 var checkCreatedSection = false;
 var createdSection = [0];
+const COOKIE_PREFIX = 'form_ans_';
 var cookies = $.cookie();
 for(var cookie in cookies) { //remove all the cookie when enter this page
-    $.removeCookie(cookie);
+    if (cookie.startsWith(COOKIE_PREFIX)){
+        $.removeCookie(cookie);
+    }
 }
 
 //first
@@ -103,7 +106,7 @@ $(function(){
             alert("Question " + alertMessage + " is blank")
         } else {
             $('input:checked','.carousel-inner .carousel-item:nth-child('+(section)+')').each(function() { //get certain page input:checked
-                if($.cookie($(this).attr('id')) != null && $.cookie($(this).attr('id')) != $(this).attr('value')){ //check if user change their answer after next
+                if($.cookie(COOKIE_PREFIX + $(this).attr('id')) != null && $.cookie(COOKIE_PREFIX + $(this).attr('id')) != $(this).attr('value')){ //check if user change their answer after next
                     //countChild = section; //count from current page since section+1 after press next
                     lastPage = lastSlide + 1
                     //console.log(lastPage)
@@ -131,9 +134,9 @@ $(function(){
                 if($(this).attr('number') == "-1"){
                     //console.log($(this).attr('id'))
                     //console.log($("input[name="+$(this).attr('name')+"]:text").val())
-                    $.cookie($(this).attr('id'), $("input[name="+$(this).attr('name')+"]:text").val(), {'path': '/'});
+                    $.cookie(COOKIE_PREFIX + $(this).attr('id'), $("input[name="+$(this).attr('name')+"]:text").val(), {'path': '/'});
                 } else {
-                    $.cookie($(this).attr('id'), $(this).attr('value'), {'path': '/'});
+                    $.cookie(COOKIE_PREFIX + $(this).attr('id'), $(this).attr('value'), {'path': '/'});
                 }
                 //section = parseInt($(this).attr('section')) + 1;
                 conditions[$(this).attr('id')] = $(this).attr('number');
@@ -339,7 +342,9 @@ function otherInputController(id,index){
 function submitHandler(){
     var cookies = $.cookie();
     for(var cookie in cookies) { //remove all the cookie for testing
-        $.removeCookie(cookie);
+        if (cookie.startsWith(COOKIE_PREFIX)){
+            $.removeCookie(cookie);
+        }
     }
     //console.log($.cookie())
     $('input:checked','.carousel-inner .carousel-item').each(function() {
@@ -348,11 +353,11 @@ function submitHandler(){
             //console.log($("input[name="+$(this).attr('name')+"]:text").val())
             //console.log($(this).attr('id') + ":" + $("input[name="+$(this).attr('name')+"]:text").val())
             //$.cookie($(this).attr('id'), $("input[name="+$(this).attr('name')+"]:text").val(), {'path': '/'}); <==========value that send to database
-            $.cookie($(this).attr('id'), $(this).attr('number'), {'path': '/'});
+            $.cookie(COOKIE_PREFIX + $(this).attr('id'), $(this).attr('number'), {'path': '/'});
         } else {
             //console.log($(this).attr('id') + ":" + $(this).attr('value'))
             //$.cookie($(this).attr('id'), $(this).attr('value'), {'path': '/'}); <==========value that send to database
-             $.cookie($(this).attr('id'), $(this).attr('number'), {'path': '/'});
+             $.cookie(COOKIE_PREFIX + $(this).attr('id'), $(this).attr('number'), {'path': '/'});
         }
     });
     console.log($.cookie())

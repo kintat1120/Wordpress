@@ -1,7 +1,7 @@
 {% extends "base.twig" %}
 
 {% block content %}
-<script>
+{# <script>
 var cookies = $.cookie();
 console.log($.cookie());
 var suggestions = [];
@@ -16,42 +16,27 @@ function getSuggestions(obj){
         //suggestions.push(obj[i].text)
         try{
             $.each(obj[i].condition, function(conditionIndex, conditions) {
-                if (conditions.indexOf(";") >= 0){ //match more than one conditions
-                    var multiConditions = conditions.split(";");
-                    try{
-                        $.each(multiConditions, function(multiConditionsIndex, multiCondition) {
-                            if($.cookie(multiCondition.charAt(0))){
-                                var condition = multiCondition.charAt(0) + "==" + $.cookie(multiCondition.charAt(0))
-                                if(multiCondition == condition){
-                                    conditionMatch = true;
-                                    //console.log(condition)
-                                    //console.log("condition match" + conditionMatch);
-                                } else {
-                                    conditionMatch = false;
-                                    throw Error();
-                                }
+                
+                var multiConditions = conditions.split(";");
+                try{
+                    $.each(multiConditions, function(multiConditionsIndex, multiCondition) {
+                        if($.cookie(multiCondition.charAt(0))){
+                            var condition = multiCondition.charAt(0) + "==" + $.cookie(multiCondition.charAt(0))
+                            if(multiCondition == condition){
+                                conditionMatch = true;
+                                //console.log(condition)
+                                //console.log("condition match" + conditionMatch);
                             } else {
                                 conditionMatch = false;
                                 throw Error();
                             }
-                        });
-                    } catch (e) {}
-                } else { //match one condition 
-                    if($.cookie(conditions.charAt(0))){
-                        var condition = conditions.charAt(0) + "==" + $.cookie(conditions.charAt(0))
-                        if(conditions == condition){
-                            //console.log("condition match" + conditions);
                         } else {
                             conditionMatch = false;
+                            throw Error();
                         }
-                    } else if(conditions == "true"){
-                        //console.log("True: " + conditions)
-                        conditionMatch = true;
-                    } else {
-                        //console.log("No match: " + conditions)
-                        conditionMatch = false;
-                    }
-                }
+                    });
+                } catch (e) {}
+                
                 if(conditionMatch){
                     throw Error();
                 }
@@ -98,9 +83,22 @@ $(function (){
         $( "#suggestionRow" ).append(html);
     });
 });
-</script>
+</script> #}
 <div class="container mt-5">
     <div class="row justify-content-between" id="suggestionRow">
+
+        {% set answer = cookies|filter((v, k) => k starts with 'form_ans_') %}
+
+        {% for one_advice in advices %}
+
+            <div class="col-12" style="background:white;margin:5px;">
+
+                {% include 'advice-item.twig' with {'advice': one_advice, 'answer': answer } %}
+
+            </div>
+
+        {% endfor %}
+
     </div>
 </div>
 {% endblock %}
