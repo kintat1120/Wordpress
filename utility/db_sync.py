@@ -27,6 +27,12 @@ parser.add_argument(
     dest='local_db',
     default=None
 )
+parser.add_argument(
+    '--local-db-host',
+    dest='local_db_host',
+    default=None
+)
+
 args = parser.parse_args()
 
 is_r2l = 0
@@ -44,12 +50,15 @@ temp_folder = "tmp"
 if not os.path.exists(temp_folder):
     os.mkdir(temp_folder)
 
-LOCAL_DB_HOST = "127.0.0.1"
+LOCAL_DB_HOST = "http://localhost"
+LOCAL_DB_IP = "127.0.0.1"
 LOCAL_DB_USER = "root"
 LOCAL_DB_DATABASE = "wp"
 
 if args.local_db:
     LOCAL_DB_DATABASE = args.local_db
+if args.local_db_host:
+    LOCAL_DB_HOST = args.local_db_host
 
 REMOTE_DB_HOST = "dev.lecopt.tech"
 REMOTE_DB_IP = "35.226.144.108"
@@ -61,7 +70,7 @@ REMOTE_DB_PORT = 3306
 local_backup_filepath = temp_folder + "/localbackup" + datetime.now().strftime("%Y%m%d_%H%M%S") + ".sql"
 remote_backup_filepath = temp_folder + "/remotebackup" + datetime.now().strftime("%Y%m%d_%H%M%S") + ".sql"
 
-cmd = f"mysqldump --column-statistics=0 -u {LOCAL_DB_USER} -h {LOCAL_DB_HOST} {LOCAL_DB_DATABASE} > {local_backup_filepath}"
+cmd = f"mysqldump --column-statistics=0 -u {LOCAL_DB_USER} -h {LOCAL_DB_IP} {LOCAL_DB_DATABASE} > {local_backup_filepath}"
 print(cmd)
 os.system(cmd)
 print("done.")
@@ -74,7 +83,7 @@ print("done.")
 
 # Insert
 if is_r2l:
-    cmd = f'mysql --protocol=tcp --host={LOCAL_DB_HOST} --user={LOCAL_DB_USER} --default-character-set=utf8 --comments --database={LOCAL_DB_DATABASE}  < "{remote_backup_filepath}"'
+    cmd = f'mysql --protocol=tcp --host={LOCAL_DB_IP} --user={LOCAL_DB_USER} --default-character-set=utf8 --comments --database={LOCAL_DB_DATABASE}  < "{remote_backup_filepath}"'
     print(cmd)
     os.system(cmd)
     print("done r2l.")
@@ -88,12 +97,12 @@ else:
 cnx = mysql.connector.connect(
     user=LOCAL_DB_USER,
     password='',
-    host=LOCAL_DB_HOST,
+    host=LOCAL_DB_IP,
     database=LOCAL_DB_DATABASE,
 )
 cur = cnx.cursor()
-cur.execute(f"UPDATE `{LOCAL_DB_DATABASE}`.`wp_options` SET `option_value` = 'http://localhost' WHERE (`option_name` = 'siteurl');")
-cur.execute(f"UPDATE `{LOCAL_DB_DATABASE}`.`wp_options` SET `option_value` = 'http://localhost' WHERE (`option_name` = 'home');")
+cur.execute(f"UPDATE `{LOCAL_DB_DATABASE}`.`wp_options` SET `option_value` = '{LOCAL_DB_HOST}' WHERE (`option_name` = 'siteurl');")
+cur.execute(f"UPDATE `{LOCAL_DB_DATABASE}`.`wp_options` SET `option_value` = '{LOCAL_DB_HOST}' WHERE (`option_name` = 'home');")
 cnx.commit()
 cnx.close()
 
