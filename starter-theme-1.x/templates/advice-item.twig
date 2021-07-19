@@ -56,4 +56,15 @@
     {% endfor %}
     </ul>
 
+{% else %}    
+
+
+    <p style="color:grey; text-decoration: line-through;">{{ advice.text }}</p>
+    <ul style="color:grey; text-decoration: line-through;">
+    {% for point in advice.points %}
+        <li>{% include 'advice-item.twig' with {'advice': point, 'answer': answer } %}
+        </li>
+    {% endfor %}
+    </ul>
+
 {% endif %}

@@ -97,9 +97,10 @@
 					"question": "如何得知是次事宜？",
 					"options": [
 						"租客通知",
-						"..."
+						"直接收到投訴信／索償信",
+						"管理處通知"
 					],
-					"has_others": false,
+					"has_others": true,
 					"condition": "d2==1"
 				}
 			],
@@ -107,6 +108,90 @@
 				"a==-1",
 				"b==-1",
 				"b==3"
+			]
+		}, {
+			"section_title": "事件情況(1)",
+			"questions": [
+				{
+					"question_id": "h",
+					"question": "事情完結多久？",
+					"options": [
+						"持續至今",
+						"少於三年",
+						"多於三年"
+					]
+				},
+				{
+					"question_id": "i",
+					"question": "爆水管的位置？",
+					"options": [
+						"自己單位內",
+						"同層／上／下層鄰居單位",
+						"大廈內的其他地方",
+						"大廈外的其他地方",
+						"不確定"
+					]
+				},
+				{
+					"question_id": "j",
+					"question": "有找公證行／技工／水喉匠／政府（例如：水務署／食環署／聯合辦事處）職員檢查原因嗎？",
+					"options": [
+						"有",
+						"沒有"
+					]
+				}
+			],
+			"exit_if":[
+				"i==3"
+			]
+		}, {
+			"section_title": "事件情況(2)",
+			"questions": [
+				{
+					"question_id": "k",
+					"question": "找了：",
+					"options": [
+						"公證行",
+						"合資格技工",
+						"普通技工",
+						"水務署職員",
+						"食環署職員",
+						"聯合辦事處"
+					],
+					"condition": "j==0"
+				},
+				{
+					"question_id": "l",
+					"question": "有沒有向他們索取有關報告？",
+					"options": [
+						"有",
+						"沒有"
+					],
+					"condition": "j==0"
+				},
+				{
+					"question_id": "m",
+					"question": "爆水管的源頭是：",
+					"options": [
+						"樓上、毗鄰的單位",
+						"經由大廈天台/平台/露台/外牆/窗戶滲入"
+					],
+					"has_others": true,
+					"condition": "j==0"
+				},
+				{
+					"question_id": "n",
+					"question": "你認為爆水管源頭是：",
+					"options": [
+						"樓上、毗鄰的單位",
+						"經由大廈天台/平台/露台/外牆/窗戶滲入",
+						"不確定"
+					],
+					"condition": "j==1"
+				}
+			],
+			"exit_if":[
+				"i==3"
 			]
 		}
 	],
@@ -149,7 +234,6 @@
 					"layer": 1
 				}
 			],
-			"condition":[],
 			"layer": 0
 		}, {
 			"text": "Lecopt 建議你： (一般情況)",
@@ -157,13 +241,11 @@
 				{
 					"text": "出事後先自行拍下現場照片或影片以記錄是次爆水管情況。",
 					"points": [],
-					"condition":[],
 					"layer": 1
 				},
 				{
 					"text": "通知管理處職員上門視察及影相以記錄是次爆水管情況。",
 					"points": [],
-					"condition":[],
 					"layer": 1
 				},
 				{
@@ -173,13 +255,11 @@
 						{
 							"text": "與管理處職員溝通，詢問可否安排合資格人士進一步檢查。",
 							"points": [],
-							"condition":[],
 							"layer": 2
 						},
 						{
 							"text": "如管理處職員無法提供協助，你應自行尋找合資格人士或政府職員上門檢查爆水管原因，認清責任方，以便追討賠償",
 							"points": [],
-							"condition":[],
 							"layer": 2
 						}
 					],
@@ -193,7 +273,6 @@
 						{
 							"text": "與管理處職員溝通，詢問可否安排合資格人士進一步檢查。",
 							"points":[],
-							"condition":[],
 							"layer": 2
 						},
 						{
@@ -202,22 +281,18 @@
 								{
 									"text": "查明他們身份",
 									"points": [],
-									"condition":[],
 									"layer": 3
 								},
 								{
 									"text": "協助他們查出源頭，以便𨤳清責任",
 									"points": [],
-									"condition":[],
 									"layer": 3
 								},
 								{	"text": "要求他們視察後提供報告副本",
 									"points": [],
-									"condition":[],
 									"layer": 3
 								}
 							],
-							"condition":[],
 							"layer": 2
 						}
 					],
@@ -239,13 +314,11 @@
 				{
 					"text": "如有報警，請準備報警報告及提供落案編號。",
 					"points": [],
-					"condition":[],
 					"layer": 1
 				},
 				{
 					"text": "如滲水源頭多於一個，只要你的單位經認可人士確認為其中一個源頭，便有可能需要負上相關維修及賠償責任。",
 					"points": [],
-					"condition":[],
 					"layer": 1
 				},
 				{
@@ -256,19 +329,24 @@
 				}
 
 			],
-			"condition":[],
 			"layer": 0
 		}, {
 			"text": "Lecopt 建議你： (保險事宜)",
 			"points": [
 				{
-					"text": "test",
-					"points": [],
-					"condition":[],
-					"layer": 1
+					"text": "通知保險公司，向保險公司尋求意見。（需要Lecopt 以書面通知保險公司）"
+				},
+				{
+					"text": "提供水務署職員／合資格水喉匠／公證行的報告。"
+				},
+				{
+					"text": "提供所有與是次事宜有關之照片、影片、文件及收據。"
+				},
+				{
+					"text": "準備一個清單列明屋內受損物品的項目、數量及價值以方便索償。（需要Lecopt 幫忙準備清單）"
 				}
 			],
-			"condition": ["b==-1;c==1"],
+			"condition": ["p==1"],
 			"layer": 0
 		}
 	]
