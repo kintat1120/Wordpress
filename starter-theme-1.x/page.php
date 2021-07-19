@@ -33,7 +33,7 @@ $context['tags'] = Timber::get_terms('post_tag');
 // Equivalent to endsWith
 if (substr_compare($timber_post->post_name, "suggestion", -strlen("suggestion")) === 0){
     $context['cookies'] = $_COOKIE;
-    $context['advices'] = json_decode(file_get_contents("wp-content/Wordpress/starter-theme-1.x/static/form/landForm.json"), true)['advice'];
+    $context['advices'] = json_decode(file_get_contents("wp-content/themes/starter-theme-1.x/static/form/landForm.json"), true)['advice'];
 
     // var_dump($context['advices']);
 }
