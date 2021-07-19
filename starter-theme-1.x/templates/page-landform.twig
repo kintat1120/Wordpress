@@ -2,15 +2,18 @@
 {% block json %}
 $.getJSON("{{ site.theme.link }}/static/form/landForm.json", function(data) {
 {% endblock %}
-{% block json2 %}
+{#{% block json2 %}
 $.getJSON("{{ site.theme.link }}/static/form/landForm.json", function(data) {
 {% endblock %}
+#}
 {% block suggestion %}
 window.location.replace("/landSuggestion/");
 {% endblock %}
 {% block submitTitle %}
 html+= "<strong class='fs-2 white-bg-title'>土地及大廈</strong>"
 {% endblock %}
+{#
 {% block submitTitle2 %}
 html+= "<strong class='fs-2 white-bg-title'>土地及大廈</strong>"
 {% endblock %}
+#}

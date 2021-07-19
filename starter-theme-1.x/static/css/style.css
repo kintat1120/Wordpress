@@ -379,6 +379,25 @@
     font-size:16px !important; 
     border-radius: 50% !important;
 }
+
+#formTable{
+    border-collapse: collapse !important; 
+    width:100% !important;
+}
+#formTable td, #formTable th{
+    border: 1px solid #ddd !important;
+    padding: 8px !important;
+}
+
+#formTable tr:nth-child(even){background-color: #f2f2f2 !important;}
+
+#formTable th {
+    padding-top: 12px !important; 
+    padding-bottom: 12px !important;
+    text-align: left !important;
+    background-color: #04AA6D !important;
+    color: white !important;
+  }
 /*<======================================================form page=======================================================>*/
 /*<======================================================postlist page=======================================================>*/
 .editor-picks-pc{

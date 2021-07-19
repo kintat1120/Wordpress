@@ -1,7 +1,29 @@
 {% extends "base.twig" %}
 
 {% block content %}
+<style>
+.formTable{
+    border-collapse: collapse;
+    width:100%;
+}
+.formTable td, .formTable th{
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.question-tr:nth-child(even){background-color: #f2f2f2;}
+
+.formTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+  }
+</style>
+
 <script>
+
 var firstSlideIndicator = 0;
 var fromSlide = 0;
 var toSlide = 0;
@@ -12,15 +34,18 @@ var section = 0;
 var exitConditions = [];
 var exitIfExist = false;
 var exit = false;
+var exitNext = false;
 var checkCreatedSection = false;
 var createdSection = [0];
+var countPrev = 0;
 const COOKIE_PREFIX = 'form_ans_';
 var cookies = $.cookie();
 for(var cookie in cookies) { //remove all the cookie when enter this page
     if (cookie.startsWith(COOKIE_PREFIX)){
-        $.removeCookie(cookie);
+        $.removeCookie(cookie, { path: '/' });
     }
 }
+//console.log(cookies)
 
 //first
 $(function() {
@@ -109,12 +134,22 @@ $(function(){
                 if($.cookie(COOKIE_PREFIX + $(this).attr('id')) != null && $.cookie(COOKIE_PREFIX + $(this).attr('id')) != $(this).attr('value')){ //check if user change their answer after next
                     //countChild = section; //count from current page since section+1 after press next
                     lastPage = lastSlide + 1
+                    //lastPage = lastSlide
                     //console.log(lastPage)
                     while (lastPage != section){
                         $( '.carousel-item:nth-child('+(lastPage)+')' ).remove();
+                        {{ block('json') }}
+                            $.each(data.sections[lastPage].questions, function(index, questionDetails) { //delete the exist cookies
+                                console.log(questionDetails.question_id)
+                                $.removeCookie(COOKIE_PREFIX+questionDetails.question_id, { path: '/' });
+                            });
+                        });
                         createdSection.pop();
                         lastPage--
                     }
+                    //console.log($.cookie())
+                    createdSection.pop();
+                    exitSlide = 0;
                     //console.log(createdSection)
                     //exit = false;
                     //exitIfExist = false;
@@ -148,11 +183,12 @@ $(function(){
             });
             //console.log($.cookie());
             //console.log(section)
+            //console.log(exitSlide)
             //console.log(conditions)
             $.each(createdSection, function(sectionIndex, sectionName){ //check the item if created
+                //console.log(createdSection)
                 if(sectionName == section){
                     checkCreatedSection = true;
-                    //console.log(sectionName)
                 }
             });
             if(checkCreatedSection){ //avoid create same item
@@ -168,13 +204,19 @@ $(function(){
                 }
                 $('#carouselExampleControls').carousel('next');
             } else {
-                {% block json2 %}
+                /*{% block json2 %}
                     //$.getJSON("{{ site.theme.link }}/static/landform.json", function(data) {
                 {% endblock %}
+                */
+                    {{ block('json') }}
                     if(exitIfExist){
+                        exitNext = true;
+                        //countPrev = 0;
                         $.each(exitConditions, function(conditionIndex, exitCondition){
+                            //console.log("exitCondition:" + exitCondition)
                             $.each(conditions, function(Qindex, value) {
                                 condition = Qindex + "==" + value
+                                //console.log("answer:" + condition)
                                 if(condition == exitCondition){
                                     //console.log("condition: "+condition)
                                     exit = true;
@@ -182,12 +224,53 @@ $(function(){
                             });
                         });
                         exitIfExist = false;
-                        exitConditions = [];
+                        //console.log("hi")
+                        //exitConditions = [];
                     }
 
                     if (exit){
+                        //var cookies = $.cookie();
+                        //console.log(cookies)
                         exitSlide = section;
+                        html+= "<div class='carousel-item' id='submitPage'>";
+                        html+= "<div class='row justify-content-center'>"
+                        html+= "<div class='col-12 col-md-12 col-xl-12 bg-white p-4' style='border-radius:0px;'>"
+                        {{ block('submitTitle') }}
+                        html+= "</div>"
+                        html+= "</div>"
+                        //$.getJSON("{{ site.theme.link }}/static/form/landForm.json", function(data) {
+                        html+= '<table class="formTable mt-3">';
+                        html+="</table>"
+                        html+="</div>"
+                        $( ".carousel-inner" ).append(html);
+                        html="";
+                        {{ block('json') }}
+                            $.each(data.sections, function(index, sectionDetails) {
+                                var sectionTitle = false;
+                                $.each(sectionDetails.questions, function(sectionIndex, questionDetails) { 
+                                    $.each($.cookie(), function (cookieKey, cookieValue) {
+                                        if (cookieKey.indexOf("form_ans_") >= 0){
+                                            if(cookieKey.replace("form_ans_", "") == questionDetails.question_id){
+                                                if(!sectionTitle){
+                                                    html+="<tr><th><h5>"+sectionDetails.section_title+"</h5></th></tr>"
+                                                    //console.log(sectionDetails.section_title)
+                                                    sectionTitle = true;
+                                                }
+                                                html+="<tr class='question-tr'><td>"
+                                                html+= "<p>" + questionDetails.question + "</p>"
+                                                html+= "<p style='color:blue;'>" + cookieValue + "</p>"
+                                                html+="</td></tr>"
+                                                //console.log(questionDetails.question)
+                                                //console.log(cookieValue)
+                                            }
+                                        }
+                                    });
+                                });
+                            });
+                            $( ".formTable" ).append(html);
+                        });
                         //console.log(exitSlide);
+                        /*
                         html+= "<div class='carousel-item' id='submitPage'>";
                         html+= "<div class='container'>";
                         html+= "<div class='row justify-content-center'>"
@@ -201,6 +284,7 @@ $(function(){
                         html+="<div class='col-9 col-md-9 col-xl-8 bg-white shadow p-4 white-bg-content' style='border-radius:30px;'>";
                         html+="<strong>問卷已完成，你要確定提交嗎?</strong>"
                         html+="</div></div></div></div>"
+                        */
                         exit = false;
                         $("#next").hide();
                         $("#prev").show();
@@ -210,6 +294,9 @@ $(function(){
                             $.each(data.sections[section].questions, function(index, questionDetails) {
                                 $.each(conditions, function(Qindex, value) {
                                     condition = Qindex + "==" + value
+                                    //console.log(questionDetails.condition)
+                                    //console.log(questionDetails.question)
+                                    //console.log(condition)
                                     if(condition == questionDetails.condition){
                                         if(container == 0){
                                             html+= "<div class='carousel-item'>";
@@ -245,10 +332,46 @@ $(function(){
                                             html+="</div>";
                                         }
                                         html+="</div></div></div>";
-                                        delete conditions[Qindex];
+                                        //delete conditions[Qindex];
                                     }
                                 });
                                 //console.log(questionDetails.condition)
+                                if(questionDetails.condition === undefined){ //if question no condition
+                                    if(container == 0){
+                                        html+= "<div class='carousel-item'>";
+                                        html+= "<div class='container'>";
+                                        html+= "<div class='row justify-content-center'>"
+                                        html+= "<div class='col-9 col-md-9 col-xl-8 bg-white shadow p-4' style='border-radius:30px;'>"
+                                        html+= "<strong class='fs-2 white-bg-title'>"+data.title.text+"----"+data.sections[section].section_title+"</strong>"
+                                        html+= "</div>"
+                                        html+= "</div>"
+                                        container++;
+                                    }
+                                    var questionNumber = 0;
+                                    html+="<div class='tab row justify-content-center mt-5'>";
+                                    html+="<div class='col-9 col-md-9 col-xl-8 bg-white shadow p-4 white-bg-content' style='border-radius:30px;'>";
+                                    html+="<p><strong class='fs-5'>"+questionDetails.question_id+") "+questionDetails.question+"</strong></p>";
+                                    html+="<div class='radio-margin'>";
+                                    $.each(questionDetails.options, function(ind, answers) {
+                                        html+="<div class='form-check'>";
+                                        html+="<input class='form-check-input radio-style' type='radio' section='"+section+"' name='"+questionDetails.question_id+"' number='"+questionNumber+"' id='"+questionDetails.question_id+"' value='"+answers+"'>";
+                                        html+="<label class='form-check-label' for='validationFormCheck2'>";
+                                        html+="<strong class='fs-5'>"+answers+"</strong>";
+                                        html+="</label>";
+                                        html+="</div>";
+                                        questionNumber++;
+                                    });
+                                    if(questionDetails.has_others){ //其他input
+                                        html+="<div class='form-check form-check-inline'>";
+                                        html+="<input class='form-check-input radio-style' type='radio' onClick='otherInputController(`"+questionDetails.question_id+"`)' section='"+section+"' name='"+questionDetails.question_id+"' number='-1' id='"+questionDetails.question_id+"'>";
+                                        html+="<label class='form-check-label' for='validationFormCheck2'>";
+                                        html+="<strong class='fs-5'>其他：</strong>";
+                                        html+="</label>";
+                                        html+="<input type='text' class='h-75 pr-0 py-1' style='border-radius:5px;' name='"+questionDetails.question_id+"' disabled>";
+                                        html+="</div>";
+                                    }
+                                    html+="</div></div></div>";
+                                }
                             });
                             html+="</div></div>";
                         } catch {
@@ -266,6 +389,7 @@ $(function(){
                             $("#next").hide();
                             $("#prev").show();
                             $("#submit").show();
+                            console.log("section = exitSlide")
                         } else {
                             $("#next").show();
                             $("#prev").show();
@@ -279,7 +403,47 @@ $(function(){
                     if(toSlide == 0){ //direct to submit page if no more questions
                         $( "#firstItem" ).addClass( "d-none" )
                         exitSlide = section;
-                        //console.log(exitSlide);
+                        //var cookies = $.cookie();
+                        //console.log(cookies)
+                        exitSlide = section;
+                        html+= "<div class='carousel-item' id='submitPage'>";
+                        html+= "<div class='row justify-content-center'>"
+                        html+= "<div class='col-12 col-md-12 col-xl-12 bg-white p-4' style='border-radius:0px;'>"
+                        {{ block('submitTitle') }}
+                        html+= "</div>"
+                        html+= "</div>"
+                        //$.getJSON("{{ site.theme.link }}/static/form/landForm.json", function(data) {
+                        html+= '<table class="formTable mt-3">';
+                        html+="</table>"
+                        html+="</div>"
+                        $( ".carousel-inner" ).append(html);
+                        html="";
+                        {{ block('json') }}
+                            $.each(data.sections, function(index, sectionDetails) {
+                                var sectionTitle = false;
+                                $.each(sectionDetails.questions, function(sectionIndex, questionDetails) { 
+                                    $.each($.cookie(), function (cookieKey, cookieValue) {
+                                        if (cookieKey.indexOf("form_ans_") >= 0){
+                                            if(cookieKey.replace("form_ans_", "") == questionDetails.question_id){
+                                                if(!sectionTitle){
+                                                    html+="<tr><th><h5>"+sectionDetails.section_title+"</h5></th></tr>"
+                                                    //console.log(sectionDetails.section_title)
+                                                    sectionTitle = true;
+                                                }
+                                                html+="<tr class='question-tr'><td>"
+                                                html+= "<p>" + questionDetails.question + "</p>"
+                                                html+= "<p style='color:blue;'>" + cookieValue + "</p>"
+                                                html+="</td></tr>"
+                                                //console.log(questionDetails.question)
+                                                //console.log(cookieValue)
+                                            }
+                                        }
+                                    });
+                                });
+                            });
+                            $( ".formTable" ).append(html);
+                        });
+                        /*
                         html+= "<div class='carousel-item' id='submitPage'>";
                         html+= "<div class='container'>";
                         html+= "<div class='row justify-content-center'>"
@@ -293,10 +457,11 @@ $(function(){
                         html+="<div class='col-9 col-md-9 col-xl-8 bg-white shadow p-4 white-bg-content' style='border-radius:30px;'>";
                         html+="<strong>問卷已完成，你要確定提交嗎?</strong>"
                         html+="</div></div></div></div>"
+                        */
                         $("#next").hide();
                         $("#prev").show();
                         $("#submit").show();
-                        $( ".carousel-inner" ).append(html);
+                        //$( ".carousel-inner" ).append(html);
                         createdSection.push(section);
                         $('#carouselExampleControls').carousel(exitSlide);
                     }
@@ -312,6 +477,10 @@ $(function(){
 //Previous
 $(function() {
     $('#carouselExampleControls').delegate("#prev","click", function(){
+        countPrev += 1;
+        if(countPrev == 1 && exitNext){
+            exitIfExist = true;
+        }
         $( "#firstItem" ).removeClass( "d-none" )
         section -=1
         if(section == 0){
@@ -340,8 +509,8 @@ function otherInputController(id,index){
 
 //submit handler
 function submitHandler(){
-    var cookies = $.cookie();
-    for(var cookie in cookies) { //remove all the cookie for testing
+    //var cookies = $.cookie();
+    for(var cookie in $.cookie()) { //remove all the cookie for testing
         if (cookie.startsWith(COOKIE_PREFIX)){
             $.removeCookie(cookie);
         }
@@ -360,7 +529,7 @@ function submitHandler(){
              $.cookie(COOKIE_PREFIX + $(this).attr('id'), $(this).attr('number'), {'path': '/'});
         }
     });
-    console.log($.cookie())
+    //console.log($.cookie())
     {% block suggestion %}
     //window.location.replace("http://localhost/landsuggestion/");
     {% endblock %}
