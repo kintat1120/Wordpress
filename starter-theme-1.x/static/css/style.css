@@ -8,6 +8,11 @@
     height:70px !important;
 }
 
+.navbar-margin{
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
 .title{
     background-color: #191357 !important;
     color: #FFFFFF !important;
@@ -19,12 +24,11 @@
 }
 
 .white-bg-content{
-    color:#51837A !important;
+    color:#2B998E !important;
 }
 
 .white-bg-button-color{
-    background-color:#7FD5CA !important;
-    color:white !important;
+    background-color:#FAFFFE !important;
 }
 
 .green-bg-title{
@@ -59,7 +63,7 @@
 .footer-style{
     color:white !important; 
 }
-/*<======================================================Home page=======================================================>*/
+
 .header-top {
     text-align: right !important;
 }
@@ -89,9 +93,10 @@
 }
 
 .navbar-nav, .mr-auto {
-    margin: auto !important;
-    display: flex !important;
-    justify-content: space-between !important;
+    flex: 1;
+    margin: 0 100px 0 100px !important;
+    display: flex;
+    justify-content: space-between;
 }
 
 .remove-button-style{
@@ -122,13 +127,27 @@
     color: white;
 }
 
+/*<======================================================Home page=======================================================>*/
 .heading-1-button{
-    border-radius:0px !important;
-    padding-top:7px !important;
+    border-radius:10px !important;
+    padding-top:10px !important;
     padding-left:20px !important; 
     padding-right:20px !important;
-    padding-bottom:7px !important;
+    padding-bottom:10px !important;
     border:none !important;
+    margin-top: 40px;
+    margin-bottom: 150px;
+}
+.heading-1-buttonText{
+    font-size:24px;
+}
+.heading-1-arrow-1{
+    font-size: 28px;
+    color: #3C9D98;
+}
+.heading-1-arrow-2{
+    font-size: 28px;
+    color: #2C8076;
 }
 
 .workflow-margin{
@@ -324,6 +343,20 @@
     display: none;
 }
 /*<======================================================single.twig (posts)=======================================================>*/
+@media only screen and (max-width: 1024px){ /*Laptop size*/
+    .navbar-margin{
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .navbar-nav, .mr-auto {
+        flex: 1;
+        margin: 0 !important;
+        display: flex;
+        justify-content: space-between;
+    }
+    /*<======================================================Home page=======================================================>*/
+    /*<======================================================Home page=======================================================>*/
+}
 
 @media only screen and (max-width: 770px){ /*ipad size*/
 /*<======================================================Home page=======================================================>*/

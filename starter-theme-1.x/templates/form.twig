@@ -31,6 +31,7 @@ var lastSlide = 0;
 var exitSlide = 0;
 var conditions = {};
 var section = 0;
+var lastPage = 0;
 var exitConditions = [];
 var exitIfExist = false;
 var exit = false;
@@ -38,6 +39,7 @@ var exitNext = false;
 var checkCreatedSection = false;
 var createdSection = [0];
 var countPrev = 0;
+var waitForChecking = false;
 const COOKIE_PREFIX = 'form_ans_';
 var cookies = $.cookie();
 for(var cookie in cookies) { //remove all the cookie when enter this page
@@ -47,6 +49,24 @@ for(var cookie in cookies) { //remove all the cookie when enter this page
 }
 //console.log(cookies)
 
+//Wait 2 second for resolving the asyn problems
+function resolveAfter1Seconds() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve('resolved');
+    }, 1000);
+  });
+}
+async function asyncCallForCreatedSection() {
+  //console.log('calling');
+  const result = await resolveAfter1Seconds();
+  //console.log(result);
+    $.each(createdSection, function(sectionIndex, sectionName){ //check the item if created
+        if(sectionName == section){
+            checkCreatedSection = true;
+        }
+    });
+}
 //first
 $(function() {
     var html = "";
@@ -107,12 +127,14 @@ $(function(){
 //next
 $(function(){
     $('#carouselExampleControls').delegate("#next","click", function(){
+        {{ block('json') }}
         section += 1;
         var questions = {};
         var html = "";
         var container = 0;
         var blankAnswer = false;
         var alertMessage = "";
+        var createdSectionExist = false;
         //Get all the questions in current page
         $('input:radio','.carousel-inner .carousel-item:nth-child('+(section)+')').each(function()
         {
@@ -133,24 +155,55 @@ $(function(){
             $('input:checked','.carousel-inner .carousel-item:nth-child('+(section)+')').each(function() { //get certain page input:checked
                 if($.cookie(COOKIE_PREFIX + $(this).attr('id')) != null && $.cookie(COOKIE_PREFIX + $(this).attr('id')) != $(this).attr('value')){ //check if user change their answer after next
                     //countChild = section; //count from current page since section+1 after press next
-                    lastPage = lastSlide + 1
+                    lastPage = lastSlide + 1 
+                    waitForChecking = true;
                     //lastPage = lastSlide
-                    //console.log(lastPage)
-                    while (lastPage != section){
-                        $( '.carousel-item:nth-child('+(lastPage)+')' ).remove();
-                        {{ block('json') }}
-                            $.each(data.sections[lastPage].questions, function(index, questionDetails) { //delete the exist cookies
-                                console.log(questionDetails.question_id)
-                                $.removeCookie(COOKIE_PREFIX+questionDetails.question_id, { path: '/' });
-                            });
-                        });
-                        createdSection.pop();
-                        lastPage--
-                    }
-                    //console.log($.cookie())
-                    createdSection.pop();
-                    exitSlide = 0;
-                    //console.log(createdSection)
+                    //console.log("Before: " + createdSection)
+                    //{{ block('json') }}
+                        var firstdeleteCookies = true;
+                        while (lastPage != section){
+                            //console.log("lastPage: " + lastPage)
+                            //console.log("section: " + (section))
+                            $( '.carousel-item:nth-child('+(lastPage)+')' ).remove();
+                            //console.log("lastPage = " + lastPage)
+                            if(firstdeleteCookies){
+                                $.each(data.sections[(lastPage-2)].questions, function(index, questionDetails) { //delete the exist cookies
+                                    //console.log("lastPage: " + (lastPage-2))
+                                    //console.log("questionId: "+questionDetails.question_id)
+                                    $.removeCookie(COOKIE_PREFIX+questionDetails.question_id, { path: '/' });
+                                });
+                                firstdeleteCookies = false;
+                            } else {
+                                $.each(data.sections[(lastPage-1)].questions, function(index, questionDetails) { //delete the exist cookies
+                                    //console.log("lastPage: " + (lastPage-1))
+                                    //console.log("questionId: "+questionDetails.question_id)
+                                    $.removeCookie(COOKIE_PREFIX+questionDetails.question_id, { path: '/' });
+                                });
+                            }
+                            try{
+                                $.each(data.sections[(lastPage-1)].exit_if, function(index, exitDetails) { //delete the exist cookies
+                                    //console.log(exitDetails)
+                                    $.each(exitConditions, function(conditionIndex, conditionDetails) { //delete the exist cookies
+                                        if(exitDetails == conditionDetails){
+                                            console.log("conditionDetails: " + conditionDetails)
+                                            console.log("exitDetails: " + exitDetails)
+                                            exitConditions.splice( $.inArray(exitDetails,exitConditions) ,1 );
+                                        }
+                                    });
+                                });
+                            } catch(e) {
+                                //console.log("no exit_if")
+                            }
+                            createdSection.pop();
+                            //console.log("createdSection: " + createdSection)
+                            lastPage--
+                        }
+                        //console.log($.cookie())
+                        //createdSection.pop();
+                        //console.log("FinishcreatedSection: " + createdSection)
+                        lastSlide = section;
+                        exitSlide = 0;
+                    //});
                     //exit = false;
                     //exitIfExist = false;
                     /*while(true){
@@ -185,12 +238,18 @@ $(function(){
             //console.log(section)
             //console.log(exitSlide)
             //console.log(conditions)
-            $.each(createdSection, function(sectionIndex, sectionName){ //check the item if created
-                //console.log(createdSection)
-                if(sectionName == section){
-                    checkCreatedSection = true;
-                }
-            });
+            if(!waitForChecking){
+                $.each(createdSection, function(sectionIndex, sectionName){ //check the item if created
+                    if(sectionName == section){
+                        checkCreatedSection = true;
+                    }
+                });
+            } else {
+                waitForChecking = false;
+                asyncCallForCreatedSection();
+            }
+            checkCreatedSection = false;
+            
             if(checkCreatedSection){ //avoid create same item
                 checkCreatedSection = false;
                 if(section == exitSlide){
@@ -208,7 +267,7 @@ $(function(){
                     //$.getJSON("{{ site.theme.link }}/static/landform.json", function(data) {
                 {% endblock %}
                 */
-                    {{ block('json') }}
+                //{{ block('json') }}
                     if(exitIfExist){
                         exitNext = true;
                         //countPrev = 0;
@@ -230,7 +289,6 @@ $(function(){
 
                     if (exit){
                         //var cookies = $.cookie();
-                        //console.log(cookies)
                         exitSlide = section;
                         html+= "<div class='carousel-item' id='submitPage'>";
                         html+= "<div class='row justify-content-center'>"
@@ -244,7 +302,7 @@ $(function(){
                         html+="</div>"
                         $( ".carousel-inner" ).append(html);
                         html="";
-                        {{ block('json') }}
+                        //{{ block('json') }}
                             $.each(data.sections, function(index, sectionDetails) {
                                 var sectionTitle = false;
                                 $.each(sectionDetails.questions, function(sectionIndex, questionDetails) { 
@@ -268,7 +326,8 @@ $(function(){
                                 });
                             });
                             $( ".formTable" ).append(html);
-                        });
+                            html="";
+                        //});
                         //console.log(exitSlide);
                         /*
                         html+= "<div class='carousel-item' id='submitPage'>";
@@ -389,7 +448,7 @@ $(function(){
                             $("#next").hide();
                             $("#prev").show();
                             $("#submit").show();
-                            console.log("section = exitSlide")
+                            //console.log("section = exitSlide")
                         } else {
                             $("#next").show();
                             $("#prev").show();
@@ -397,7 +456,15 @@ $(function(){
                         }
                     }
                     $( ".carousel-inner" ).append(html);
-                    createdSection.push(section);
+                    //createdSection.push(section);
+                    $.each(createdSection, function(sectionIndex, sectionName){ //check the item if created
+                        if(sectionName == section){
+                            createdSectionExist = true;
+                        }
+                    });
+                    if(!createdSectionExist){
+                        createdSection.push(section);
+                    }
                     //console.log(createdSection)
                     $('#carouselExampleControls').carousel('next');
                     if(toSlide == 0){ //direct to submit page if no more questions
@@ -418,7 +485,7 @@ $(function(){
                         html+="</div>"
                         $( ".carousel-inner" ).append(html);
                         html="";
-                        {{ block('json') }}
+                        //{{ block('json') }}
                             $.each(data.sections, function(index, sectionDetails) {
                                 var sectionTitle = false;
                                 $.each(sectionDetails.questions, function(sectionIndex, questionDetails) { 
@@ -442,7 +509,7 @@ $(function(){
                                 });
                             });
                             $( ".formTable" ).append(html);
-                        });
+                        //});
                         /*
                         html+= "<div class='carousel-item' id='submitPage'>";
                         html+= "<div class='container'>";
@@ -462,15 +529,24 @@ $(function(){
                         $("#prev").show();
                         $("#submit").show();
                         //$( ".carousel-inner" ).append(html);
-                        createdSection.push(section);
+                        //createdSection.push(section);
+                        $.each(createdSection, function(sectionIndex, sectionName){ //check the item if created
+                            if(sectionName == section){
+                                createdSectionExist = true;
+                            }
+                        });
+                        if(!createdSectionExist){
+                            createdSection.push(section);
+                        }
                         $('#carouselExampleControls').carousel(exitSlide);
                     }
-                });
+                //});
             }
         }
         if(section > lastSlide){ //find the lastslide
             lastSlide = section
         }
+    });
     });
 });
 
