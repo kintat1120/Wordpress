@@ -150,14 +150,52 @@
     color: #2C8076;
 }
 
-.workflow-margin{
-    margin-top:70px !important;
+.choosing-2-title{
+    color:#91CCC3;
+}
+.choosing-2-text{
+    color:#5C8A80;
+}
+.choosing-2-select{
+    color:#B3B3B3 !important;
+    font-weight: bold !important;
 }
 
-.workflow-arrowSize{
-    font-size:36px !important;
+.workflow-3-title{
+    color:#8D8D8D;
 }
-.workflow-2-text{
+.workflow-3-dropdown{
+    color:white !important;
+    background-color: #2E8E82 !important;
+}
+.workflow-3-dropdown-text{
+    padding-right:50px !important;
+}
+.workflow-3-arrow{
+    position: relative;
+    top:50%;
+}
+.workflow-3-text{
+    color:#7A7A7A;
+    font-size:18px
+}
+
+.ourService-4-title{
+    color:#4A5150;
+}
+.ourService-4-box-1-title{
+    color:#C8E5E1;
+    letter-spacing: 5px;
+}
+.ourService-4-box-1-img{
+    margin-left:50px;
+}
+.ourService-4-box-2-title{
+    color:#3A8A7E;
+    letter-spacing: 5px;
+}
+.ourService-4-box-2-text{
+    color:#3A8A7E;
 }
 
 .ourService-margin{

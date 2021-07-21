@@ -21,9 +21,32 @@
     color: white;
   }
 </style>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-12 col-xl-10">
+            <div id="carouselExampleControls" class="carousel slide" data-bs-interval="false">
+                <div class="carousel-inner">
+                </div>
+                <div class="mt-5" style="float:right;">
+                    <a href="#carouselExampleControls" style="text-decoration:none;" role="button" id="prev">
+                        <button type="button" class="btn btn-success">上一題</button>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a href="#carouselExampleControls" style="text-decoration:none;" role="button" id="next">
+                        <button type="button" class="btn btn-success">下一題</button>                    
+                        <span class="sr-only">Next</span> <!--Change to button later-->
+                    </a>
+                    <a href="#carouselExampleControls" onClick="submitHandler()" style="text-decoration:none;" role="button" id="submit">
+                        <button type="button" class="btn btn-success">提交</button>                    
+                        <span class="sr-only">Submit</span> <!--Change to button later-->
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
-
 var firstSlideIndicator = 0;
 var fromSlide = 0;
 var toSlide = 0;
@@ -36,10 +59,12 @@ var exitConditions = [];
 var exitIfExist = false;
 var exit = false;
 var exitNext = false;
+var html = "";
 var checkCreatedSection = false;
 var createdSection = [0];
 var countPrev = 0;
 var waitForChecking = false;
+var waitForDeleteCookie = false;
 const COOKIE_PREFIX = 'form_ans_';
 var cookies = $.cookie();
 for(var cookie in cookies) { //remove all the cookie when enter this page
@@ -49,24 +74,30 @@ for(var cookie in cookies) { //remove all the cookie when enter this page
 }
 //console.log(cookies)
 
-//Wait 2 second for resolving the asyn problems
+//Wait 1 second for resolving the asyn problems
 function resolveAfter1Seconds() {
-  return new Promise(resolve => {
+    return new Promise(resolve => {
     setTimeout(() => {
-      resolve('resolved');
+        resolve('resolved');
     }, 1000);
-  });
+    });
 }
 async function asyncCallForCreatedSection() {
-  //console.log('calling');
-  const result = await resolveAfter1Seconds();
-  //console.log(result);
+    //console.log('calling');
+    const result = await resolveAfter1Seconds();
+    //console.log(result);
     $.each(createdSection, function(sectionIndex, sectionName){ //check the item if created
         if(sectionName == section){
             checkCreatedSection = true;
         }
     });
 }
+async function asyncCallForRemoveCookies(id, value) {
+    //console.log('calling');
+    const result = await resolveAfter1Seconds();
+    $.cookie(id, value, {'path': '/'});
+}
+
 //first
 $(function() {
     var html = "";
@@ -130,7 +161,7 @@ $(function(){
         {{ block('json') }}
         section += 1;
         var questions = {};
-        var html = "";
+        html = "";
         var container = 0;
         var blankAnswer = false;
         var alertMessage = "";
@@ -157,6 +188,7 @@ $(function(){
                     //countChild = section; //count from current page since section+1 after press next
                     lastPage = lastSlide + 1 
                     waitForChecking = true;
+                    waitForDeleteCookie = true;
                     //lastPage = lastSlide
                     //console.log("Before: " + createdSection)
                     //{{ block('json') }}
@@ -166,6 +198,16 @@ $(function(){
                             //console.log("section: " + (section))
                             $( '.carousel-item:nth-child('+(lastPage)+')' ).remove();
                             //console.log("lastPage = " + lastPage)
+                            try{
+                                $.each(data.sections[(lastPage-1)].questions, function(index, questionDetails) { //delete the exist cookies
+                                    //console.log("lastPage: " + (lastPage-1))
+                                    //console.log("questionId: "+questionDetails.question_id)
+                                    $.removeCookie(COOKIE_PREFIX+questionDetails.question_id, { path: '/' });
+                                });
+                            } catch (e){
+
+                            }
+                            /*
                             if(firstdeleteCookies){
                                 $.each(data.sections[(lastPage-2)].questions, function(index, questionDetails) { //delete the exist cookies
                                     //console.log("lastPage: " + (lastPage-2))
@@ -179,14 +221,14 @@ $(function(){
                                     //console.log("questionId: "+questionDetails.question_id)
                                     $.removeCookie(COOKIE_PREFIX+questionDetails.question_id, { path: '/' });
                                 });
-                            }
+                            }*/
                             try{
                                 $.each(data.sections[(lastPage-1)].exit_if, function(index, exitDetails) { //delete the exist cookies
                                     //console.log(exitDetails)
                                     $.each(exitConditions, function(conditionIndex, conditionDetails) { //delete the exist cookies
                                         if(exitDetails == conditionDetails){
-                                            console.log("conditionDetails: " + conditionDetails)
-                                            console.log("exitDetails: " + exitDetails)
+                                            //console.log("conditionDetails: " + conditionDetails)
+                                            //console.log("exitDetails: " + exitDetails)
                                             exitConditions.splice( $.inArray(exitDetails,exitConditions) ,1 );
                                         }
                                     });
@@ -198,7 +240,6 @@ $(function(){
                             //console.log("createdSection: " + createdSection)
                             lastPage--
                         }
-                        //console.log($.cookie())
                         //createdSection.pop();
                         //console.log("FinishcreatedSection: " + createdSection)
                         lastSlide = section;
@@ -219,12 +260,25 @@ $(function(){
                     }*/
                     //console.log($.cookie($(this).attr('id')) + ":" + $(this).attr('value'))
                 }
-                if($(this).attr('number') == "-1"){
-                    //console.log($(this).attr('id'))
-                    //console.log($("input[name="+$(this).attr('name')+"]:text").val())
-                    $.cookie(COOKIE_PREFIX + $(this).attr('id'), $("input[name="+$(this).attr('name')+"]:text").val(), {'path': '/'});
+                if(!waitForDeleteCookie){ //resolve asyn problem if user change previous page answers
+                    if($(this).attr('number') == "-1"){
+                        //console.log($(this).attr('id'))
+                        //console.log($("input[name="+$(this).attr('name')+"]:text").val())
+                        $.cookie(COOKIE_PREFIX + $(this).attr('id'), $("input[name="+$(this).attr('name')+"]:text").val(), {'path': '/'});
+                        //console.log(COOKIE_PREFIX + $(this).attr('id'))
+                       //console.log($.cookie())
+                    } else {
+                        $.cookie(COOKIE_PREFIX + $(this).attr('id'), $(this).attr('value'), {'path': '/'});
+                        //console.log(COOKIE_PREFIX + $(this).attr('id'))
+                        //console.log($.cookie())
+                    }
                 } else {
-                    $.cookie(COOKIE_PREFIX + $(this).attr('id'), $(this).attr('value'), {'path': '/'});
+                    waitForDeleteCookie = false;
+                    if($(this).attr('number') == "-1"){
+                        asyncCallForRemoveCookies(COOKIE_PREFIX + $(this).attr('id'), $("input[name="+$(this).attr('name')+"]:text").val());
+                    } else {
+                        asyncCallForRemoveCookies(COOKIE_PREFIX + $(this).attr('id'), $(this).attr('value'));
+                    }
                 }
                 //section = parseInt($(this).attr('section')) + 1;
                 conditions[$(this).attr('id')] = $(this).attr('number');
@@ -249,7 +303,6 @@ $(function(){
                 asyncCallForCreatedSection();
             }
             checkCreatedSection = false;
-            
             if(checkCreatedSection){ //avoid create same item
                 checkCreatedSection = false;
                 if(section == exitSlide){
@@ -303,47 +356,30 @@ $(function(){
                         $( ".carousel-inner" ).append(html);
                         html="";
                         //{{ block('json') }}
-                            $.each(data.sections, function(index, sectionDetails) {
-                                var sectionTitle = false;
-                                $.each(sectionDetails.questions, function(sectionIndex, questionDetails) { 
-                                    $.each($.cookie(), function (cookieKey, cookieValue) {
-                                        if (cookieKey.indexOf("form_ans_") >= 0){
-                                            if(cookieKey.replace("form_ans_", "") == questionDetails.question_id){
-                                                if(!sectionTitle){
-                                                    html+="<tr><th><h5>"+sectionDetails.section_title+"</h5></th></tr>"
-                                                    //console.log(sectionDetails.section_title)
-                                                    sectionTitle = true;
-                                                }
-                                                html+="<tr class='question-tr'><td>"
-                                                html+= "<p>" + questionDetails.question + "</p>"
-                                                html+= "<p style='color:blue;'>" + cookieValue + "</p>"
-                                                html+="</td></tr>"
-                                                //console.log(questionDetails.question)
-                                                //console.log(cookieValue)
+                        $.each(data.sections, function(index, sectionDetails) {
+                            var sectionTitle = false;
+                            $.each(sectionDetails.questions, function(sectionIndex, questionDetails) { 
+                                $.each($.cookie(), function (cookieKey, cookieValue) {
+                                    if (cookieKey.indexOf("form_ans_") >= 0){
+                                        if(cookieKey.replace("form_ans_", "") == questionDetails.question_id){
+                                            if(!sectionTitle){
+                                                html+="<tr><th><h5>"+sectionDetails.section_title+"</h5></th></tr>"
+                                                //console.log(sectionDetails.section_title)
+                                                sectionTitle = true;
                                             }
+                                            html+="<tr class='question-tr'><td>"
+                                            html+= "<p>" + questionDetails.question + "</p>"
+                                            html+= "<p style='color:blue;'>" + cookieValue + "</p>"
+                                            html+="</td></tr>"
+                                            //console.log(questionDetails.question)
+                                            //console.log(cookieValue)
                                         }
-                                    });
+                                    }
                                 });
                             });
-                            $( ".formTable" ).append(html);
-                            html="";
-                        //});
-                        //console.log(exitSlide);
-                        /*
-                        html+= "<div class='carousel-item' id='submitPage'>";
-                        html+= "<div class='container'>";
-                        html+= "<div class='row justify-content-center'>"
-                        html+= "<div class='col-9 col-md-9 col-xl-8 bg-white shadow p-4' style='border-radius:30px;'>"
-                        {% block submitTitle %}
-                        //html+= "<strong class='fs-2 white-bg-title'>離婚事宜</strong>"
-                        {% endblock %}
-                        html+= "</div>"
-                        html+= "</div>"
-                        html+="<div class='tab row justify-content-center mt-5'>";
-                        html+="<div class='col-9 col-md-9 col-xl-8 bg-white shadow p-4 white-bg-content' style='border-radius:30px;'>";
-                        html+="<strong>問卷已完成，你要確定提交嗎?</strong>"
-                        html+="</div></div></div></div>"
-                        */
+                        });
+                        $( ".formTable" ).append(html);
+                        html="";
                         exit = false;
                         $("#next").hide();
                         $("#prev").show();
@@ -611,29 +647,5 @@ function submitHandler(){
     {% endblock %}
 }
 </script>
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-12 col-md-12 col-xl-10">
-            <div id="carouselExampleControls" class="carousel slide" data-bs-interval="false">
-                <div class="carousel-inner">
-                </div>
-                <div class="mt-5" style="float:right;">
-                    <a href="#carouselExampleControls" style="text-decoration:none;" role="button" id="prev">
-                        <button type="button" class="btn btn-success">上一題</button>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a href="#carouselExampleControls" style="text-decoration:none;" role="button" id="next">
-                        <button type="button" class="btn btn-success">下一題</button>                    
-                        <span class="sr-only">Next</span> <!--Change to button later-->
-                    </a>
-                    <a href="#carouselExampleControls" onClick="submitHandler()" style="text-decoration:none;" role="button" id="submit">
-                        <button type="button" class="btn btn-success">提交</button>                    
-                        <span class="sr-only">Submit</span> <!--Change to button later-->
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 {% endblock %}
 
