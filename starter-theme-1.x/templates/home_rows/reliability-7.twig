@@ -1,0 +1,39 @@
+<div class="row mx-5">
+    <div class="col-3 mt-2 mb-5">
+        <img src="{{ site.theme.link }}/static/pics/reliability-1.png" class="w-50 h-100">
+    </div> 
+    <div class="col-9 my-5">
+        <div style="float:right">
+            <p class="text-break reliability-7-text"><strong class="fs-4"><u>資訊可信性</u></strong>
+            <div class="reliability-7-button-div">
+                <button type="button" id="aboutusBtn" class="px-4 py-1 reliability-7-button">
+                    <strong>
+                        <span>關於我們</span>
+                    </strong>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $( "#aboutusBtn" ).click(function() {
+        window.location.replace('http://127.0.0.1/about/')
+    });
+</script>
+{#
+<div class="row">
+     <div class="col-12 col-md-4 col-xl-3">
+        <p class="text-break"><strong class="fs-3 green-bg-title"><u>資訊可靠性</u></strong>&nbsp;
+        <span class="material-icons-outlined fs-2 green-bg-title">task_alt</span></p>
+    </div>
+    <div class="col-12 col-md-8 col-xl-9">
+        <p class="text-break fs-4 green-bg-content">
+            <strong>Lecopt 所提供之資訊來源均取自香港法例及案例，並由香港執業律師進行審查</strong>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="button" class="btn btn-success btn-lg" onclick="location.href = '/wordpress/about/';">
+                &nbsp;&nbsp;&nbsp;<strong>關於我們</strong>&nbsp;&nbsp;&nbsp;
+            </button>
+        </p>
+    <div>
+</div>
+#}
