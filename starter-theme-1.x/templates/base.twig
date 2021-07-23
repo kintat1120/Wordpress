@@ -9,7 +9,6 @@
 			margin:0px !important;
 			font-family: 'Noto Sans HK', sans-serif;
 			background-color:#7FD5CA;
-			letter-spacing: 2px;
 		}
 		.custom-toggler.navbar-toggler {
             border-color: green;
@@ -61,7 +60,7 @@
 										</button>
 										<div class="collapse navbar-collapse" id="navbarSupportedContent">
 											<ul class="navbar-nav mr-auto">
-												{% include "menu.twig" with {'items': menu.get_items} %}
+											{% include "menu.twig" with {'items': menu.get_items} %}
 											</ul>
 											<!-- IG and FB icon
 											<form class="form-inline" style="margin-right:10px;">
@@ -70,9 +69,9 @@
 											</form>
 											-->
 											<form class="form-inline">
-												<a href="/signup"><button class="my-2 my-sm-0 navbar-signupBtn"><strong>用戶註冊</strong></button></a>
-												<a href="/personallogin"><button class="my-2 my-sm-0 navbar-personLoginBtn"><strong>個人登入</strong></button></a>
-												<a href="/grouplogin"><button class="my-2 my-sm-0 navbar-groupLoginBtn"><strong>團體登入</strong></button></a>
+												<a href="/signup" class="btn my-2 my-sm-0 btn-color-odd"><strong>用戶註冊</strong></a>
+												<a href="/personallogin" class="btn my-2 my-sm-0 btn-color-even"><strong>個人登入</strong></a>
+												<a href="/grouplogin" class="btn my-2 my-sm-0 btn-color-odd"><strong>團體登入</strong></a>
 											</form>
 										</div>
 									</nav>
@@ -122,7 +121,7 @@
 		</section>
 
 		{% block footer %}
-			<footer id="footer" class="bg-white">
+			<footer id="footer" class="footer-style mt-5 fs-6">
 				{% include 'footer.twig' %}
 			</footer>
 			<!--{{ function('wp_footer') }}-->
