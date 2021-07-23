@@ -1,22 +1,12 @@
 {% extends "base.twig" %}
 
 {% block content %}
-<script>
-	function copyCurrentLink(){
-		var inputc = document.body.appendChild(document.createElement("input"));
-		inputc.value = window.location.href;
-		inputc.focus();
-		inputc.select();
-		document.execCommand('copy');
-		inputc.parentNode.removeChild(inputc);
-	}
-</script>
 	<article class="post-type-{{ post.post_type }}" id="post-{{ post.ID }}">
 		<div class="container mt-5">
 			<div class="row justify-content-between">
 				<div class="col-12">
 					{% for tag in post.tags %}
-						<a href="http://localhost/tag/{{ tag.slug }}" class="tags-style"><strong>{{ tag.name }}</strong></a>
+						<a href="{{ url }}/{{ tag.slug }}" class="tags-style"><strong>{{ tag.name }}</strong></a>
 					{% endfor %}
 				</div>
 			</div>
@@ -77,14 +67,17 @@
 				<div class="col-12 col-md-4 col-xl-4">
 					<div class="sticky-top">
 						<div class="mt-5 pc-posts">
-							<div class="smalltext">目錄</div>
-
+							<div class="smalltext mb-2"><b>目錄</b></div>
+							<div id="contentList" class="contentListText"></div>
 						</div>
 						<div class="mt-5">
-							<div class="smalltext">分享</div>
-							<button style="all: unset;" onclick="copyCurrentLink();"><span style="padding:0px;" class="material-icons-outlined a-tags-style">link</span></button>
-							<button style="all: unset;" onclick="copyCurrentLink();"><span class="material-icons-outlined a-tags-style">facebook</span></button>
-							<button style="all: unset;" onclick="copyCurrentLink();"><span class="a-tags-style" style="font-size:25px;"><i class="fa fa-instagram"></i></span></button>
+							<div class="smalltext"><b>分享</b></div>
+							<div style="font-size:20px;">
+								<button style="all: unset;" onclick="copyCurrentLink();"><i class="fas fa-link a-tags-style"></i></button>
+								<button style="all: unset;" onclick='window.location.replace("https://www.whatsapp.com");'><i class="fab fa-whatsapp a-tags-style px-2"></i></i></button>
+								<button style="all: unset;" onclick='window.location.replace("https://www.facebook.com");'><i class="fab fa-facebook-f a-tags-style"></i></button>
+								<button style="all: unset;" onclick='window.location.replace("https://www.instagram.com");'><i class="fab fa-instagram a-tags-style px-2"></i></button>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -119,7 +112,7 @@
 										</div>
 										<div>
 										{% for relatedTag in relatedPost.tags %}
-											<a href="http://localhost/tag/{{ relatedTag.slug }}" class="a-tags-style a-tags"><strong>{{ relatedTag.name }}</strong></a>
+											<a href="{{ url }}/tag/{{ relatedTag.slug }}" class="a-tags-style a-tags"><strong>{{ relatedTag.name }}</strong></a>
 										{% endfor %}
 										</div>
 										<div>
@@ -157,15 +150,31 @@
 							{% endif %}
 						{% endfor %}
 						{% if not checkTag %}
-							<a href="http://localhost/tag/{{ tag.slug }}"><button type="button" class="btn btn-light btn-sm btn-tags">{{ tag.name }}</button></a>
+							<a href="{{ url }}/tag/{{ tag.slug }}"><button type="button" class="btn btn-light btn-sm btn-tags">{{ tag.name }}</button></a>
 						{% endif %}
 					{% endfor %}
 				</div>
 			</div>
 		</div>
 	</article>
-	
-
+	<script>
+		function copyCurrentLink(){ //Copy post link
+			var inputc = document.body.appendChild(document.createElement("input"));
+			inputc.value = window.location.href;
+			inputc.focus();
+			inputc.select();
+			document.execCommand('copy');
+			inputc.parentNode.removeChild(inputc);
+		}
+		$(function() { //Create content (must be <h2>)
+			var h2Section = 1;
+			$( "h2" ).each(function( index ) {
+				$(this).attr('id', "section "+h2Section);
+				$( "#contentList" ).append( "<div><i class='fas fa-arrow-right' style='padding-top:5px; padding-right:5px;'></i><a href='#section "+h2Section+"'>" + $(this).text() + "</a></div>" );
+				h2Section++;
+			});
+		});
+	</script>
 	{#
 	<div class="content-wrapper">
 		<article class="post-type-{{ post.post_type }}" id="post-{{ post.ID }}">

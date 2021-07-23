@@ -1,5 +1,4 @@
 {% block html_head_container %}
-
 {% include 'html-header.twig' %}
 	{% block head %}
 	{% endblock %}
@@ -9,6 +8,7 @@
 			margin:0px !important;
 			font-family: 'Noto Sans HK', sans-serif;
 			background-color:#7FD5CA;
+			letter-spacing: 2px;
 		}
 		.custom-toggler.navbar-toggler {
             border-color: green;
@@ -31,6 +31,7 @@
 		<!--<header class="header sticky-top">-->
 		<header class="header">
 			{% block header %}
+			{% set url = 'http://localhost' %}
 				<div class="wrapper">
 					<!--<h1 class="hdr-logo" role="banner">
 						<a class="hdr-logo-link" href="{{site.url}}" rel="home">{{site.name}}</a>
@@ -52,7 +53,7 @@
 							<div class="row">
 								<div class="col-12">
 									<nav class="navbar navbar-expand-lg navbar-white bg-white">
-										<a class="navbar-brand" href="http://localhost/">
+										<a class="navbar-brand" href="{{ url }}">
 											<img src="{{ site.theme.link }}/static/pics/logo.PNG" alt="" class="d-inline-block align-text-top logo-size">
 										</a>
 										<button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,7 +61,7 @@
 										</button>
 										<div class="collapse navbar-collapse" id="navbarSupportedContent">
 											<ul class="navbar-nav mr-auto">
-											{% include "menu.twig" with {'items': menu.get_items} %}
+												{% include "menu.twig" with {'items': menu.get_items} %}
 											</ul>
 											<!-- IG and FB icon
 											<form class="form-inline" style="margin-right:10px;">
@@ -68,11 +69,9 @@
 												<button class="remove-button-style"><a href="#" class="fa fa-instagram fa-instagram-nav"></a></button>
 											</form>
 											-->
-											<form class="form-inline">
-												<a href="/signup" class="btn my-2 my-sm-0 btn-color-odd"><strong>用戶註冊</strong></a>
-												<a href="/personallogin" class="btn my-2 my-sm-0 btn-color-even"><strong>個人登入</strong></a>
-												<a href="/grouplogin" class="btn my-2 my-sm-0 btn-color-odd"><strong>團體登入</strong></a>
-											</form>
+											<a href="/signup"><button class="my-2 my-sm-0 navbar-signupBtn"><strong>用戶註冊</strong></button></a>
+											<a href="/personallogin"><button class="my-2 my-sm-0 mx-1 navbar-personLoginBtn"><strong>個人登入</strong></button></a>
+											<a href="/grouplogin"><button class="my-2 my-sm-0 navbar-groupLoginBtn"><strong>團體登入</strong></button></a>
 										</div>
 									</nav>
 								<div>
@@ -121,7 +120,7 @@
 		</section>
 
 		{% block footer %}
-			<footer id="footer" class="footer-style mt-5 fs-6">
+			<footer id="footer" class="bg-white">
 				{% include 'footer.twig' %}
 			</footer>
 			<!--{{ function('wp_footer') }}-->

@@ -1,3 +1,30 @@
+<div class="container-fluid footer-text">
+    <div class="row">
+        <div class="col-12 col-md-8 col-xl-6 footer-margin">
+            <span class="fs-6">必須注意：ProTec所提供之服務是由人工智能分析法例及案例而作出評估建議，僅作參考用途，並不能當作法律意見。如需直接尋求法律意見協助，請直接聯絡ProTec另作安排。</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-8 col-xl-6" style="padding-left:0px;">
+            <span style="display:flex; ">
+                <span style="background-color:#D8ECEA;">
+                    <button id="facebook" style="all: unset; cursor:pointer;"><i class="fab fa-facebook-f fs-3 footer-icon"></i></button>
+                    <button id="instagram" style="all: unset; cursor:pointer;"><i class="fab fa-instagram fs-3 footer-icon"></i></button>
+                </span>
+                <span class="fs-6 text-break;" style="margin-left:10px; align-self: center;"><b>Copyright &#169; 2021. All rights reserved. Lecopt</b></span>
+            </span>
+        </div>
+    </div>
+</div>
+<script>
+    $( "#facebook" ).click(function() {
+        window.location.replace('https://www.facebook.com/')
+    });
+    $( "#instagram" ).click(function() {
+        window.location.replace('https://www.instagram.com/')
+    });
+</script>
+{#
 <p>
 <span class="material-icons-outlined fs-6">warning</span>
 Lecopt 所提供之服務均由人工智能分析相關法例及案例並作出評估建議，僅作參考用途，並不能視作法律意見。如需直接尋求法律意見，請直接聯絡<u>Lecopt</u>另作安排。
@@ -12,3 +39,5 @@ Copyright &#169; 2021 Lecopt Technology Limited
 <div>
 All rights reserved.
 </div>
+<!--<img src="{{ site.theme.link }}/static/pics/footer-1.png">-->
+#}

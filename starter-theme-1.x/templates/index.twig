@@ -13,7 +13,7 @@
 						<div style="margin-left:30px;">
 							<div>
 							{% for postTags in post.tags %}
-								<a href="http://localhost/tag/{{ postTags.slug }}" class="a-tags-style a-tags"><strong>{{ postTags.name }}</strong></a>
+								<a href="{{ url }}/tag/{{ postTags.slug }}" class="a-tags-style a-tags"><strong>{{ postTags.name }}</strong></a>
 							{% endfor %}
 							</div>
 							<div>
@@ -47,7 +47,7 @@
 							{% endif %}
 							<a href="{{ post.guid }}"><img class="d-block w-100" src="{{ post.thumbnail.src|resize(300, 300) }}" alt="First slide"></a>
 								{% for postTags in post.tags %}
-									<a href="http://localhost/tag/{{ postTags.slug }}" class="a-tags-style a-tags"><strong>{{ postTags.name }}</strong></a>
+									<a href="{{ url }}/tag/{{ postTags.slug }}" class="a-tags-style a-tags"><strong>{{ postTags.name }}</strong></a>
 								{% endfor %}
 								<div>
 									<a style="font-size:32px;" class="a-tags-style text-break" href="{{ post.guid }}">{{ post.post_title }}</a>
@@ -79,7 +79,7 @@
 				{% for post in posts %}
 					<div>
 					{% for tag in post.tags %}
-						<a href="http://localhost/tag/{{ tag.slug }}" class="a-tags-style a-tags"><strong>{{ tag.name }}</strong></a>
+						<a href="{{ url }}/tag/{{ tag.slug }}" class="a-tags-style a-tags"><strong>{{ tag.name }}</strong></a>
 					{% endfor %}
 					</div>
 					<div>
@@ -107,7 +107,7 @@
 				{% for tag in tags %}
 					{% if title == tag.name %}
 					{% else %}
-					<a href="http://localhost/tag/{{ tag.slug }}"><button type="button" class="btn btn-light btn-sm btn-tags">{{ tag.name }}</button></a>
+					<a href="{{ url }}/tag/{{ tag.slug }}"><button type="button" class="btn btn-light btn-sm btn-tags">{{ tag.name }}</button></a>
 					{% endif %}
 				{% endfor %}
 			</div>

@@ -2,15 +2,13 @@
 {% block json %}
 $.getJSON("{{ site.theme.link }}/static/form/businessForm.json", function(data) {
 {% endblock %}
-{% block json2 %}
-$.getJSON("{{ site.theme.link }}/static/form/businessForm.json", function(data) {
+{#{% block json2 %}
+$.getJSON("{{ site.theme.link }}/static/form/landForm.json", function(data) {
 {% endblock %}
+#}
 {% block suggestion %}
-window.location.replace("http://localhost/businessSuggestion/");
+window.location.replace("/businessSuggestion/");
 {% endblock %}
 {% block submitTitle %}
-html+= "<strong class='fs-2 white-bg-title'>創業事宜</strong>"
-{% endblock %}
-{% block submitTitle2 %}
 html+= "<strong class='fs-2 white-bg-title'>創業事宜</strong>"
 {% endblock %}

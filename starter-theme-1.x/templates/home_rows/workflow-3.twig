@@ -10,16 +10,49 @@
                 <strong class="fs-6 workflow-3-dropdown-text">立即查詢</strong>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li role="presentation"><a class="dropdown-item" href="localhost/trafficForm">交通意外</a></li>
-                <li role="presentation"><a class="dropdown-item" href="localhost/divorceForm">離婚事宜</a></li>
-                <li role="presentation"><a class="dropdown-item" href="localhost/landForm">大廈管理</a></li>
-                <li role="presentation"><a class="dropdown-item" href="localhost/animalForm">動物權益</a></li>
-                <li role="presentation"><a class="dropdown-item" href="localhost/businessForm">創業事宜</a></li>
+                <li role="presentation"><a class="dropdown-item" href="{{ url }}/trafficForm">交通意外</a></li>
+                <li role="presentation"><a class="dropdown-item" href="{{ url }}/divorceForm">離婚事宜</a></li>
+                <li role="presentation"><a class="dropdown-item" href="{{ url }}/landForm">大廈管理</a></li>
+                <li role="presentation"><a class="dropdown-item" href="{{ url }}/animalForm">動物權益</a></li>
+                <li role="presentation"><a class="dropdown-item" href="{{ url }}/businessForm">創業事宜</a></li>
                 <li role="presentation"><a class="dropdown-item" href="#">其他問題</a></li>
             </ul>
         </div>
     </div>
 </div>
+{#
+<div class="row mt-5">
+    <div class="col-12">
+        <div style="height:100%; display:flex;">
+            <div style="display:flex; flex-direction: column; width:20%; margin-left:0;">
+                <div><img src="{{ site.theme.link }}/static/pics/workflow-1.png" class="w-75 h-75"></div>
+                <div><p class="workflow-3-text"><strong>填寫基本資料</strong></p></div>
+            </div>
+            <div style="display:flex; width:10%">
+                <img src="{{ site.theme.link }}/static/pics/workflow-arrow.png"  class="w-75 h-75">
+            </div>
+            <div style="display:flex; flex-direction: column; width:20%">
+                <img src="{{ site.theme.link }}/static/pics/workflow-1.png" class="w-100 h-100">
+                <p class="workflow-3-text"><strong>填寫基本資料</strong></p>
+            </div>
+            <div style="display:flex; width:10%">
+                <img src="{{ site.theme.link }}/static/pics/workflow-arrow.png">
+            </div>
+            <div style="display:flex; flex-direction: column; width:20%">
+                <img src="{{ site.theme.link }}/static/pics/workflow-1.png" class="w-100 h-100">
+                <p class="workflow-3-text"><strong>填寫基本資料</strong></p>
+            </div>
+            <div style="display:flex; width:10%">
+                <img src="{{ site.theme.link }}/static/pics/workflow-arrow.png" class="w-100 h-100">
+            </div>
+            <div style="display:flex; flex-direction: column; width:20%">
+                <img src="{{ site.theme.link }}/static/pics/workflow-1.png" class="w-100 h-100">
+                <p class="workflow-3-text"><strong>填寫基本資料</strong></p>
+            </div>
+        </div>
+    </div>
+</div>
+#}
 <div class="row justify-content-center mt-5">
     <div class="col-2 col-xl-2">
         <img src="{{ site.theme.link }}/static/pics/workflow-1.png" class="w-100 h-100">
@@ -43,18 +76,24 @@
         <img src="{{ site.theme.link }}/static/pics/workflow-4.png" class="w-100 h-100">
     </div>
 </div>
-<div class="row justify-content-between mx-5 mt-3">
-    <div class="col-2 col-md-4 col-xl-2 px-5">
-        <p class="workflow-3-text"><strong>填寫基本資料</strong></p>
+<div class="row justify-content-center mt-3">
+    <div class="col-2 col-xl-2">
+        <p class="workflow-3-text text-center" style="position:relative; right:10%;"><strong>填寫基本資料</strong></p>
+    </div>
+    <div class="col-1 col-xl-1">
     </div>
     <div class="col-2 col-xl-2">
-        <p class="workflow-3-text"><strong>Lecopt為你分析，提供初步法律資訊</strong></p>
+        <p class="workflow-3-text text-center"><strong>Lecopt為你分析，提供初步法律資訊</strong></p>
+    </div>
+    <div class="col-1 col-xl-1">
     </div>
     <div class="col-2 col-xl-2">
-        <p class="workflow-3-text"><strong>Lecopt為你準備相關基本文件及安排專業服務</strong></p>
+        <p class="workflow-3-text text-center"><strong>Lecopt為你準備相關基本文件及安排專業服務</strong></p>
     </div>
-        <div class="col-2 col-xl-2">
-        <p class="workflow-3-text"><strong>準備妥當與律師會面</strong></p>
+    <div class="col-1 col-xl-1">
+    </div>
+    <div class="col-2 col-xl-2">
+        <p class="workflow-3-text text-center"><strong>準備妥當與律師會面</strong></p>
     </div>
 </div>
 {#
