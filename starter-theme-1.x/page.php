@@ -42,14 +42,16 @@ if (substr_compare($timber_post->post_name, "suggestion", -strlen("suggestion"))
 //show 3 recent posts
 $context['recentPost'] = new Timber\PostQuery(array(
     'post_type' => 'post',
-    'posts_per_page' => 3, //how many recent pages want to show
+    'posts_per_page' => 9, //how many recent pages want to show
 ));
+
 //var_dump($context['recentPost']);
 
-//show all the posts
-$context['allPost'] = new Timber\PostQuery(array(
-    'post_type' => 'post'
-));
+$args_cp = array(
+    'post_type' => 'post',
+    'posts_per_page' => 8,
+);
+$context['allPost'] = new Timber\PostQuery($args_cp);
 //var_dump($context['allPost']);
 
 

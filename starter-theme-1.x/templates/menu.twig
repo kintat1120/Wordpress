@@ -8,8 +8,8 @@
 			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 				{% for child in item.children %}
 					{% if child.children %}
-						<a class="nav-link dropdown-toggle" style="color:#757575;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<strong class="navbar-title">{{ child.title }}</strong>
+						<a class="nav-link dropdown-toggle navbar-title" style="color:#757575; padding-left:16px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							{{ child.title }}
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							{% for child_2 in child.children %}
@@ -33,8 +33,8 @@
 			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 				{% for child in item.children %}
 					{% if child.children %}
-						<a class="nav-link dropdown-toggle" style="color:#757575;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<strong class="navbar-title">{{ child.title }}</strong>
+						<a class="nav-link dropdown-toggle navbar-title" style="color:#757575; padding-left:16px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							{{ child.title }}
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							{% for child_2 in child.children %}

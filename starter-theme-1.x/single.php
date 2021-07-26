@@ -41,7 +41,8 @@ $context['morePost'] = new Timber\PostQuery(array(
 
 //get all posts
 $context['allPost'] = new Timber\PostQuery(array(
-    'post_type' => 'post'
+    'post_type' => 'post',
+    'posts_per_page' => 100
 ));
 
 if ( post_password_required( $timber_post->ID ) ) {

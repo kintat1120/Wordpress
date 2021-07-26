@@ -190,6 +190,7 @@
     color:#B3B3B3 !important;
     font-weight: bold !important;
 }
+.choosing-2-picture{}
 
 .workflow-3-title{
     color:#8D8D8D;
@@ -209,7 +210,23 @@
     color:#7A7A7A !important;
     font-size:18px !important;
 }
+.workflow-3-web{
+    display: block;
+}
+.workflow-3-mobile{
+    display:none;
+}
 
+.ourService-4-web{
+    display:block;
+}
+.ourService-4-mobile{
+    display:none;
+}
+.ourService-4-container{
+    margin-right: 3rem!important;
+    margin-left: 3rem!important;
+}
 .ourService-4-title{
     color:#4A5150 !important;
 }
@@ -240,6 +257,9 @@
 }
 .ourService-4-box-2-bottomText{
     color:#2E7568 !important;
+}
+
+.ourService-box-2-margin{
 }
 
 .ourService-margin{
@@ -505,6 +525,18 @@
         padding: 7px 12px 7px 12px !important;
         font-size: 10px !important;
     }
+
+    .heading-1-buttonText{
+        font-size:20px !important;
+    }
+    .heading-1-arrow-1{
+        font-size: 24px !important;
+        color: #3C9D98 !important;
+    }
+    .heading-1-arrow-2{
+        font-size: 24px !important;
+        color: #2C8076 !important;
+    }
     /*<======================================================Home page=======================================================>*/
     /*<======================================================Home page=======================================================>*/
 }
@@ -607,11 +639,23 @@
 }
 /*<======================================================single.twig (posts)=======================================================>*/
 }
-@media only screen and (max-width: 430px){ /*mobile L size*/
+@media only screen and (max-width: 767.5px){ /*mobile L size*/
 /*<======================================================Home page=======================================================>*/
     .footer-margin{
         margin-left:0px !important;
         margin-top: 250px !important;
+    }
+    
+    .choosing-2-picture{
+        display:none;
+    }
+
+    .workflow-3-web{
+        display:none;
+    }
+    
+    .workflow-3-mobile{
+        display: block;
     }
 
     .workflow-arrowSize{
@@ -623,6 +667,15 @@
         margin-left:-10px !important;
     }
 
+    .ourService-4-web{
+        display:none;
+    }
+    .ourService-4-mobile{
+        display:block;
+    }
+    .ourService-box-2-margin{
+        margin-top:30px !important;
+    }
     .ourService-margin{
         margin-top:60px !important;
     }
@@ -722,6 +775,10 @@
         font-size:5px !important;
     }
 
+    .ourService-4-container{
+        margin-left: 5px !important;
+        margin-right: 5px !important;
+    }
     .ourService-margin{
         margin-top:30px !important;
     }

@@ -39,6 +39,11 @@ $context['posts'] = new Timber\PostQuery();
 //get all tags
 $context['tags'] = Timber::get_terms('post_tag');
 
+/* tag page pagination set by wordpress panel
+	WP Dashboard > Settings > Reading is set to 10 (Post Number) <=Blog pages show at most
+*/
+
+$context['pagination'] = $context['posts']->pagination(3);
 /*global $paged;
 if (!isset($paged) || !$paged){
 	$paged = 1;

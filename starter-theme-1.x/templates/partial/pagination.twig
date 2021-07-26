@@ -1,8 +1,26 @@
+<style>
+    button{
+        color:#ADADAD;
+    }
+    a{
+        color:#ADADAD;
+        text-decoration: none;
+
+    }
+    a:hover{
+        color:#212529;
+    }
+    .prevBtn{
+        margin-right:10px;
+    }
+    .pageNumber{
+        margin-right:10px;
+    }
+</style>
 {% if posts.pagination.pages is not empty %}
     <nav class="pagination-block">
         <ul class="pagination">
-
-            {# First #}
+            {# First button
             {% if posts.pagination.pages|first and posts.pagination.pages|first.current != true %}
                 <li class="first btn">
                     <a href="{{ posts.pagination.pages|first.link }}">First</a>
@@ -12,26 +30,29 @@
                     <button disabled>First</button>
                 </li>
             {% endif %}
+            #}
 
             {# Previous #}
             {% if posts.pagination.prev %}
-                <li class="prev btn">
-                    <a href="{{ posts.pagination.prev.link }}">Previous</a>
+                {#<li class="prev btn">#}
+                <li class="prevBtn">
+                    <a href="{{ posts.pagination.prev.link }}">上一頁</a>
                 </li>
             {% else %}
-                <li class="prev btn disabled">
-                    <button disabled>Previous</button>
+                {#<li class="prev btn disabled">#}
+                <li>
+                    <button style="display:none;">上一頁</button>
                 </li>
             {% endif %}
 
             {# Pages #}
             {% for page in posts.pagination.pages %}
                 {% if page.link %}
-                    <li>
+                    <li class="pageNumber">
                         <a href="{{ page.link }}" class="{{ page.class }}">{{ page.title }}</a>
                     </li>
                 {% else %}
-                    <li class="current">
+                    <li class="current pageNumber">
                         <span class="{{ page.class }}">{{ page.title }}</span>
                     </li>
                 {% endif %}
@@ -39,16 +60,17 @@
 
             {# Next #}
             {% if posts.pagination.next %}
-                <li class="next btn">
-                    <a href="{{ posts.pagination.next.link }}">Next</a>
+                {#<li class="next btn">#}
+                <li>
+                    <a href="{{ posts.pagination.next.link }}">下一頁</a>
                 </li>
             {% else %}
                 <li class="next btn disabled">
-                    <button disabled>Next</button>
+                    <button style="display:none;">下一頁</button>
                 </li>
             {% endif %}
 
-            {# Last #}
+            {# Last button
             {% if posts.pagination.pages|last and posts.pagination.pages|last.current != true %}
                 <li class="last btn">
                     <a href="{{ posts.pagination.pages|last.link }}">Last</a>
@@ -58,7 +80,7 @@
                     <button disabled>Last</button>
                 </li>
             {% endif %}
-
+            #}
         </ul>
     </nav>
 {% endif %}
