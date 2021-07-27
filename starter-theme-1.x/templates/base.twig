@@ -4,12 +4,13 @@
 	{% endblock %}
 	</head>
 	<style>
-		html, body{
-			margin:0px !important;
-			font-family: 'Noto Sans HK', sans-serif;
-			background-color:#7FD5CA;
-			letter-spacing: 2px;
-		}
+		@font-face { font-family: Spartan_Semi Blod; src: url('{{ site.theme.link }}/static/fonts/Spartan/static/Spartan-SemiBold.ttf'); }
+		@font-face { font-family: Spartan_Medium; src: url('{{ site.theme.link }}/static/fonts/Spartan/static/Spartan-Medium.ttf'); } 
+		@font-face { font-family: Spartan_Regular; src: url('{{ site.theme.link }}/static/fonts/Spartan/static/Spartan-Regular.ttf'); } 
+		@font-face { font-family: Spartan_Thin; src: url('{{ site.theme.link }}/static/fonts/Spartan/static/Spartan-Thin.ttf'); } 
+		@font-face { font-family: Noto Sans TC_Medium; src: url('{{ site.theme.link }}/static/fonts/Noto_Sans_TC/NotoSansTC-Medium.otf'); } 
+		@font-face { font-family: Noto Sans TC_Regular; src: url('{{ site.theme.link }}/static/fonts/Noto_Sans_TC/NotoSansTC-Regular.otf'); } 
+
 		.custom-toggler.navbar-toggler {
             border-color: green;
         }
@@ -30,6 +31,28 @@
 		
 		<!--<header class="header sticky-top">-->
 		<header class="header">
+			{% block header %}
+			{% set url = 'http://localhost' %}
+			<div style="height:120px; margin-left:200px; margin-right:200px">
+				<nav class="navbar navbar-expand-lg navbar-white py-0 h-100">
+					<a class="navbar-brand" href="{{ url }}" style="margin-right:200px;">
+						<span style="margin-right:200px;"><img src="{{ site.theme.link }}/static/pics/logo.svg" alt="" class="d-inline-block align-text-top"></span>
+					</a>
+					<button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon" style="color:black;"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav" style="margin-left:0px !important; margin-right:0px !important;">
+							{% include "menu.twig" with {'items': menu.get_items} %}
+						</ul>
+					</div>
+					<span style="float:right;">
+					<a href="#" style="text-decoration:none; color:#4B4B4A;">EN</a> | <a href="#"  style="text-decoration:none; color:#4B4B4A;">CH</a>
+					</span>
+				</nav>
+			</div>
+			{% endblock %}
+			{#
 			{% block header %}
 			{% set url = 'http://localhost' %}
 				<div class="wrapper">
@@ -80,6 +103,7 @@
 					</div>
 				</div>
 			{% endblock %}
+			#}
 		</header>
 
 		<section id="content" role="main" class="content-wrapper">
