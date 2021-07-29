@@ -5,62 +5,62 @@
 */
 .title-EN{
     font-family: Spartan_Semi Blod !important;
-    font-size:55pt !important;
+    font-size:55px !important;
     letter-spacing: 0 !important;
 }
 
 .sub-title-EN{
     font-family: Spartan_Medium !important;
-    font-size:36pt !important;
+    font-size:36px !important;
     letter-spacing: 0 !important;
-    baseline-shift: -1pt !important;
+    baseline-shift: -1px !important;
 }
 
 .sub-title-CH{
     font-family: Noto Sans TC_Medium !important;
-    font-size:38pt !important;
+    font-size:38px !important;
     letter-spacing: 75 !important;
 }
 
 .body-1-CH{
     font-family: Noto Sans TC_Regular !important;
-    font-size:30pt !important;
+    font-size:30px !important;
     letter-spacing: 50 !important;
 }
 
 .body-2-CH{
     font-family: Noto Sans TC_Regular !important;
-    font-size:23pt !important;
+    font-size:23px !important;
     letter-spacing: 100 !important;
 }
 
 .body-3-CH{
     font-family: Noto Sans TC_Regular !important;
-    font-size:28pt !important;
+    font-size:28px !important;
     letter-spacing: 25 !important;
 }
 
 .body-4-CH{
     font-family: Noto Sans TC_Regular !important;
-    font-size:18pt !important;
+    font-size:18px !important;
     letter-spacing: 50 !important;
 }
 
 .body-2-EN{
     font-family: Spartan_Regular !important;
-    font-size:23pt !important;
+    font-size:23px !important;
     letter-spacing: 50 !important;
 }
 
 .button-text-CH{
     font-family: Noto Sans TC_Medium !important;
-    font-size:20pt !important;
+    font-size:20px !important;
     letter-spacing: 75 !important;
 }
 
 .copyright-text{
     font-family: Spartan_Thin !important;
-    font-size:18pt !important;
+    font-size:18px !important;
     letter-spacing: 50 !important;
     color:#605F5C;
 }
