@@ -12,10 +12,21 @@
 		</article
 	</div>
 -->
-<div style="height:600px; background-image: linear-gradient(to right, #DCDDD8 20%, transparent 40%),url('{{ site.theme.link }}/static/pics/heading-1.jpg');background-repeat: no-repeat, no-repeat; background-position: center, right; background-size: 100%, 120%;">
-{#<div style="height:600px; background-image: url('{{ site.theme.link }}/static/pics/heading-1.jpg'); background-size: 100%;">#}
+<style>
+	.heading-1-container{
+		height:600px; 
+		/*background-image: linear-gradient(to right, #DCDDD8 20%, transparent 40%),url('{{ site.theme.link }}/static/pics/heading-1.jpg');
+		background-repeat: no-repeat, no-repeat; 
+		background-position: center, right; 
+		background-size: 100%, 100%;*/
+		background-image: url('{{ site.theme.link }}/static/pics/heading-1.jpg');
+		background-size: cover;
+	}
+</style>
+<div class="heading-1-container">
 	{% include './home_rows/heading-1.twig' %}
 </div>
+{#
 <div style="margin-top:400px;margin-left:200px; margin-right:200px;">
 	{% include './home_rows/workflow-3.twig' %}
 </div>
@@ -25,6 +36,8 @@
 <div style="margin-left:200px; margin-right:200px;">
 	{% include './home_rows/partner-8.twig' %}
 </div>
+#}
+
 
 
 

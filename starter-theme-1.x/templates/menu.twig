@@ -1,55 +1,67 @@
+<style>
+	.item-margin{
+		margin-left : 1em;
+        margin-right : 2em;
+	}
+	@media screen and (max-width:720px) {
+		.item-margin{
+			margin-right:1em;
+			margin-left:1em;
+		}    
+	} 
+</style>
 {% if menu %}
 	{% for item in items %}
 		{% if item.title == "法律知識" %}
 		<li class="{{ item.classes | join(' ') }} nav-item dropdown">
-			<a class="nav-link dropdown-toggle" style="color:#4B4B4A; margin-right:88px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<a class="nav-link dropdown-toggle dark-green-color item-margin" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				{{ item.title }}
 			</a>
 			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 				{% for child in item.children %}
 					{% if child.children %}
-						<a class="nav-link dropdown-toggle" style="color:#4B4B4A; padding-left:16px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<a class="nav-link dropdown-toggle dark-green-color" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							{{ child.title }}
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							{% for child_2 in child.children %}
-								<a class="dropdown-item" style="color:#4B4B4A;" href="{{ child_2.link }}">{{ child_2.title }}</a>
+								<a class="dropdown-item dark-green-color" href="{{ child_2.link }}">{{ child_2.title }}</a>
 							{% endfor %}
 						</div>
 					{% else %}
-						<a class="dropdown-item" style="color:#4B4B4A;" href="{{ child.link }}">{{ child.title }}</a>
+						<a class="dropdown-item dark-green-color" href="{{ child.link }}">{{ child.title }}</a>
 					{% endif %}
 				{% endfor %}
 				{% for tag in tags %}
-					<a class="dropdown-item" style="color:#4B4B4A;" href="{{ url }}/tag/{{ tag.slug }}">{{ tag.name }}</a>
+					<a class="dropdown-item dark-green-color" href="{{ url }}/tag/{{ tag.slug }}">{{ tag.name }}</a>
 				{% endfor %}
 			</div>
 		</li>
 		{% elseif item.children %}
 		<li class="{{ item.classes | join(' ') }} nav-item dropdown">
-			<a class="nav-link dropdown-toggle" style="color:#4B4B4A; margin-right:88px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<a class="nav-link dropdown-toggle dark-green-color item-margin" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				{{ item.title }}
 			</a>
 			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 				{% for child in item.children %}
 					{% if child.children %}
-						<a class="nav-link dropdown-toggle" style="color:#4B4B4A; padding-left:16px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<a class="nav-link dropdown-toggle dark-green-color" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							{{ child.title }}
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							{% for child_2 in child.children %}
-								<a class="dropdown-item" style="color:#4B4B4A;" href="{{ child_2.link }}">{{ child_2.title }}</a>
+								<a class="dropdown-item dark-green-color" href="{{ child_2.link }}">{{ child_2.title }}</a>
 							{% endfor %}
 						</div>
 					{% else %}
-						<a class="dropdown-item" style="color:#4B4B4A;" href="{{ child.link }}">{{ child.title }}</a>
+						<a class="dropdown-item dark-green-color" href="{{ child.link }}">{{ child.title }}</a>
 					{% endif %}
 				{% endfor %}
 			</div>
 		</li>
 		{% else %}
 		<li class="{{ item.classes | join(' ') }} nav-item">
-			<a class="nav-link" style="color:#4B4B4A; margin-right:88px;" target="{{ item.target }}" href="{{ item.link }}">{{ item.title }}</a>
+			<a class="nav-link dark-green-color item-margin" target="{{ item.target }}" href="{{ item.link }}">{{ item.title }}</a>
 		</li>
 		{% endif %}
 	{% endfor %}

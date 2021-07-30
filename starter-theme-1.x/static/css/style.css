@@ -54,7 +54,7 @@
 
 .button-text-CH{
     font-family: Noto Sans TC_Medium !important;
-    font-size:20px !important;
+    font-size:30px !important;
     letter-spacing: 75 !important;
 }
 
@@ -62,10 +62,16 @@
     font-family: Spartan_Thin !important;
     font-size:18px !important;
     letter-spacing: 50 !important;
-    color:#605F5C;
+    color:rgb(96, 95, 92);
 }
 .green-color{
-    color:#0BCB64;
+    color:rgb(11, 203, 100) !important;
+}
+.dark-green-color{
+    color:rgb(0, 71, 67) !important;
+}
+.beige-color{
+    color:rgb(235, 226, 220) !important;
 }
 
 .logo-size{
@@ -167,35 +173,6 @@
 */
 .navbar-title{
     padding-right: 88px !important;
-}
-
-.navbar-signupBtn{
-    background-color: #D0EB6A !important;
-    color: #758886 !important;
-    border: none !important;
-    margin-right:30px !important;
-    border-radius: 5px !important;
-    padding: 5px 20px 5px 20px !important;
-    font-size: 15px !important;
-}
-
-.navbar-personLoginBtn{
-    background-color: #0BCB64 !important;
-    color: white !important;
-    border: none !important;
-    margin-right:30px !important;
-    border-radius: 5px !important;
-    padding: 5px 20px 5px 20px !important;
-    font-size: 15px !important;
-}
-
-.navbar-groupLoginBtn{
-    background-color: #0BCB64 !important;
-    color: white !important;
-    border: none !important;
-    border-radius: 5px !important;
-    padding: 5px 20px 5px 20px !important;
-    font-size: 15px !important;
 }
 
 .remove-button-style{
@@ -587,29 +564,6 @@
     }
     .navbar-title{
         font-size: 15px !important;
-    }
-    .navbar-signupBtn{
-        background-color: #D7F6F1 !important;
-        color: #758886 !important;
-        border: none !important;
-        border-radius: 5px 0px 0px 5px !important;
-        padding: 7px 12px 7px 12px !important;
-        font-size: 10px !important;
-    }
-    .navbar-personLoginBtn{
-        background-color: #7BDCD1 !important;
-        color: white !important;
-        border: none !important;
-        padding: 7px 12px 7px 12px !important;
-        font-size: 10px !important;
-    }
-    .navbar-groupLoginBtn{
-        background-color: #12B9A7 !important;
-        color: white !important;
-        border: none !important;
-        border-radius: 0px 5px 5px 0px !important;
-        padding: 7px 12px 7px 12px !important;
-        font-size: 10px !important;
     }
 
     .heading-1-buttonText{

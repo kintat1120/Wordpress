@@ -10,16 +10,31 @@
 		@font-face { font-family: Spartan_Thin; src: url('{{ site.theme.link }}/static/fonts/Spartan/static/Spartan-Thin.ttf'); } 
 		@font-face { font-family: Noto Sans TC_Medium; src: url('{{ site.theme.link }}/static/fonts/Noto_Sans_TC/NotoSansTC-Medium.otf'); } 
 		@font-face { font-family: Noto Sans TC_Regular; src: url('{{ site.theme.link }}/static/fonts/Noto_Sans_TC/NotoSansTC-Regular.otf'); } 
-
+		/*custom-navbar-toggleButton*/
 		.custom-toggler.navbar-toggler {
-            border-color: green;
+            border-color: white;
         }
         /* Setting the stroke to green using rgb values (0, 128, 0) */
           
         .custom-toggler .navbar-toggler-icon {
             background-image: url(
-				"data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(26, 188, 156, 0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+				"data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(182, 218, 78, 0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
         }
+		
+		.pc-version{
+			display:block;
+		}
+		.mobile-version{
+			display:none;
+		}
+		@media screen and (max-width:991.5px) {
+			.pc-version{
+				display:none;
+			}
+			.mobile-version{
+				display:block;
+			}     
+		} 
 	</style>
 
 {% endblock %}
@@ -33,23 +48,47 @@
 		<header class="header">
 			{% block header %}
 			{% set url = 'http://localhost' %}
-			<div style="height:120px; margin-left:200px; margin-right:200px">
-				<nav class="navbar navbar-expand-lg navbar-white py-0 h-100">
-					<a class="navbar-brand" href="{{ url }}" style="margin-right:200px;">
-						<span style="margin-right:200px;"><img src="{{ site.theme.link }}/static/pics/logo.svg" alt="" class="d-inline-block align-text-top"></span>
-					</a>
-					<button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon" style="color:black;"></span>
+			<div class="pc-version">
+				<div class="container" style="height:120px;">
+					<nav class="navbar navbar-expand-lg navbar-white py-0 h-100">
+						<a class="navbar-brand" href="{{ url }}" style="margin-right:1em;">
+							<img src="{{ site.theme.link }}/static/pics/logo.svg" alt="" class="d-inline-block align-text-top w-75">
+						</a>
+						<button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+						<div class="collapse navbar-collapse" id="navbarSupportedContent">
+							<ul class="navbar-nav" style="margin-left:0px !important; margin-right:0px !important;">
+								{% include "menu.twig" with {'items': menu.get_items} %}
+							</ul>
+						</div>
+						<span style="float:right;">
+						<a href="#" style="text-decoration:none;" class="dark-green-color">EN</a> | <a href="#"  style="text-decoration:none;" class="dark-green-color">CH</a>
+						</span>
+					</nav>
+				</div>
+			</div>
+			<div class="mobile-version">
+				<div class="container" style="height:150px !important;">
+					<nav class="navbar navbar-white" style="height:150px !important;">
+						<a class="navbar-brand w-50 h-100" href="#">
+							<img class="w-75 h-100" src="{{ site.theme.link }}/static/pics/logo.svg" alt="">
+						</a>
+					<button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
 					</button>
-					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-						<ul class="navbar-nav" style="margin-left:0px !important; margin-right:0px !important;">
+					<div class="collapse navbar-collapse" id="navbarNavDropdown">
+						<ul class="navbar-nav" style="margin-left:0px !important; background-color:white; margin-right:0px !important; float:right !important; text-align:left; !important;">
 							{% include "menu.twig" with {'items': menu.get_items} %}
+							<li class="nav-item">
+								<a href="#" style="text-decoration:none; color:#4B4B4A; text-align:left; !important; margin-left:1em;">EN</a> 
+								<span>|</span> 
+								<a href="#"  style="text-decoration:none; color:#4B4B4A; margin-right:1em;">CH</a>
+							</li>
 						</ul>
 					</div>
-					<span style="float:right;">
-					<a href="#" style="text-decoration:none; color:#4B4B4A;">EN</a> | <a href="#"  style="text-decoration:none; color:#4B4B4A;">CH</a>
-					</span>
-				</nav>
+					</nav>
+				</div>
 			</div>
 			{% endblock %}
 			{#

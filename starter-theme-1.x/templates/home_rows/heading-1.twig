@@ -1,4 +1,303 @@
 <style>
+/*Customize Dropdown*/
+.vodiapicker{
+  display: none; 
+}
+#a{
+  padding-left: 0px;
+  margin: 0;
+}
+#a img, .btn-select img{
+  width: 40px;
+}
+#a li{
+  list-style: none;
+  text-align-last:center;
+  min-height: 80px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  /*padding-top: 5px;
+  padding-bottom: 5px;*/
+}
+#a li:hover{
+ background-color: #E4FF80;
+}
+#a li img{
+
+  /*margin-left: 50px;*/
+}
+#a li span, .btn-select li span{
+  flex: 1;
+}
+/* item list */
+.b{
+  display: none;
+  width: 100%;
+  max-width: 350px;
+  box-shadow: 0 6px 12px rgba(0,0,0,.175);
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: 5px;
+}
+.open{
+  display: show !important;
+}
+.btn-select{
+  width: 100%;
+  max-width: 350px;
+  height: 100%;
+  border-radius: 5px;
+  background-color: #D4D3CF;
+  border: none;
+}
+.btn-select li{
+  padding-left:5px;
+  padding-right:5px;
+  list-style: none;
+  text-align-last:center;
+  padding-bottom: 0px;
+}
+.btn-select:hover li{
+  margin-left: 0px;
+}
+/*.btn-select:hover{
+  background-color: #F4F3F3;
+  border: 1px solid transparent;
+  box-shadow: inset 0 0px 0px 1px #ccc;
+}*/
+.btn-select:focus{
+   outline:none;
+}
+.lang-select{
+  height: 70%;
+  width:100%;
+}
+/*Customize Dropdown*/
+
+.heading-container{
+  padding-top:145px; 
+  padding-bottom:145px;
+}
+.heading-title-EN{
+  font-family: Spartan_Semi Blod !important;
+  font-size:55px !important;
+  letter-spacing: 0 !important;
+}
+.heading-body-1-CH{
+  font-family: Noto Sans TC_Regular !important;
+  font-size:30px !important;
+  letter-spacing: 50 !important;
+}
+.heading-btn{
+  border: none !important;
+  margin-right:30px !important;
+  margin-bottom:30px !important;
+  border-radius: 5px !important;
+  padding: 5px 20px 5px 20px !important;
+}
+.heading-signupBtn{
+  background-color: #D0EB6A !important;
+}
+.heading-personLoginBtn{
+  background-color: #0BCB64 !important;
+  color: white !important;
+}
+.heading-groupLoginBtn{
+  background-color: #0BCB64 !important;
+  color: white !important;
+}
+.heading-button-text-CH{
+  font-family: Noto Sans TC_Medium !important;
+  font-size:30px !important;
+  letter-spacing: 75 !important;
+}
+.heading-sub-title-CH{
+  font-family: Noto Sans TC_Medium !important;
+  font-size:38px !important;
+  letter-spacing: 75 !important;
+}
+.white-box{
+  height:245px !important;
+  background-color:white !important;
+  padding-top: 55px;
+  padding-bottom: 55px;
+  padding-left: 30px;
+  padding-right:30px;
+  display:flex !important;
+  border-radius:5px !important;
+  justify-content: center;
+}
+.heading-body-2-EN{
+    font-family: Spartan_Regular !important;
+    font-size:23px !important;
+    letter-spacing: 50 !important;
+}
+.heading-body-2-CH{
+    font-family: Noto Sans TC_Regular !important;
+    font-size:23px !important;
+    letter-spacing: 100 !important;
+}
+.whiteBox-text{
+  display:flex !important; 
+  flex-direction: column !important;
+  padding-right:10% !important;
+  border-right: 1px #0BCB64 solid !important;
+}
+.whiteBox-dropdown{
+  width:30%;
+  margin-left:85px !important;
+  margin-right:40px !important;
+  margin-top:auto !important;
+  margin-bottom: auto !important;
+  height:70% !important;
+}
+.whiteBox-enterBtn-container{
+  margin-top:auto !important;
+  margin-bottom: auto !important;
+  width:15%;
+  height:70%;
+}
+.whiteBox-enterBtn{
+  background-color:#0BCB64 !important; 
+  color:white !important; 
+  border-radius:5px !important; 
+  width:100%;
+  height:70%;
+}
+@media screen and (max-width:991.5px) {
+  .heading-title-EN{
+    font-family: Spartan_Semi Blod !important;
+    font-size:45px !important;
+    letter-spacing: 0 !important;
+  }
+  .heading-body-1-CH{
+    font-family: Noto Sans TC_Regular !important;
+    font-size:20px !important;
+    letter-spacing: 50 !important;
+  }
+  .heading-button-text-CH{
+    font-family: Noto Sans TC_Medium !important;
+    font-size:20px !important;
+    letter-spacing: 75 !important;
+  }
+  .heading-sub-title-CH{
+    font-family: Noto Sans TC_Medium !important;
+    font-size:28px !important;
+    letter-spacing: 75 !important;
+  }
+  .heading-body-2-EN{
+      font-family: Spartan_Regular !important;
+      font-size:16px !important;
+      letter-spacing: 50 !important;
+  }
+  .heading-body-2-CH{
+      font-family: Noto Sans TC_Regular !important;
+      font-size:16px !important;
+      letter-spacing: 100 !important;
+  }
+} 
+
+</style>
+<div class="container heading-container">
+  <div class="row">
+    <div class="col-12 col-md-12 col-xl-10">
+      <div class="heading-title-EN green-color">Alternative Legal Service</div>
+      <div class="heading-title-EN green-color">You Can Trust</div>
+      <div class="heading-body-1-CH">正式開展法律程序前&nbsp;做好基本準備&nbsp;節省更多時間！</div>
+      <div style="margin-top:5%;">
+        <a href="/signup"><button class="heading-btn heading-signupBtn heading-button-text-CH dark-green-color"><strong>用戶註冊</strong></button></a>
+        <a href="/personallogin"><button class="heading-btn heading-personLoginBtn heading-button-text-CH"><strong>個人登入</strong></button></a>
+        <a href="/grouplogin"><button class="heading-btn heading-groupLoginBtn heading-button-text-CH"><strong>團體登入</strong></button></a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-md-12 col-xl-10 white-box shadow">
+      <div class="whiteBox-text">
+        <div class="heading-sub-title-CH green-color">選擇所需範疇</div>
+        <div><span class="heading-body-2-EN">Lecopt</span><span class="heading-body-2-CH">提供相關資料</span></div>
+      </div>
+      <div class="whiteBox-dropdown">
+        <select class="vodiapicker">
+          <option value="{{ url }}/animalForm" data-thumbnail="{{ site.theme.link }}/static/pics/dog.svg">動物權益</option>
+          <option value="{{ url }}/divorceForm" data-thumbnail="{{ site.theme.link }}/static/pics/divorce.svg">離婚事宜</option>
+          <option value="{{ url }}/trafficForm" data-thumbnail="{{ site.theme.link }}/static/pics/traffic.svg">交通意外</option>
+          <option value="{{ url }}/businessForm" data-thumbnail="{{ site.theme.link }}/static/pics/business.svg">創業事宜</option>
+          <option value="#" data-thumbnail="{{ site.theme.link }}/static/pics/other.svg">其他事宜</option>
+        </select>
+        <div class="lang-select">
+          <button class="btn-select" value=""></button>
+          <div class="b">
+            <ul id="a"></ul>
+          </div>
+        </div>
+      </div>
+      <div class="whiteBox-enterBtn-container">
+        <button class="border-0 whiteBox-enterBtn" id="search-button">確定</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$( "#search-button" ).click(function(){
+    var selectedFrom = $(".vodiapicker").children("option:selected").val();
+    window.location.replace(selectedFrom);
+});
+
+//test for iterating over child elements
+var langArray = [];
+$('.vodiapicker option').each(function(){
+  var img = $(this).attr("data-thumbnail");
+  var text = this.innerText;
+  var value = $(this).val();
+  var item = '<li><img src="'+ img +'" alt="" value="'+value+'"/><span>'+ text +'</span></li>';
+  langArray.push(item);
+})
+$('#a').html(langArray);
+
+//Set the button value to the first el of the array
+//$('.btn-select').html(langArray[0]);
+$('.btn-select').html('<li><span>選擇範疇</span><i class="fas fa-chevron-down fs-3 green-color" style="float:right;"></i></li>');
+//$('.btn-select').attr('value', 'en');
+
+//change button stuff on click
+$('#a li').click(function(){
+   var img = $(this).find('img').attr("src");
+   var value = $(this).find('img').attr('value');
+   var text = this.innerText;
+   var item = '<li><img src="'+ img +'" alt="" /><span>'+ text +'</span></li>';
+   //var item = '<li>'+ text +'<i class="fas fa-chevron-down"></i></li>'
+  $('.btn-select').html(item);
+  $('.btn-select').attr('value', value);
+  $(".b").toggle();
+  //console.log(value);
+});
+
+$(".btn-select").click(function(){
+        $(".b").toggle();
+    });
+
+//check local storage for the lang
+var sessionLang = localStorage.getItem('lang');
+if (sessionLang){
+  //find an item with value of sessionLang
+  var langIndex = langArray.indexOf(sessionLang);
+  $('.btn-select').html(langArray[langIndex]);
+  $('.btn-select').attr('value', sessionLang);
+} else {
+   var langIndex = langArray.indexOf('ch');
+  //console.log(langIndex);
+  $('.btn-select').html(langArray[langIndex]);
+  //$('.btn-select').attr('value', 'en');
+}
+</script>
+
+
+{#
+<style>
+
+/*Customize Dropdown*/
 .vodiapicker{
   display: none; 
 }
@@ -9,7 +308,7 @@
 }
 
 #a img, .btn-select img{
-  width: 70px;
+  width: 40px;
 }
 
 #a li{
@@ -82,75 +381,279 @@
 }
 
 .lang-select{
-  height: 100%;
+  height: 70%;
   width:100%;
 }
+/*Customize Dropdown*/
+/*others CSS*/
+.heading-pc-version{
+  display:block;
+}
+.heading-mobile-version{
+  display:none;
+}
+.content-size{
+  padding-left:10%; 
+  padding-right:10%; 
+  padding-top:145px; 
+  padding-bottom:145px; 
+  height:600px;
+}
+.heading-title-EN{
+  font-family: Spartan_Semi Blod !important;
+  font-size:55px !important;
+  letter-spacing: 0 !important;
+}
+.heading-body-1-CH{
+  font-family: Noto Sans TC_Regular !important;
+  font-size:30px !important;
+  letter-spacing: 50 !important;
+}
+.heading-body-2-EN{
+    font-family: Spartan_Regular !important;
+    font-size:23px !important;
+    letter-spacing: 50 !important;
+}
+.heading-body-2-CH{
+    font-family: Noto Sans TC_Regular !important;
+    font-size:23px !important;
+    letter-spacing: 100 !important;
+}
+.heading-button-text-CH{
+  font-family: Noto Sans TC_Medium !important;
+  font-size:30px !important;
+  letter-spacing: 75 !important;
+}
+.heading-sub-title-CH{
+  font-family: Noto Sans TC_Medium !important;
+  font-size:38px !important;
+  letter-spacing: 75 !important;
+}
+.mobile-title-padding{
+}
+.mobile-body-padding{
+}
+.navbar-signupBtn{
+    background-color: #D0EB6A !important;
+    border: none !important;
+    margin-right:30px !important;
+    border-radius: 5px !important;
+    padding: 5px 20px 5px 20px !important;
+}
+.navbar-personLoginBtn{
+    background-color: #0BCB64 !important;
+    color: white !important;
+    border: none !important;
+    margin-right:30px !important;
+    border-radius: 5px !important;
+    padding: 5px 20px 5px 20px !important;
+}
+.navbar-groupLoginBtn{
+    background-color: #0BCB64 !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 5px !important;
+    padding: 5px 20px 5px 20px !important;
+}
+.white-box{
+  padding: 55px 135px;
+  margin-top:auto;
+  margin-bottom:auto;
+}
+.white-box-container{
+  position:relative; 
+  top:30px; 
+  height:190px; 
+  background-color:white; 
+  border-radius:5px; 
+  display: flex;
+}
+.white-box-text-padding{
+  border-right: 1px #0BCB64 solid;
+  padding-right:85px;
+}
+.enter-btn{
+  min-width: 140px;
+}
+
+@media screen and (max-width:991.5px) {
+  .heading-pc-version{
+    display:block;
+  }
+  .heading-mobile-version{
+    display:none;
+  }
+  .heading-title-EN{
+    font-family: Spartan_Semi Blod !important;
+    font-size:45px !important;
+    letter-spacing: 0 !important;
+  }
+  .heading-body-1-CH{
+    font-family: Noto Sans TC_Regular !important;
+    font-size:20px !important;
+    letter-spacing: 50 !important;
+  }
+  .heading-body-2-EN{
+      font-family: Spartan_Regular !important;
+      font-size:13px !important;
+      letter-spacing: 50 !important;
+  }
+  .heading-body-2-CH{
+      font-family: Noto Sans TC_Regular !important;
+      font-size:13px !important;
+      letter-spacing: 100 !important;
+  }
+  .heading-button-text-CH{
+    font-family: Noto Sans TC_Medium !important;
+    font-size:15px !important;
+    letter-spacing: 75 !important;
+  }
+  .heading-sub-title-CH{
+    font-family: Noto Sans TC_Medium !important;
+    font-size:28px !important;
+    letter-spacing: 75 !important;
+  }
+  .white-box-container{
+    position:relative; 
+    top:30px; 
+    height:150px; 
+    background-color:white; 
+    border-radius:5px; 
+    display: flex;
+  }
+  .white-box{
+    padding: 10px 20px;
+  }
+  .white-box-text-padding{
+    border-right: 1px #0BCB64 solid;
+    padding-right:30px;
+  }
+  .enter-btn{
+    min-width: 50px;
+  }
+}
+@media screen and (max-width:425.5px) {
+  .heading-pc-version{
+    display:none;
+  }
+  .heading-mobile-version{
+    display:block;
+  }
+  .content-size{
+    /*
+    padding-left:10%; 
+    padding-right:10%; 
+    padding-top:40px; 
+    padding-bottom:50px; 
+    */
+    height:0%;
+    padding-left:5%; 
+    padding-right:5%; 
+    padding-top:40px; 
+    padding-bottom:50px;
+  }
+  .heading-title-EN{
+    font-family: Spartan_Semi Blod !important;
+    font-size:27px !important;
+    /*line-height:70 !important;*/
+  }
+  .heading-body-1-CH{
+    font-family: Noto Sans TC_Regular !important;
+    font-size:15px !important;
+    letter-spacing: 50 !important;
+    /*line-height:80;*/
+  }
+  .heading-body-2-EN{
+      font-family: Spartan_Regular !important;
+      font-size:11px !important;
+      letter-spacing: 50 !important;
+  }
+  .heading-body-2-CH{
+      font-family: Noto Sans TC_Regular !important;
+      font-size:11px !important;
+      letter-spacing: 100 !important;
+  }
+  .heading-button-text-CH{
+    font-family: Noto Sans TC_Medium !important;
+    font-size:15px !important;
+    letter-spacing: 75 !important;
+  }
+  .heading-sub-title-CH{
+    font-family: Noto Sans TC_Medium !important;
+    font-size:20px !important;
+    letter-spacing: 75 !important;
+  }
+  .mobile-title-padding{
+    padding-bottom:40px;
+  }
+  .mobile-body-padding{
+    padding-bottom:40px;
+  }
+  .navbar-signupBtn{
+      padding: 7px 12px 7px 12px !important;
+      margin-right:10px !important;
+  }
+  .navbar-personLoginBtn{
+      padding: 7px 12px 7px 12px !important;
+      margin-right:10px !important;
+  }
+  .navbar-groupLoginBtn{
+      padding: 7px 12px 7px 12px !important;
+  }
+} 
+/*others CSS*/
 </style>
-<div style="margin-left:200px; margin-right:200px">
-    <div style="padding-left:198px; padding-right:198px; padding-top:145px; padding-bottom:145px; height:600px;">
-        <div style="display:flex; flex-direction: column; height:100%;">
-            <div class="title-EN green-color">Alternative Legal Service</div>
-            <div class="title-EN green-color">You Can Trust</div>
-            <div class="body-1-CH">正式開展法律程序前&nbsp;做好基本準備&nbsp;節省更多時間！</div>
-            <div style="margin-top:auto;">
-                <a href="/signup"><button class="navbar-signupBtn"><strong>用戶註冊</strong></button></a>
-                <a href="/personallogin"><button class="navbar-personLoginBtn"><strong>個人登入</strong></button></a>
-                <a href="/grouplogin"><button class="navbar-groupLoginBtn"><strong>團體登入</strong></button></a>
-            </div>
+<div class="container">
+  <div class="content-size">
+    <div class="row">
+      <div class="col-xl-10 col-md-12 col-12">
+        <div class="heading-title-EN green-color">Alternative Legal Service</div>
+        <div class="heading-title-EN green-color">You Can Trust</div>
+        <div class="heading-body-1-CH">正式開展法律程序前&nbsp;做好基本準備&nbsp;節省更多時間！</div>
+        <div style="margin-top:10%;">
+          <a href="/signup"><button class="navbar-signupBtn heading-button-text-CH dark-green-color"><strong>用戶註冊</strong></button></a>
+          <a href="/personallogin"><button class="navbar-personLoginBtn heading-button-text-CH"><strong>個人登入</strong></button></a>
+          <a href="/grouplogin"><button class="navbar-groupLoginBtn heading-button-text-CH"><strong>團體登入</strong></button></a>
         </div>
-        <div class="shadow" style="position:relative; top:30px; height:190px; background-color:white; border-radius:5px; display: flex;">
-            <div style="padding: 55px 135px; flex: 1;">
-                <div style="display:flex; max-height: 100%;">
-                    <div style="padding-right:85px; border-right: 1px #0BCB64 solid;">
-                        <div class="sub-title-CH green-color">選擇所需範疇</div>
-                        <div class="body-2-CH">Lecopt提供相關資料</div>
-                    </div>
-                    <div style="padding-left:85px; padding-right:40px; flex: 1;">
-                        {#
-                        <select class="form-select py-2" style="width:200px; text-align-last:center;">
-                            <option selected>選擇範疇</option>
-                            <option value="{{ url }}/animalForm">
-                                <img src="{{ site.theme.link }}/static/pics/dog.svg" style="width:50px;height:50px;">
-                                <span>動物權益</span>
-                            </option>
-                            <option value="{{ url }}/divorceForm"><strong>離婚事宜</strong></option>
-                            <option value="{{ url }}/trafficForm"><strong>交通意外</strong></option>
-                            <option value="{{ url }}/landForm"><strong>大廈管理</strong></option>
-                            <option value="{{ url }}/businessForm"><strong>創業事宜</strong></option>
-                            <option value="#"><strong>其他事宜</strong></option>
-                        </select>
-                        #}
-                        <select class="vodiapicker">
-                            <option value="{{ url }}/animalForm" data-thumbnail="{{ site.theme.link }}/static/pics/dog.svg">動物權益</option>
-                            <option value="{{ url }}/divorceForm" data-thumbnail="{{ site.theme.link }}/static/pics/divorce.svg">離婚事宜</option>
-                            <option value="{{ url }}/trafficForm" data-thumbnail="{{ site.theme.link }}/static/pics/traffic.svg">交通意外</option>
-                            <option value="{{ url }}/businessForm" data-thumbnail="{{ site.theme.link }}/static/pics/business.svg">創業事宜</option>
-                            <option value="#" data-thumbnail="{{ site.theme.link }}/static/pics/other.svg">其他事宜</option>
-                        </select>
-                        <div class="lang-select">
-                            <button class="btn-select" value=""></button>
-                            <div class="b">
-                                <ul id="a"></ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="min-width: 140px;">
-                        <button class="border-0" id="search-button" style="background-color:#0BCB64; border-radius:5px; width: 100%; height:100%;">確定</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+    <div class="heading-pc-version">
+      <div class="shadow white-box-container">
+        <div class="white-box" style="flex: 1;">
+          <div style="display:flex; max-height: 100%;">
+            <div class="white-box-text-padding">
+                <div class="heading-sub-title-CH green-color">選擇所需範疇</div>
+                <div><span class="heading-body-2-EN">Lecopt</span><span class="heading-body-2-CH">提供相關資料</span></div>
+            </div>
+            <div style="padding-left:85px; padding-right:40px; flex: 1;">
+              <select class="vodiapicker">
+                  <option value="{{ url }}/animalForm" data-thumbnail="{{ site.theme.link }}/static/pics/dog.svg">動物權益</option>
+                  <option value="{{ url }}/divorceForm" data-thumbnail="{{ site.theme.link }}/static/pics/divorce.svg">離婚事宜</option>
+                  <option value="{{ url }}/trafficForm" data-thumbnail="{{ site.theme.link }}/static/pics/traffic.svg">交通意外</option>
+                  <option value="{{ url }}/businessForm" data-thumbnail="{{ site.theme.link }}/static/pics/business.svg">創業事宜</option>
+                  <option value="#" data-thumbnail="{{ site.theme.link }}/static/pics/other.svg">其他事宜</option>
+              </select>
+              <div class="lang-select">
+                <button class="btn-select" value=""></button>
+                <div class="b">
+                  <ul id="a"></ul>
+                </div>
+              </div>
+            </div>
+            <div class="enter-btn">
+              <button class="border-0" id="search-button" style="background-color:#0BCB64; color:white; border-radius:5px; width: 100%; height:70%;">確定</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <script>
 $( "#search-button" ).click(function(){
-    var selectedFrom = $(".form-select").children("option:selected").val();
+    var selectedFrom = $(".vodiapicker").children("option:selected").val();
     window.location.replace(selectedFrom);
 });
-
-//test for getting url value from attr
-// var img1 = $('.test').attr("data-thumbnail");
-// console.log(img1);
 
 //test for iterating over child elements
 var langArray = [];
@@ -161,7 +664,6 @@ $('.vodiapicker option').each(function(){
   var item = '<li><img src="'+ img +'" alt="" value="'+value+'"/><span>'+ text +'</span></li>';
   langArray.push(item);
 })
-
 $('#a').html(langArray);
 
 //Set the button value to the first el of the array
@@ -200,6 +702,169 @@ if (sessionLang){
   //$('.btn-select').attr('value', 'en');
 }
 </script>
+#}
+
+
+
+
+{#
+<div class="container heading-pc-version">
+  <div class="content-size">
+    <div style="display:flex; flex-direction: column; height:100%;">
+      <div class="heading-title-EN green-color">Alternative Legal Service</div>
+      <div class="heading-title-EN green-color">You Can Trust</div>
+      <div class="mobile-title-padding"></div>
+      <div class="heading-body-1-CH">正式開展法律程序前&nbsp;做好基本準備&nbsp;節省更多時間！</div>
+      <div class="mobile-body-padding"></div>
+      <div style="margin-top:auto;">
+          <a href="/signup"><button class="navbar-signupBtn heading-button-text-CH dark-green-color"><strong>用戶註冊</strong></button></a>
+          <a href="/personallogin"><button class="navbar-personLoginBtn heading-button-text-CH"><strong>個人登入</strong></button></a>
+          <a href="/grouplogin"><button class="navbar-groupLoginBtn heading-button-text-CH"><strong>團體登入</strong></button></a>
+      </div>
+    </div>
+    <div class="shadow" style="position:relative; top:30px; height:190px; background-color:white; border-radius:5px; display: flex;">
+        <div style="padding: 55px 135px; flex: 1;">
+            <div style="display:flex; max-height: 100%;">
+                <div style="padding-right:85px; border-right: 1px #0BCB64 solid;">
+                    <div class="heading-sub-title-CH green-color">選擇所需範疇</div>
+                    <div><span class="heading-body-2-EN">Lecopt</span><span class="heading-body-2-CH">提供相關資料</span></div>
+                </div>
+                <div style="padding-left:85px; padding-right:40px; flex: 1;">
+                    <select class="vodiapicker">
+                        <option value="{{ url }}/animalForm" data-thumbnail="{{ site.theme.link }}/static/pics/dog.svg">動物權益</option>
+                        <option value="{{ url }}/divorceForm" data-thumbnail="{{ site.theme.link }}/static/pics/divorce.svg">離婚事宜</option>
+                        <option value="{{ url }}/trafficForm" data-thumbnail="{{ site.theme.link }}/static/pics/traffic.svg">交通意外</option>
+                        <option value="{{ url }}/businessForm" data-thumbnail="{{ site.theme.link }}/static/pics/business.svg">創業事宜</option>
+                        <option value="#" data-thumbnail="{{ site.theme.link }}/static/pics/other.svg">其他事宜</option>
+                    </select>
+                    <div class="lang-select">
+                        <button class="btn-select" value=""></button>
+                        <div class="b">
+                            <ul id="a"></ul>
+                        </div>
+                    </div>
+                </div>
+                <div style="min-width: 140px;">
+                    <button class="border-0" id="search-button" style="background-color:#0BCB64; color:white; border-radius:5px; width: 100%; height:100%;">確定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+<div class="container heading-mobile-version">
+  <div class="content-size">
+    <div style="display:flex; flex-direction: column; height:100%;">
+      <div class="heading-title-EN green-color">Alternative</div>
+      <div class="heading-title-EN green-color">Legal</div>
+      <div class="heading-title-EN green-color">Service</div>
+      <div class="heading-title-EN green-color">You Can Trust</div>
+      <div class="mobile-title-padding"></div>
+      <div class="heading-body-1-CH">正式開展法律程序前</div>
+      <div class="heading-body-1-CH">做好基本準備</div>
+      <div class="heading-body-1-CH">節省更多時間！</div>
+      <div class="mobile-body-padding"></div>
+      <div>
+          <a href="/signup"><button class="navbar-signupBtn heading-button-text-CH dark-green-color"><strong>用戶註冊</strong></button></a>
+          <a href="/personallogin"><button class="navbar-personLoginBtn heading-button-text-CH"><strong>個人登入</strong></button></a>
+          <a href="/grouplogin"><button class="navbar-groupLoginBtn heading-button-text-CH"><strong>團體登入</strong></button></a>
+      </div>
+      <div class="shadow" style="position:relative; padding: 50px 0px; top:5%; height:280px; background-color:white; border-radius:5px; display: flex; flex-direction: column;">
+        <div style="text-align:center; padding-bottom:23px;">
+          <div class="heading-sub-title-CH green-color">選擇所需範疇</div>
+          <div>
+            <span style="border-bottom: 1px #0BCB64 solid;"><span class="heading-body-2-EN">Lecopt</span><span class="heading-body-2-CH">提供相關資料</span></span>
+          </div>
+        </div>
+        <div style="display:flex; margin-top:auto;">
+          <div style="padding-left:10px; padding-right:10px;">
+            <select class="vodiapicker">
+                <option value="{{ url }}/animalForm" data-thumbnail="{{ site.theme.link }}/static/pics/dog.svg">動物權益</option>
+                <option value="{{ url }}/divorceForm" data-thumbnail="{{ site.theme.link }}/static/pics/divorce.svg">離婚事宜</option>
+                <option value="{{ url }}/trafficForm" data-thumbnail="{{ site.theme.link }}/static/pics/traffic.svg">交通意外</option>
+                <option value="{{ url }}/businessForm" data-thumbnail="{{ site.theme.link }}/static/pics/business.svg">創業事宜</option>
+                <option value="#" data-thumbnail="{{ site.theme.link }}/static/pics/other.svg">其他事宜</option>
+            </select>
+            <div class="lang-select">
+              <button class="btn-select" value=""></button>
+              <div class="b">
+                <ul id="a"></ul>
+              </div>
+            </div>
+          </div>
+          <div style="min-width: 50px;">
+            <button class="border-0" id="search-button" style="background-color:#0BCB64; padding-right:10px; color:white; border-radius:5px; width: 100%; height:100%;">確定</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+$( "#search-button" ).click(function(){
+    var selectedFrom = $(".vodiapicker").children("option:selected").val();
+    window.location.replace(selectedFrom);
+});
+
+//test for getting url value from attr
+// var img1 = $('.test').attr("data-thumbnail");
+// console.log(img1);
+
+//test for iterating over child elements
+var langArray = [];
+$('.vodiapicker option').each(function(){
+  var img = $(this).attr("data-thumbnail");
+  var text = this.innerText;
+  var value = $(this).val();
+  var item = '<li><img src="'+ img +'" alt="" value="'+value+'"/><span>'+ text +'</span></li>';
+  langArray.push(item);
+})
+$('#a').html(langArray);
+
+//Set the button value to the first el of the array
+//$('.btn-select').html(langArray[0]);
+$('.btn-select').html('<li><span>選擇範疇</span><i class="fas fa-chevron-down fs-3 green-color" style="float:right;"></i></li>');
+//$('.btn-select').attr('value', 'en');
+
+//change button stuff on click
+$('#a li').click(function(){
+   var img = $(this).find('img').attr("src");
+   var value = $(this).find('img').attr('value');
+   var text = this.innerText;
+   var item = '<li><img src="'+ img +'" alt="" /><span>'+ text +'</span></li>';
+   //var item = '<li>'+ text +'<i class="fas fa-chevron-down"></i></li>'
+  $('.btn-select').html(item);
+  $('.btn-select').attr('value', value);
+  $(".b").toggle();
+  //console.log(value);
+});
+
+$(".btn-select").click(function(){
+        $(".b").toggle();
+    });
+
+//check local storage for the lang
+var sessionLang = localStorage.getItem('lang');
+if (sessionLang){
+  //find an item with value of sessionLang
+  var langIndex = langArray.indexOf(sessionLang);
+  $('.btn-select').html(langArray[langIndex]);
+  $('.btn-select').attr('value', sessionLang);
+} else {
+   var langIndex = langArray.indexOf('ch');
+  //console.log(langIndex);
+  $('.btn-select').html(langArray[langIndex]);
+  //$('.btn-select').attr('value', 'en');
+}
+</script>
+#}
+
+
+
+
+
+
+
 
 {#<img src="{{ site.theme.link }}/static/pics/heading-1.png" style="float:right; margin:0px; padding:0px;">
 <div class="row justify-content-center">
