@@ -1,12 +1,22 @@
 <style>
 	.item-margin{
-		margin-left : 1em;
-        margin-right : 2em;
+        margin-right : 80px !important;
 	}
-	@media screen and (max-width:720px) {
+	@media screen and (max-width:1399.5px) {
 		.item-margin{
-			margin-right:1em;
-			margin-left:1em;
+			margin-right : 50px !important;
+		}  
+	} 
+	@media only screen and (max-width: 1274px){
+		.dropdown-menu {
+			font-size:15px !important;
+			width:100% !important;
+		}
+	}
+	@media screen and (max-width:991.5px) {
+		.item-margin{
+			margin-right:15px !important;
+			margin-left:15px !important;
 		}    
 	} 
 </style>
@@ -20,7 +30,7 @@
 			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 				{% for child in item.children %}
 					{% if child.children %}
-						<a class="nav-link dropdown-toggle dark-green-color" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<a class="nav-link dropdown-toggle dark-green-color" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding-left:8px; padding-right:8px;">
 							{{ child.title }}
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -45,7 +55,7 @@
 			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 				{% for child in item.children %}
 					{% if child.children %}
-						<a class="nav-link dropdown-toggle dark-green-color" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<a class="nav-link dropdown-toggle dark-green-color" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding-left:8px; padding-right:8px;">
 							{{ child.title }}
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -61,7 +71,11 @@
 		</li>
 		{% else %}
 		<li class="{{ item.classes | join(' ') }} nav-item">
-			<a class="nav-link dark-green-color item-margin" target="{{ item.target }}" href="{{ item.link }}">{{ item.title }}</a>
+			{% if item.link == currentURL %}
+				<a class="nav-link green-color item-margin" target="{{ item.target }}" href="{{ item.link }}">{{ item.title }}</a>
+			{% else %}
+				<a class="nav-link dark-green-color item-margin" target="{{ item.target }}" href="{{ item.link }}">{{ item.title }}</a>
+			{% endif %}
 		</li>
 		{% endif %}
 	{% endfor %}

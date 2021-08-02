@@ -13,7 +13,7 @@
 #a li{
   list-style: none;
   text-align-last:center;
-  min-height: 80px;
+  min-height: 50px;
   padding: 0 20px;
   display: flex;
   align-items: center;
@@ -47,7 +47,7 @@
   max-width: 350px;
   height: 100%;
   border-radius: 5px;
-  background-color: #D4D3CF;
+  background-color: rgb(235, 226, 220);
   border: none;
 }
 .btn-select li{
@@ -56,6 +56,7 @@
   list-style: none;
   text-align-last:center;
   padding-bottom: 0px;
+  display:flex;
 }
 .btn-select:hover li{
   margin-left: 0px;
@@ -69,7 +70,7 @@
    outline:none;
 }
 .lang-select{
-  height: 70%;
+  height: 100%;
   width:100%;
 }
 /*Customize Dropdown*/
@@ -78,15 +79,11 @@
   padding-top:145px; 
   padding-bottom:145px;
 }
-.heading-title-EN{
-  font-family: Spartan_Semi Blod !important;
-  font-size:55px !important;
-  letter-spacing: 0 !important;
+.heading-title-pc{
+  display:block;
 }
-.heading-body-1-CH{
-  font-family: Noto Sans TC_Regular !important;
-  font-size:30px !important;
-  letter-spacing: 50 !important;
+.heading-title-mobile{
+  display:none;
 }
 .heading-btn{
   border: none !important;
@@ -106,64 +103,49 @@
   background-color: #0BCB64 !important;
   color: white !important;
 }
-.heading-button-text-CH{
-  font-family: Noto Sans TC_Medium !important;
-  font-size:30px !important;
-  letter-spacing: 75 !important;
-}
-.heading-sub-title-CH{
-  font-family: Noto Sans TC_Medium !important;
-  font-size:38px !important;
-  letter-spacing: 75 !important;
-}
 .white-box{
-  height:245px !important;
   background-color:white !important;
   padding-top: 55px;
   padding-bottom: 55px;
   padding-left: 30px;
   padding-right:30px;
-  display:flex !important;
   border-radius:5px !important;
-  justify-content: center;
-}
-.heading-body-2-EN{
-    font-family: Spartan_Regular !important;
-    font-size:23px !important;
-    letter-spacing: 50 !important;
-}
-.heading-body-2-CH{
-    font-family: Noto Sans TC_Regular !important;
-    font-size:23px !important;
-    letter-spacing: 100 !important;
+  width:90% !important;
 }
 .whiteBox-text{
   display:flex !important; 
   flex-direction: column !important;
   padding-right:10% !important;
   border-right: 1px #0BCB64 solid !important;
+  margin-top:auto;
+  margin-bottom:auto;
+}
+.whiteBox-dropdown-margin{
+  height:60% !important; 
+  margin-left:85px !important; 
+  margin-right:40px !important;
 }
 .whiteBox-dropdown{
-  width:30%;
-  margin-left:85px !important;
-  margin-right:40px !important;
-  margin-top:auto !important;
-  margin-bottom: auto !important;
-  height:70% !important;
+  width:90% !important;
+  height:70px !important;
+}
+.whiteBox-dropdown-arrow{
+  font-size: calc(1.3rem + .6vw)!important;
 }
 .whiteBox-enterBtn-container{
   margin-top:auto !important;
   margin-bottom: auto !important;
-  width:15%;
-  height:70%;
+  width:100% !important;
+  height:70px !important;
 }
 .whiteBox-enterBtn{
   background-color:#0BCB64 !important; 
   color:white !important; 
   border-radius:5px !important; 
-  width:100%;
-  height:70%;
+  width:80% !important;
+  height:100% !important;
 }
+/*
 @media screen and (max-width:991.5px) {
   .heading-title-EN{
     font-family: Spartan_Semi Blod !important;
@@ -195,22 +177,114 @@
       font-size:16px !important;
       letter-spacing: 100 !important;
   }
-} 
-
+} */
+@media screen and (max-width:1199.5px) {
+  .whiteBox-dropdown-margin{
+    margin-left:55px !important; 
+    margin-right:10px !important;
+  }
+}
+@media screen and (max-width:991.5px) {
+  .white-box{
+    width:100% !important;
+  }
+  .whiteBox-dropdown-margin{
+    margin-left:0px !important; 
+    margin-right:0px !important;
+  }
+  .whiteBox-dropdown{
+    height:50px !important;
+  }
+  .whiteBox-enterBtn-container{
+    height:50px !important;
+  }
+}
+@media screen and (max-width:767.5px) {
+  .heading-container{
+    padding-top:50px; 
+    padding-bottom:145px;
+  }
+  .heading-title-pc{
+    display:none;
+  }
+  .heading-title-mobile{
+    display:block;
+  }
+  .heading-btn{
+    margin-right:10px !important;
+    margin-bottom:10px !important;
+    border-radius: 5px !important;
+    padding: 5px 13px 5px 13px !important;
+  }
+  .white-box{
+    margin-top:20px;
+    margin-left: auto;
+    margin-right:auto;
+  }
+  .whiteBox-text{
+    padding-right:0% !important;
+    border-right: 0px !important;
+    border-bottom: 3px #0BCB64 solid !important;
+    padding-bottom:5px;
+    text-align:center;
+  }
+  .whiteBox-dropdown-margin{
+    margin-top:10px !important; 
+  }
+  .whiteBox-dropdown{
+    height:40px !important;
+  }
+  .whiteBox-enterBtn-container{
+    height:40px !important;
+  }
+  .whiteBox-enterBtn-container{
+    margin-top:10px !important;
+  }
+}
+@media screen and (max-width:356.5px) {
+  #a img, .btn-select img{
+    width: 20px;
+  }
+  #a li{
+    list-style: none;
+    text-align-last:center;
+    min-height: 50px;
+    padding: 0 5px;
+    display: flex;
+    align-items: center;
+    /*padding-top: 5px;
+    padding-bottom: 5px;*/
+  }
+  .whiteBox-dropdown-arrow{
+    font-size: 1.25rem!important;
+  }
+}
 </style>
 <div class="container heading-container">
   <div class="row">
     <div class="col-12 col-md-12 col-xl-10">
-      <div class="heading-title-EN green-color">Alternative Legal Service</div>
-      <div class="heading-title-EN green-color">You Can Trust</div>
-      <div class="heading-body-1-CH">正式開展法律程序前&nbsp;做好基本準備&nbsp;節省更多時間！</div>
+      <div class="heading-title-pc">
+        <div class="title-EN green-color">Alternative Legal Service</div>
+        <div class="title-EN green-color">You Can Trust</div>
+        <div class="body-1-CH">正式開展法律程序前&nbsp;做好基本準備&nbsp;節省更多時間！</div>
+      </div>
+      <div class="heading-title-mobile">
+        <div class="title-EN green-color">Alternative</div>
+        <div class="title-EN green-color">Legal</div>
+        <div class="title-EN green-color">Service</div>
+        <div class="title-EN green-color">You Can Trust</div>
+        <div class="body-1-CH">正式開展法律程序前</div>
+        <div class="body-1-CH">做好基本準備</div>
+        <div class="body-1-CH">節省更多時間！</div>
+      </div>
       <div style="margin-top:5%;">
-        <a href="/signup"><button class="heading-btn heading-signupBtn heading-button-text-CH dark-green-color"><strong>用戶註冊</strong></button></a>
-        <a href="/personallogin"><button class="heading-btn heading-personLoginBtn heading-button-text-CH"><strong>個人登入</strong></button></a>
-        <a href="/grouplogin"><button class="heading-btn heading-groupLoginBtn heading-button-text-CH"><strong>團體登入</strong></button></a>
+        <a href="/signup"><button class="heading-btn heading-signupBtn button-text-CH dark-green-color"><strong>用戶註冊</strong></button></a>
+        <a href="/personallogin"><button class="heading-btn heading-personLoginBtn button-text-CH"><strong>個人登入</strong></button></a>
+        <a href="/grouplogin"><button class="heading-btn heading-groupLoginBtn button-text-CH"><strong>團體登入</strong></button></a>
       </div>
     </div>
   </div>
+  {#
   <div class="row">
     <div class="col-12 col-md-12 col-xl-10 white-box shadow">
       <div class="whiteBox-text">
@@ -237,11 +311,42 @@
       </div>
     </div>
   </div>
+  #}
+  <div class="row white-box shadow justify-content-center">
+    <div class="col-10 col-md-5 col-xl-4">
+      <div class="whiteBox-text">
+        <div class="sub-title-CH green-color">選擇所需範疇</div>
+        <div><span class="body-2-EN">Lecopt</span><span class="body-2-CH">提供相關資料</span></div>
+      </div>
+    </div>
+    <div class="col-8 col-md-4 col-xl-3 my-auto whiteBox-dropdown-margin">
+      <div class="whiteBox-dropdown">
+        <select class="vodiapicker">
+          <option value="{{ url }}/animalForm" data-thumbnail="{{ site.theme.link }}/static/pics/dog.svg">動物權益</option>
+          <option value="{{ url }}/divorceForm" data-thumbnail="{{ site.theme.link }}/static/pics/divorce.svg">離婚事宜</option>
+          <option value="{{ url }}/trafficForm" data-thumbnail="{{ site.theme.link }}/static/pics/traffic.svg">交通意外</option>
+          <option value="{{ url }}/businessForm" data-thumbnail="{{ site.theme.link }}/static/pics/business.svg">創業事宜</option>
+          <option value="#" data-thumbnail="{{ site.theme.link }}/static/pics/other.svg">其他事宜</option>
+        </select>
+        <div class="lang-select">
+          <button class="btn-select" value=""></button>
+          <div class="b">
+            <ul id="a"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4 col-md-2 col-xl-2 my-auto" style="height:60%">
+      <div class="whiteBox-enterBtn-container">
+        <button class="border-0 whiteBox-enterBtn button-text-CH" id="search-button">確定</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
 $( "#search-button" ).click(function(){
-    var selectedFrom = $(".vodiapicker").children("option:selected").val();
+    var selectedFrom = $(".btn-select").val();
     window.location.replace(selectedFrom);
 });
 
@@ -251,14 +356,14 @@ $('.vodiapicker option').each(function(){
   var img = $(this).attr("data-thumbnail");
   var text = this.innerText;
   var value = $(this).val();
-  var item = '<li><img src="'+ img +'" alt="" value="'+value+'"/><span>'+ text +'</span></li>';
+  var item = '<li><img src="'+ img +'" alt="" value="'+value+'"/><span class="button-text-CH">'+ text +'</span></li>';
   langArray.push(item);
 })
 $('#a').html(langArray);
 
 //Set the button value to the first el of the array
 //$('.btn-select').html(langArray[0]);
-$('.btn-select').html('<li><span>選擇範疇</span><i class="fas fa-chevron-down fs-3 green-color" style="float:right;"></i></li>');
+$('.btn-select').html('<li><span class="button-text-CH">選擇範疇</span><i class="fas fa-chevron-down whiteBox-dropdown-arrow green-color" style="float:right;"></i></li>');
 //$('.btn-select').attr('value', 'en');
 
 //change button stuff on click
@@ -266,7 +371,7 @@ $('#a li').click(function(){
    var img = $(this).find('img').attr("src");
    var value = $(this).find('img').attr('value');
    var text = this.innerText;
-   var item = '<li><img src="'+ img +'" alt="" /><span>'+ text +'</span></li>';
+   var item = '<li><img src="'+ img +'" alt="" /><span class="button-text-CH my-auto">'+ text +'</span><i class="fas fa-chevron-down whiteBox-dropdown-arrow green-color my-auto" style="float:right;"></i></li>';
    //var item = '<li>'+ text +'<i class="fas fa-chevron-down"></i></li>'
   $('.btn-select').html(item);
   $('.btn-select').attr('value', value);

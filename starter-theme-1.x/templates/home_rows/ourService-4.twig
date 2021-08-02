@@ -1,3 +1,195 @@
+<style>
+    .ourService-PC{
+        display:block !important;
+    }
+    .ourService-mobile{
+        display:none !important;
+    }
+    .ourService-image{
+        height:100% !important; 
+        width:100% !important;
+    }
+    .ourService-title-text-padding{
+        padding-bottom:125px !important;
+    }
+    .ourService-icon-size{
+
+    }
+    .ourService-icon-text-padding-1{
+        padding-right:25px !important;
+    }
+    .ourService-icon-text-padding-2{
+        padding-left:25px !important;
+    }
+    .ourService-image-padding{
+        padding-left:70px !important;
+    }
+    .ourService-sub-title-EN{
+        font-family: Spartan_Medium !important;
+        font-size:36px !important;
+        letter-spacing: 0 !important;
+        baseline-shift: -1px !important;
+    }
+    .ourService-sub-title-CH{
+        font-family: Noto Sans TC_Medium !important;
+        font-size:38px !important;
+        letter-spacing: 75 !important;
+    }
+    .ourService-body-3-CH{
+        font-family: Noto Sans TC_Regular !important;
+        font-size:28px !important;
+        letter-spacing: 25 !important;
+    }
+    @media screen and (max-width:1199.5px) {
+        .ourService-title-text-padding{
+            padding-bottom:75px !important;
+        }
+        .ourService-sub-title-EN{
+            font-size:30px !important;
+        }
+        .ourService-sub-title-CH{
+            font-size:32px !important;
+        }
+        .ourService-body-3-CH{
+            font-size:22px !important;
+        }
+    }
+    @media screen and (max-width:991.5px) {
+        .ourService-title-text-padding{
+            padding-bottom:35px !important;
+        }
+        .ourService-icon-size{
+            height:25px !important;
+            width:35px !important;
+        }
+        .ourService-icon-text-padding-1{
+            padding-right:10px !important;
+        }
+        .ourService-icon-text-padding-2{
+            padding-left:10px !important;
+        }
+        .ourService-image-padding{
+            padding-left:10px !important;
+        }
+        .ourService-sub-title-EN{
+            font-size:26px !important;
+        }
+        .ourService-sub-title-CH{
+            font-size:28px !important;
+        }
+        .ourService-body-3-CH{
+            font-size:18px !important;
+        }
+    }
+    @media screen and (max-width:767.5px) {
+        .ourService-PC{
+            display:none !important;
+        }
+        .ourService-mobile{
+            display:block !important;
+        }
+        .ourService-title-text-padding{
+            padding-top:30px !important;
+            padding-bottom:50px !important;
+        }
+        .ourService-icon-size{
+            height:43px !important;
+            width:45px !important;
+        }
+        .ourService-icon-text-padding-1{
+            padding-right:0px !important;
+            margin-bottom:30px !important;
+        }
+        .ourService-icon-text-padding-2{
+            padding-left:0px !important;
+            margin-bottom:30px !important;
+        }
+    }
+</style>
+<div class="container ourService-PC">
+    <div class="row" style="padding-top:105px; padding-bottom:105px;">
+        <div class="col-12 col-md-4 col-xl-4" style="margin-bottom:auto;">
+            <img src="{{ site.theme.link }}/static/pics/ourService-1.jpg" class="ourService-image">
+        </div>
+        <div class="col-12 col-md-4 col-xl-4 ourService-image-padding">
+            <div class="green-color ourService-title-text-padding">
+                <span class="ourService-sub-title-EN">LECOPT</span><span class="ourService-sub-title-CH">的服務</span>
+            </div>
+            <div style="display:flex;">
+                <div><img src="{{ site.theme.link }}/static/pics/ourService-3.png" class="ourService-icon-size ourService-icon-text-padding-1"></div>
+                <div class="ourService-body-3-CH">自主權</div>
+            </div>
+            <div style="display:flex; padding-top:10px;">
+                <div><img src="{{ site.theme.link }}/static/pics/ourService-3.png" class="ourService-icon-size ourService-icon-text-padding-1"></div>
+                <div class="ourService-body-3-CH">更了解自身情況</div>
+            </div>
+            <div style="display:flex; padding-top:10px;">
+                <div><img src="{{ site.theme.link }}/static/pics/ourService-3.png" class="ourService-icon-size ourService-icon-text-padding-1"></div>
+                <div class="ourService-body-3-CH">節省金錢</div>
+            </div>
+            <div style="display:flex; padding-top:10px;">
+                <div><img src="{{ site.theme.link }}/static/pics/ourService-3.png" class="ourService-icon-size ourService-icon-text-padding-1"></div>
+                <div class="ourService-body-3-CH">方便並節省時間</div>
+            </div>
+        </div>
+        <div class="col-12 col-md-4 col-xl-4">
+            <div class="ourService-sub-title-CH green-color text-end ourService-title-text-padding">傳統的服務</div>
+            <div style="display:flex; justify-content: flex-end;">
+                <div class="ourService-body-3-CH text-end">過份依賴律師</div>
+                <div><img src="{{ site.theme.link }}/static/pics/ourService-2.png" class="ourService-icon-size ourService-icon-text-padding-2"></div>
+            </div>
+            <div style="display:flex; padding-top:10px; justify-content: flex-end;">
+                <div class="ourService-body-3-CH">難了解整個法律程序</div>
+                <div><img src="{{ site.theme.link }}/static/pics/ourService-2.png" class="ourService-icon-size ourService-icon-text-padding-2"></div>
+            </div>
+            <div style="display:flex; padding-top:10px; justify-content: flex-end;">
+                <div class="ourService-body-3-CH">高昂律師費</div>
+                <div><img src="{{ site.theme.link }}/static/pics/ourService-2.png" class="ourService-icon-size ourService-icon-text-padding-2"></div>
+            </div>
+            <div style="display:flex; padding-top:10px; justify-content: flex-end;">
+                <div class="ourService-body-3-CH">費時</div>
+                <div><img src="{{ site.theme.link }}/static/pics/ourService-2.png" class="ourService-icon-size ourService-icon-text-padding-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container ourService-mobile">
+    <div class="row" style="padding-top:105px; padding-bottom:105px;">
+        <div class="col-12 col-md-4 col-xl-4" style="margin-bottom:auto;">
+            <img src="{{ site.theme.link }}/static/pics/ourService-1.jpg" class="ourService-image">
+        </div>
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="green-color ourService-title-text-padding">
+                    <span class="ourService-sub-title-EN">LECOPT</span><span class="ourService-sub-title-CH">的服務</span>
+                </div>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-12 text-center">
+                <div><img src="{{ site.theme.link }}/static/pics/ourService-3.png" class="ourService-icon-size ourService-icon-text-padding-1"></div>
+                <div class="dark-green-color ourService-body-3-CH">
+                    <div>自主權</div>
+                    <div>更了解自身情況</div>
+                    <div>節省金錢</div>
+                    <div>方便並節省時間</div>
+                </div>
+            </div> 
+        </div>
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                <div><img src="{{ site.theme.link }}/static/pics/ourService-2.png" class="ourService-icon-size ourService-icon-text-padding-2"></div>
+                <div class="dark-green-color ourService-body-3-CH">
+                    <div>過份依賴律師</div>
+                    <div>難了解整個法律程序</div>
+                    <div>高昂律師費</div>
+                    <div>費時</div>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>
+{#
 <div style="display:flex; margin-left:200px; margin-right:200px;">
     <div style="padding-top:70px; padding-right:70px;">
         <img src="{{ site.theme.link }}/static/pics/ourService-1.jpg" style="height:450px; width:450px;">
@@ -45,6 +237,7 @@
         </div>
     </div>
 </div>
+#}
 
 {#
 <div class="row mx-5">

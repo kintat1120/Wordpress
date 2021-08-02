@@ -46,15 +46,15 @@ $context['recentPost'] = new Timber\PostQuery(array(
 ));
 
 //var_dump($context['recentPost']);
-
 $args_cp = array(
     'post_type' => 'post',
     'posts_per_page' => 8,
 );
+$current_url =  home_url( $wp->request );
+$context['currentURL'] = $current_url;
+//var_dump($context['currentURL']);
 $context['allPost'] = new Timber\PostQuery($args_cp);
 //var_dump($context['allPost']);
-
-
 Timber::render( array( 'page-' . $timber_post->post_name . '.twig', 'page.twig' ), $context );
 
 

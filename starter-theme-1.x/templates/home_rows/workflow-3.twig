@@ -1,15 +1,32 @@
 <style>
     .enquiry-btn{
-        background-color:#E4FF80; 
-        color:#2A694E; 
-        border:none; 
-        border-radius:5px;
-        padding-top:7px;
-        padding-bottom:7px;
-        padding-left:10px;
-        padding-right:10px;
+        background-color:#E4FF80 !important; 
+        color:#2A694E !important; 
+        border:none !important; 
+        border-radius:5px !important;
+        padding-top:7px !important;
+        padding-bottom:7px !important;
+        padding-left:15px !important;
+        padding-right:15px !important;
+    }
+    .workflow-pic{
+        height:250px !important; 
+        width:250px !important;
+    }
+    @media screen and (max-width:991.5px) {
+        .workflow-pic{
+            height:180px !important; 
+            width:180px !important;
+        }
+    }
+    @media screen and (max-width:364px) {
+        .workflow-pic{
+            height:140px !important; 
+            width:140px !important; 
+        }
     }
 </style>
+{#
 <div class="sub-title-CH green-color" style="text-align:center;">服務流程</div>
 <div style="height:630px; border: 1px solid #0BCB64;">
     <div style="text-align:center;">
@@ -32,6 +49,51 @@
         </div>
     </div>
 </div>
+#}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-3 col-xl-3 text-center">
+            <span class="sub-title-CH green-color">服務流程</span>
+        </div>
+    </div>
+    <div style="border: 1px solid #0BCB64;">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-3 col-xl-3 text-center">
+                <button class="button-text-CH enquiry-btn">立即查詢</button>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-6 col-md-3 col-xl-3 text-center">
+                <img src="{{ site.theme.link }}/static/pics/workflow-1.svg" class="workflow-pic">
+            </div>
+            <div class="col-6 col-md-3 col-xl-3 text-center">
+                <img src="{{ site.theme.link }}/static/pics/workflow-2.svg" class="workflow-pic">
+            </div>
+            <div class="col-6 col-md-3 col-xl-3 text-center">
+                <img src="{{ site.theme.link }}/static/pics/workflow-3.svg" class="workflow-pic">
+            </div>
+            <div class="col-6 col-md-3 col-xl-3 text-center">
+                <img src="{{ site.theme.link }}/static/pics/workflow-4.svg" class="workflow-pic">
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-6 col-md-3 col-xl-3 text-center">
+                <img src="{{ site.theme.link }}/static/pics/workflow-5.svg" class="workflow-pic">
+            </div>
+            <div class="col-6 col-md-3 col-xl-3 text-center">
+                <img src="{{ site.theme.link }}/static/pics/workflow-6.svg" class="workflow-pic">
+            </div>
+            <div class="col-6 col-md-3 col-xl-3 text-center">
+                <img src="{{ site.theme.link }}/static/pics/workflow-7.svg" class="workflow-pic">
+            </div>
+            <div class="col-6 col-md-3 col-xl-3 text-center">
+                <img src="{{ site.theme.link }}/static/pics/workflow-8.svg" class="workflow-pic">
+            </div>
+        </div>
+    </div>
+</div>
+
 {#
 <div class="row justify-content-center">
     <div class="col-6 col-md-3 col-xl-2 text-center">

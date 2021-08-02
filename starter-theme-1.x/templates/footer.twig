@@ -1,4 +1,32 @@
-<span class="copyright-text">Copyright &#169; 2021. All Rights Reserved. Lecopt </span>
+
+<style>
+    .footer-PC{
+        display:block;
+    }   
+    .footer-mobile{
+        display:none;
+    }
+    @media screen and (max-width:767.5px) {
+        .footer-PC{
+            display:none;
+        }   
+        .footer-mobile{
+            display:block;
+        }
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col footer-PC">
+            <div class="copyright-text" style="margin-bottom:50px;">Copyright &#169; 2021. All Rights Reserved. Lecopt </div>
+        </div>
+        <div class="col footer-mobile text-center">
+            <div class="copyright-text" style="margin-top:50px; margin-bottom:50px;">Copyright &#169; 2021. All Rights Reserved. Lecopt </div>
+        </div>
+    </div>
+</div>
+
 {#
 <div class="container-fluid footer-text">
     <div class="row">
@@ -26,8 +54,6 @@
         window.location.replace('https://www.instagram.com/')
     });
 </script>
-#}
-{#
 <p>
 <span class="material-icons-outlined fs-6">warning</span>
 Lecopt 所提供之服務均由人工智能分析相關法例及案例並作出評估建議，僅作參考用途，並不能視作法律意見。如需直接尋求法律意見，請直接聯絡<u>Lecopt</u>另作安排。
@@ -44,3 +70,4 @@ All rights reserved.
 </div>
 <!--<img src="{{ site.theme.link }}/static/pics/footer-1.png">-->
 #}
+
