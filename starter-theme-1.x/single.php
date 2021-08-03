@@ -44,7 +44,8 @@ $context['allPost'] = new Timber\PostQuery(array(
     'post_type' => 'post',
     'posts_per_page' => 100
 ));
-
+$current_url =  home_url( $wp->request );
+$context['currentURL'] = $current_url;
 if ( post_password_required( $timber_post->ID ) ) {
 	Timber::render( 'single-password.twig', $context );
 } else {

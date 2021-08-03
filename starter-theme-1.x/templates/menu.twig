@@ -35,15 +35,28 @@
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							{% for child_2 in child.children %}
-								<a class="dropdown-item dark-green-color" href="{{ child_2.link }}">{{ child_2.title }}</a>
+								{% if child_2.link == currentURL %}
+									<a class="dropdown-item	green-color" href="{{ child_2.link }}">{{ child_2.title }}</a>
+								{% else %}
+									<a class="dropdown-item dark-green-color" href="{{ child_2.link }}">{{ child_2.title }}</a>
+								{% endif %}
 							{% endfor %}
 						</div>
 					{% else %}
-						<a class="dropdown-item dark-green-color" href="{{ child.link }}">{{ child.title }}</a>
+						{% if child.link == currentURL %}
+							<a class="dropdown-item green-color" href="{{ child.link }}">{{ child.title }}</a>
+						{% else %}
+							<a class="dropdown-item dark-green-color" href="{{ child.link }}">{{ child.title }}</a>
+						{% endif %}
 					{% endif %}
 				{% endfor %}
 				{% for tag in tags %}
-					<a class="dropdown-item dark-green-color" href="{{ url }}/tag/{{ tag.slug }}">{{ tag.name }}</a>
+					{% set tempURL = url ~ "/tag/" ~ tag.slug %}
+					{% if tempURL == currentURL %}
+						<a class="dropdown-item green-color" href="{{ url }}/tag/{{ tag.slug }}">{{ tag.name }}</a>
+					{% else %}
+						<a class="dropdown-item dark-green-color" href="{{ url }}/tag/{{ tag.slug }}">{{ tag.name }}</a>
+					{% endif %}
 				{% endfor %}
 			</div>
 		</li>
@@ -60,11 +73,19 @@
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							{% for child_2 in child.children %}
-								<a class="dropdown-item dark-green-color" href="{{ child_2.link }}">{{ child_2.title }}</a>
+								{% if child_2.link == currentURL %}
+									<a class="dropdown-item green-color" href="{{ child_2.link }}">{{ child_2.title }}</a>
+								{% else %}
+									<a class="dropdown-item dark-green-color" href="{{ child_2.link }}">{{ child_2.title }}</a>
+								{% endif %}
 							{% endfor %}
 						</div>
 					{% else %}
-						<a class="dropdown-item dark-green-color" href="{{ child.link }}">{{ child.title }}</a>
+						{% if child.link == currentURL %}
+							<a class="dropdown-item green-color" href="{{ child.link }}">{{ child.title }}</a>
+						{% else %}
+							<a class="dropdown-item dark-green-color" href="{{ child.link }}">{{ child.title }}</a>
+						{% endif %}
 					{% endif %}
 				{% endfor %}
 			</div>

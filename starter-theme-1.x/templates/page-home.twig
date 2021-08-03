@@ -15,22 +15,34 @@
 <style>
 	.heading-1-container{
 		height:580px !important; 
-		/*background-image: linear-gradient(to right, #DCDDD8 20%, transparent 40%),url('{{ site.theme.link }}/static/pics/heading-1.jpg');
+		background-image: linear-gradient(to right , #DCDDD8 20%, transparent 40%),url('{{ site.theme.link }}/static/pics/heading-1.jpg') !important;
+		background-size: cover !important;
+		background-position: center, right !important; 
+		/*
+		background-image: linear-gradient(to right , #DCDDD8 20%, transparent 40%),url('{{ site.theme.link }}/static/pics/heading-1.jpg');
 		background-repeat: no-repeat, no-repeat; 
 		background-position: center, right; 
-		background-size: 100%, 100%;*/
+		background-size: 100%, 100%;
+		*/
+		/*
 		background-image: url('{{ site.theme.link }}/static/pics/heading-1.jpg') !important;
-		background-size: cover !important;  
+		background-size: cover !important;  */
 	}
 	@media screen and (max-width:991.5px) {
 		.heading-1-container{
-			height:530px !important; 
+			height:500px !important; 
 		}
 	}
 	@media screen and (max-width:767.5px) {
 		.heading-1-container{
-			height:670px !important; 
+			background-image: linear-gradient(to right , #DCDDD8 10%, transparent 40%),url('{{ site.theme.link }}/static/pics/heading-1.jpg') !important;
+			height:680px !important; 
 		}	
+	}
+	@media screen and (max-width:352.5px) {
+		.heading-1-container{
+			height:750px !important; 
+		}
 	}
 </style>
 <div class="heading-1-container">
