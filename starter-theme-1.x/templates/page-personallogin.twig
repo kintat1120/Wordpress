@@ -1,7 +1,56 @@
+{#
 {% extends "login.twig" %}
 {% block title %}
 <span class="fs-4" style="color:#545454;"><strong>個人登入</strong></span>
 {% endblock %}
 {% block loginButton %}
 <button type="submit" style="background-color:#406E68; color:white;" class="btn mt-5 loginButton">登入</button>
+{% endblock %}
+#}
+{% extends "base.twig" %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-xl-4 text-center">
+            <img src="{{ site.theme.link }}/static/pics/logo.svg" alt="" class="w-75">
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-xl-4">
+            <form>
+                <div class="form-group">
+                    <label for="exampleInputEmail1" class="mb-1"><b>用戶名稱</b></label>
+                    <input type="email" class="form-control border input-style" id="InputEmail1" aria-describedby="emailHelp" placeholder="電子郵件">
+                </div>
+                <div class="form-group" style="margin-top:10px;">
+                    <label for="exampleInputPassword1" class="mb-1"><b>密碼</b></label>
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control border input-style" placeholder="密碼" id="InputPassword1" aria-label="密碼" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary border border-1 input-style" type="button" onclick="showPassword()"><span class="material-icons-outlined">visibility</span></button>
+                        </div>
+                    </div>                         
+                </div>
+                <button type="submit" style="background-color:#D8D8D8; color:black;" class="btn mt-3 loginButton"><b>登入</b></button>
+            </form>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-3">
+        <div class="col-xl-2 text-center">
+            <a href='/signup' style="text-decoration: none; color:black; font-weight: bold;">用戶註冊</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showPassword(){
+        var x = document.getElementById("InputPassword1");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
 {% endblock %}
